@@ -4,8 +4,6 @@ version := "0.0.1"
 
 scalaVersion := "2.11.7"
 
-resourceDirectory in Compile := (scalaSource in Compile).value
-
 // Add managed dependency on ScalaFX library
 libraryDependencies ++= Seq(
   "org.scalafx" %% "scalafx" % "8.0.60-R9",
