@@ -20,6 +20,16 @@ class ReadWrite {
     pw.write(content)
     pw.close()
 
+  }
+
+  def writeAdd(fileName: String, content: String) {
+
+    val file = new File(fileName)
+    val pw = new FileWriter(file, true)
+    pw.write(content)
+    pw.close()
 
   }
+
+
 }
