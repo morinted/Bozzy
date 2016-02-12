@@ -10,7 +10,7 @@ import javafx.{ fxml => jfxFxml
 import scalafx.application.Platform
 
 
-class HelloController {
+class MainController {
 
   @jfxFxml.FXML
   private def handleButtonPress(event: jfxEvent.ActionEvent): Unit = {

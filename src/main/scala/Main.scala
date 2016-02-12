@@ -10,9 +10,9 @@ import scalafx.Includes._
 
 object Main extends JFXApp{
 
-  val root : jfxScene.Parent = jfxFxml.FXMLLoader.load(getClass.getResource("/view/Hello.fxml"))
+  val root : jfxScene.Parent = jfxFxml.FXMLLoader.load(getClass.getResource("/view/Main.fxml"))
 
-  if (root == null) throw new FileNotFoundException("couldn't find /fxml/Hello.fxml")
+  if (root == null) throw new FileNotFoundException("couldn't find /fxml/Main.fxml")
 
   stage = new PrimaryStage() {
     title = "Bozzy"
