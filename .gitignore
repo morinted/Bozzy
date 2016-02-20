@@ -1,6 +1,6 @@
-/target
-/project/target
 .idea
+target
+
 
 *.class
 *.cache
