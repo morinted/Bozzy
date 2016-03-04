@@ -14,16 +14,17 @@ A numbered list of the main requirements for this project with a brief definitio
 
 ## Example Data and Test Cases ( 2-3 paragraphs)
 
-### The data we will be using to test and verify the system are the following dictionaries:
+### Data
+
+The data we will be using to test and verify the system are the following dictionaries:
+
 - stened (provided by our customer, RTF format)
 - magnum (team member owns copy of this dictionary, RTF format)
 - Plover default (open source dictionary from Plover application, JSON format)
 
-### Two to three critical scenarios with example data
-- use the scenarios and example data to illustrate your analysis of the requirements throughout this document
+### Critical scenarios with example data
 
-#### Critical
-- Create/Add/Remove/Merge/Order Dictionaries
+#### Add dictionaries scenario
 
 **The user launches the application.**
 
@@ -37,23 +38,42 @@ A numbered list of the main requirements for this project with a brief definitio
 
 - The file directory window appears.
 
-**The user selects a dictionary from files**
+**The user selects a dictionary from files.**
 
-- The file directory appears as chosen
+- The file directory appears as chosen.
 
-**The user clicks okay in the add dictionary window**
+**The user clicks okay in the add dictionary window.**
 
-- Table is populated with dictionary entries
+- Table is populated with dictionary entries:
    - Translation
    - Stroke
    - Word Count
    - Stroke Count
 
-- Convert/Backup Dictionaries
-- Build/Edit Dictionaries + See changes before save
+## Convert dictionaries scenario
 
-#### Less critical
-- Filter/Sort Dictionaries
+**The user selects Manage>Convert from menu.**
+
+- The convert dictionary window appears.
+
+**The user selects dictionary, the format to convert to, the output location, and selects convert.**
+
+- The file directory location opens up showing the converted file in it's location.
+
+## Edit Dictionaries + See changes before save
+
+**The user selects selects an existing dictionary entry**
+
+- The entry becomes editable
+
+**The user changes text and clicks away**
+
+- The entry is updated to the changed text
+
+**The user selects File>Save from menu**
+
+- The Save window appears.
+   - changes made to the dictionary are listed
 
 ## Use Case Model or Functional Features of System (2-3 paragraphs per feature or use case)
 
