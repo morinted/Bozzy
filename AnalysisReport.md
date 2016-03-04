@@ -14,13 +14,23 @@ A numbered list of the main requirements for this project with a brief definitio
 
 ## Example Data and Test Cases ( 2-3 paragraphs)
 
-Identify the data that the customer will be providing, or you will be building to test and verify the system throughout the project lifecycle. If it is not currently available, identify the process and schedule by which it will be made available (and highlight it as a risk in your project status report that needs to be managed).  
+### The data we will be using to test and verify the system are the following dictionaries:
+- stened (provided by our customer, RTF format)
+- magnum (team member owns copy of this dictionary, RTF format)
+- Plover default (open source dictionary from Plover application, JSON format)
 
-Please note that you and your customer cannot have possibly come to a common understanding of the requirements, unless you have agreed upon the test cases and sample data that will be used to verify requirements have been met.  It is essential that you start building up these test cases and sample data early.
+### Two to three critical scenarios with example data
+- use the scenarios and example data to illustrate your analysis of the requirements throughout this document
 
-Identify two or three critical scenarios and define example data for them that will be used to start work on test cases.  You do not have to provide test cases in this document, but you should use the scenarios and example data to illustrate your analysis of the requirements throughout this document.
+#### Critical
+- Create/Add/Remove/Merge/Order Dictionaries
+- Convert/Backup Dictionaries
+- Build/Edit Dictionaries + See changes before save
 
-Use Case Model or Functional Features of System (2-3 paragraphs per feature or use case)
+#### Less critical
+- Filter/Sort Dictionaries
+
+## Use Case Model or Functional Features of System (2-3 paragraphs per feature or use case)
 
 Define WHAT functionality the system will provide. Ideally this would be organized around the major use cases the system would support. This can also be organized around the major functions or features of the system. In either case, your system should have somewhere in the range of 3-10 of these use cases or major features. Include an updated use case diagram.
 
@@ -34,9 +44,16 @@ Illustrate the normal flow (and variations) with an example using the sample dat
 
 ## Non-Functional Features (1 paragraph per feature)
 
-Some requirements are non-functional. E.g. the system must be scalable and support a 24*7 usage. Or the system must be usable by novice users. For each of these, describe your strategy for addressing them:
+Some requirements are non-functional. E.g. the system must be scalable and support a 24*7 usage.
+Or the system must be usable by novice users. For each of these, describe your strategy for addressing them:
 
- a) from a design point of view (how do you plan to design and build the system to address the requirement) and
+### The system must be able to load filter and sort several thousand dictionaries entries at a time
+a) from a design point of view (how do you plan to design and build the system to address the requirement) and
+
+b) from a testing point of view (how do you plan to verify that the requirement is met).
+
+### The system must be useable for novice users
+a) from a design point of view (how do you plan to design and build the system to address the requirement) and
 
 b) from a testing point of view (how do you plan to verify that the requirement is met).
 
@@ -55,5 +72,3 @@ If your data will be stored persistently either in a database or a file, define 
 ## Algorithms (2-3 paragraphs per algorithm)
 
 If your system will be dependent on any significant algorithms (pattern recognition, image processing, game strategy, matching problem etc.) then identify them here. Briefly outline the problem that needs to be solved, the alternatives considered, and the algorithm selected. Illustrate the algorithm with an example using the example data.
-
- 
