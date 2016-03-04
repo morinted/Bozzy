@@ -14,13 +14,13 @@ A numbered list of the main requirements for this project with a brief definitio
 
 ## Example Data and Test Cases ( 2-3 paragraphs)
 
-Identify the data that the customer will be providing, or you will be building to test and verify the system throughout the project lifecycle. If it is not currently available, identify the process and schedule by which it will be made available (and highlight it as a risk in your project status report that needs to be managed).  
+Data customer will be providing to test and verify the system
+- dictionaries
 
-Please note that you and your customer cannot have possibly come to a common understanding of the requirements, unless you have agreed upon the test cases and sample data that will be used to verify requirements have been met.  It is essential that you start building up these test cases and sample data early.
+Two to three critical scenarios with example data
+- use the scenarios and example data to illustrate your analysis of the requirements throughout this document
 
-Identify two or three critical scenarios and define example data for them that will be used to start work on test cases.  You do not have to provide test cases in this document, but you should use the scenarios and example data to illustrate your analysis of the requirements throughout this document.
-
-Use Case Model or Functional Features of System (2-3 paragraphs per feature or use case)
+## Use Case Model or Functional Features of System (2-3 paragraphs per feature or use case)
 
 Define WHAT functionality the system will provide. Ideally this would be organized around the major use cases the system would support. This can also be organized around the major functions or features of the system. In either case, your system should have somewhere in the range of 3-10 of these use cases or major features. Include an updated use case diagram.
 
@@ -36,7 +36,7 @@ Illustrate the normal flow (and variations) with an example using the sample dat
 
 Some requirements are non-functional. E.g. the system must be scalable and support a 24*7 usage. Or the system must be usable by novice users. For each of these, describe your strategy for addressing them:
 
- a) from a design point of view (how do you plan to design and build the system to address the requirement) and
+a) from a design point of view (how do you plan to design and build the system to address the requirement) and
 
 b) from a testing point of view (how do you plan to verify that the requirement is met).
 
