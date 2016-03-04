@@ -14,11 +14,21 @@ A numbered list of the main requirements for this project with a brief definitio
 
 ## Example Data and Test Cases ( 2-3 paragraphs)
 
-Data customer will be providing to test and verify the system
-- dictionaries
+### The data we will be using to test and verify the system are the following dictionaries:
+- stened (provided by our customer, RTF format)
+- magnum (team member owns copy of this dictionary, RTF format)
+- Plover default (open source dictionary from Plover application, JSON format)
 
-Two to three critical scenarios with example data
+### Two to three critical scenarios with example data
 - use the scenarios and example data to illustrate your analysis of the requirements throughout this document
+
+#### Critical
+- Create/Add/Remove/Merge/Order Dictionaries
+- Convert/Backup Dictionaries
+- Build/Edit Dictionaries + See changes before save
+
+#### Less critical
+- Filter/Sort Dictionaries
 
 ## Use Case Model or Functional Features of System (2-3 paragraphs per feature or use case)
 
@@ -34,8 +44,15 @@ Illustrate the normal flow (and variations) with an example using the sample dat
 
 ## Non-Functional Features (1 paragraph per feature)
 
-Some requirements are non-functional. E.g. the system must be scalable and support a 24*7 usage. Or the system must be usable by novice users. For each of these, describe your strategy for addressing them:
+Some requirements are non-functional. E.g. the system must be scalable and support a 24*7 usage.
+Or the system must be usable by novice users. For each of these, describe your strategy for addressing them:
 
+### The system must be able to load filter and sort several thousand dictionaries entries at a time
+a) from a design point of view (how do you plan to design and build the system to address the requirement) and
+
+b) from a testing point of view (how do you plan to verify that the requirement is met).
+
+### The system must be useable for novice users
 a) from a design point of view (how do you plan to design and build the system to address the requirement) and
 
 b) from a testing point of view (how do you plan to verify that the requirement is met).
