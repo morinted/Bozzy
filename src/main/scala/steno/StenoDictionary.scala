@@ -1,5 +1,7 @@
 package steno
 
+import java.util.function.Predicate
+import javafx.collections.transformation.FilteredList
 import javafx.collections.{FXCollections, ObservableList}
 
 import scala.io.Source
@@ -8,7 +10,7 @@ import scala.io.Source
   * Created by ted on 2016-02-08.
   */
 class StenoDictionary(val filename :String, val format :DictionaryFormat.Value) {
-  val entries :ObservableList[DictionaryEntry] = FXCollections.observableArrayList[DictionaryEntry]()
+  val entries = FXCollections.observableArrayList[DictionaryEntry]()
   val JSONDictionary = Source.fromURL(getClass.getResource(filename)).getLines()
   JSONDictionary.foreach( (line :String) => {
     val entry = new DictionaryEntry(line, DictionaryFormat.JSON)
@@ -16,4 +18,8 @@ class StenoDictionary(val filename :String, val format :DictionaryFormat.Value) 
       entries.add(entry)
     }
   })
+  val p = new Predicate[DictionaryEntry] {
+    override def test(t: DictionaryEntry): Boolean = true
+  }
+  val filteredEntries = new FilteredList(entries, p)
 }
