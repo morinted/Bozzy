@@ -37,4 +37,9 @@ class StenoInstantiationTest extends FlatSpec with Matchers {
     entry.translation.raw should equal ("Triceratops")
   }
 
+  "The StenoDictionary class" should "load a simple JSON dictionary" in {
+    val dictionary = new StenoDictionary("/sampleJSONDictionary.json", DictionaryFormat.JSON)
+    dictionary.entries.size should equal (24)
+  }
+
 }

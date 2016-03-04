@@ -9,6 +9,8 @@
         <columns>
             <TableColumn fx:id="strokeCol" text="Stroke" />
             <TableColumn fx:id="translationCol" text="Translation" />
+            <TableColumn fx:id="wordCountCol" text="Words" />
+            <TableColumn fx:id="chordCountCol" text="Strokes" />
         </columns>
       <columnResizePolicy>
          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
