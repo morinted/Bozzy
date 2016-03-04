@@ -8,7 +8,7 @@ import scala.io.Source
 class ReadWrite {
 
   def read(file: String) {
-    return Source.fromFile(file).getLines()
+    Source.fromFile(file).getLines()
   }
 
   def write(fileName: String, content: String) {

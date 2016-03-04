@@ -1,9 +1,6 @@
 package steno
 
-import java.security.InvalidParameterException
 import javafx.collections.{FXCollections, ObservableList}
-
-import steno.DictionaryFormat
 
 import scala.io.Source
 
