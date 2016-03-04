@@ -26,19 +26,19 @@ A numbered list of the main requirements for this project with a brief definitio
 - Create/Add/Remove/Merge/Order Dictionaries
 
 1. **The user launches the application.**
-..* The main window appears.
+- The main window appears.
 2. **The user selects add dictionary icon.**
-..* The add dictionary window appears.
+- The add dictionary window appears.
 3. **The user selects browse to browse through file directory**
-..* The file directory window appears.
+- The file directory window appears.
 4. **The user selects a dictionary from files**
-..* The file directory appears as chosen
+- The file directory appears as chosen
 5. **The user clicks okay in the add dictionary window**
-..* Table is populated with dictionary entries
-... Translation
-... Stroke
-... Word Count
-... Stroke Count
+- Table is populated with dictionary entries
+   - Translation
+   - Stroke
+   - Word Count
+   - Stroke Count
 
 - Convert/Backup Dictionaries
 - Build/Edit Dictionaries + See changes before save
