@@ -72,5 +72,3 @@ If your data will be stored persistently either in a database or a file, define 
 ## Algorithms (2-3 paragraphs per algorithm)
 
 If your system will be dependent on any significant algorithms (pattern recognition, image processing, game strategy, matching problem etc.) then identify them here. Briefly outline the problem that needs to be solved, the alternatives considered, and the algorithm selected. Illustrate the algorithm with an example using the example data.
-
- 
