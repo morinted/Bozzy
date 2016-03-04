@@ -18,6 +18,8 @@ import javafx.{ fxml => jfxFxml
               , event => jfxEvent
               }
 
+import steno.{DictionaryEntry, StenoDictionary}
+
 import scalafx.application.Platform
 
 
@@ -27,20 +29,19 @@ class MainController extends Initializable{
 
   override def initialize(location: URL, resources: ResourceBundle): Unit = {
     list = FXCollections.observableArrayList[DictionaryEntry]()
-
-//    (1 to 10).foreach( (i :Int) => {
-//      list.add(new DictionaryEntry(s"stroke $i", s"translation $i"))
-//    })
   }
 
   @jfxFxml.FXML
   private def handleButtonPress(event: jfxEvent.ActionEvent): Unit = {
-    println("Hellooooo")
   }
 
   @jfxFxml.FXML
   private def handleExit(event: jfxEvent.ActionEvent): Unit = {
     Platform.exit()
+  }
+
+  @jfxFxml.FXML
+  private def handleReadButton(event: jfxEvent.ActionEvent): Unit = {
   }
 
 

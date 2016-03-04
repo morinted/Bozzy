@@ -8,21 +8,17 @@ import scala.io.Source
 class ReadWrite {
 
   def read(file: String) {
-    for (line <- Source.fromFile(file).getLines()) {
-      println(line)
-    }
+    return Source.fromFile(file).getLines()
   }
 
   def write(fileName: String, content: String) {
-
     val file = new File(fileName)
     val pw = new PrintWriter(file)
     pw.write(content)
     pw.close()
-
   }
 
-  def apend(fileName: String, content: String) {
+  def append(fileName: String, content: String) {
 
     val file = new File(fileName)
     val pw = new FileWriter(file, true)
