@@ -65,24 +65,45 @@ The data we will be using to test and verify the system are the following dictio
 
 - The convert dictionary window appears.
 
-**The user selects dictionary, the format to convert to, the output location, and selects convert.**
+**The user sets the following convert properties**
 
-- The file directory location opens up showing the converted file in it's location.
+- selects dictionary to convert: 'dictionary.json'
+- Converting to: RTF
+- Output Location: 'C:\Documents\Dictionaries'
+
+**The users clicks convert**
+
+- The file system opens up a window at the directory location of the converted dictionary 'C:\Documents\Dictionaries\dictionary.rtf'.
 
 ## Edit Dictionaries + See changes before save
 
-**The user selects selects an existing dictionary entry**
+**From the main window, the user selects an existing dictionary entry from the table**
 
-- The entry becomes editable
+- The entry becomes editable after selection
 
-**The user changes text and clicks away**
+| Stroke       | Translation | Words | Strokes |
+|--------------|-------------|-------|---------|
+| PHOUPB/TAPB  | `mountain`    | 1     | 2       |
+
+**The user changes text 'mountain' to 'mountainous' and clicks away**
 
 - The entry is updated to the changed text
 
+| Stroke       | Translation | Words | Strokes |
+|--------------|-------------|-------|---------|
+| PHOUPB/TAPB  | `mountainous`    | 1     | 2       |
+
 **The user selects File>Save from menu**
 
-- The Save window appears.
-   - changes made to the dictionary are listed
+- The Save window appears and the following information is displayed.
+   - changes made since last save:
+      - modified: dictionary.json
+      - + PHOUPB/TAPB , mountainous,  1, 2
+      - - PHOUPB/TAPB , mountain,  1, 2
+
+**The user clicks save**
+
+- Changes are saved to dictionary.
 
 ## Use Case Model or Functional Features of System (2-3 paragraphs per feature or use case)
 
