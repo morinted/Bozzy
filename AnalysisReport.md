@@ -68,13 +68,42 @@ Functional Requirements:
 
 The data we will be using to test and verify the system are the following dictionaries:
 
-- stened.rtf (a dictionary provided by our customer, RTF format)
-- magnum.rtf (a dictionary our team member owns a copy of, RTF format)
-- dictionary.json (Plover default open source dictionary, JSON format)
+#### stened.rtf
+- a dictionary provided by our customer, RTF format
 
-### Critical scenarios with example data
+#### magnum.rtf
+- a dictionary our team member owns a copy of, RTF format.
 
-#### Add dictionaries scenario
+#### dictionary.json
+- The Plover default open source dictionary, JSON format
+- Includes 142664 dictionary entries. Sample data of the first few entries:
+
+> {
+  "#*E": "{>}{&e}",
+  "#*EU": "{>}{&i}",
+  "#*U": "{>}{&u}",
+  "#-D": "{^ed}",
+  "#-Z": "00",
+  "#240": "240",
+  "#45/TK-PL": "$45",
+  "#EUD/KWROPL": "idiom",
+  "#K*": "{>}{&k}",
+  "#KR*": "{>}{&c}",
+  "#KW*": "{>}{&q}",
+  "#KWR*": "{>}{&y}",
+  "#R*": "{>}{&r}",
+  "#W*": "{>}{&w}",
+  "*B": "B",
+  "*BG": "{^k}",
+  "*BGS": "action",
+  "*BS": "action",
+  "*D": "{^'d}",
+  "*E": "{>}{&e}",
+  "*E/KHREUPS": "Eclipse",
+  ...,
+}
+
+### Scenario: Add dictionary
 
 **The user launches the application.**
 
@@ -109,7 +138,8 @@ The data we will be using to test and verify the system are the following dictio
 | WUZ          | was         | 1     | 1       |
 | WUZ/KWREU    | wuzzy       | 1     | 2       |
 
-## Convert dictionaries scenario
+
+### Scenario: Convert dictionary
 
 **The user selects Manage>Convert from menu.**
 
@@ -125,7 +155,8 @@ The data we will be using to test and verify the system are the following dictio
 
 - The file system opens up a window at the directory location of the converted dictionary 'C:\Documents\Dictionaries\dictionary.rtf'.
 
-## Edit Dictionaries + See changes before save
+
+### Scenario: Edit Dictionary + See changes on save
 
 **From the main window, the user selects an existing dictionary entry from the table**
 
@@ -172,25 +203,41 @@ Illustrate the normal flow (and variations) with an example using the sample dat
 Some requirements are non-functional. E.g. the system must be scalable and support a 24*7 usage.
 Or the system must be usable by novice users. For each of these, describe your strategy for addressing them:
 
-a) from a design point of view (how do you plan to design and build the system to address the requirement) and
+#### The system must be able to load several thousand (less than 150,000) dictionary entries and display these entries in a table in under 5 seconds.
 
-b) from a testing point of view (how do you plan to verify that the requirement is met).
+The largest dictionary we will be using for data has roughly 140,000 dictionary entries.
+
+#### The system must be usable for novice users.**
+
+Stenography is often overwhelming to many new users, and can continue to be offer challenges for more experienced users. Thus the usability of the system is key to attracting new users to stenography and to keep existing stenography users engaged. Not only does the system need to be usable, but the system needs to help the user learn Stenography. For design, in order to ensure the system is usable and helpful we have done the following:
+- Our customer Mirabai has sent out a questionnaire to many people who are part of the open source community, asking questions about what they'd like to get out of our applications
+- As a team for new functionalities, we all try and brainstorm different user interface design ideas, and compare ideas and pick the best solution from that. On top of this, we're always looking for new ways to improve the UI, never just settling on one implementation after deciding
+- For every design idea was check it with our Customer, as she has lots of experience with existing stenography and dictionary applications, and always has interesting insite and ideas to offer to improve our design
 
 ### Performance
 
-The system must be able to load several thousand dictionary entries and display entries in a table. Largest example data dictionary we have has roughtly 140,000 dictionary entries.
+#### The system must be reliable when backing up dictionaries.
+
+The system must copy and archive data in order to recover data after a data loss event, or to recover data from an earlier time.
 
 The system must be usable for novice users.
 
 The system must be reliable when it comes to backing up dictionaries.
 
-## Design
+#### The system must be maintainable and verifiable for future use in the open steno project community.
+
+One of the big issues in open source projects is lack of documentation, which discourages people from continuing work on a project since so much effort is needed in understanding the application in order to maintain it.
 
 The system must be maintainable and verifiable for future use in the open steno project community. One of the big issues is lack of documentation, which makes it hard for people to feel like continuing a project since so much effort is needed in understanding the application
 
-## Adaption
 
-The system must be portable on windows and max osx computers
+## The system must be expandable for future use in the open steno project community ##
+
+Similar reason for maintainable.
+
+## The system must be portable on Windows and Mac ##
+
+since the vast majority of our users have Windows or linux based operating systems. In fact there are too many users who use linux operating systems to be ignored. It is really key that our application is portable on Windows and Mac in order to reach our objectives and for our project to be a success. For design, in order to allow for crossplatform support, the application will be built to run in the JVM. For testing, two of our team members have Windows laptops, and our other two team members have Mac laptops.
 
 They system must be interoperable with other steno applications
 
