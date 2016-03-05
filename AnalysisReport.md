@@ -22,9 +22,7 @@ The data we will be using to test and verify the system are the following dictio
 - magnum.rtf (a dictionary our team member owns a copy of, RTF format)
 - dictionary.json (Plover default open source dictionary, JSON format)
 
-### Critical scenarios with example data
-
-#### Add dictionaries scenario
+### Add dictionaries scenario
 
 **The user launches the application.**
 
@@ -59,7 +57,7 @@ The data we will be using to test and verify the system are the following dictio
 | WUZ          | was         | 1     | 1       |
 | WUZ/KWREU    | wuzzy       | 1     | 2       |
 
-## Convert dictionaries scenario
+### Convert dictionaries scenario
 
 **The user selects Manage>Convert from menu.**
 
@@ -75,7 +73,7 @@ The data we will be using to test and verify the system are the following dictio
 
 - The file system opens up a window at the directory location of the converted dictionary 'C:\Documents\Dictionaries\dictionary.rtf'.
 
-## Edit Dictionaries + See changes before save
+### Edit Dictionaries + See changes before save
 
 **From the main window, the user selects an existing dictionary entry from the table**
 
@@ -119,13 +117,6 @@ Illustrate the normal flow (and variations) with an example using the sample dat
 
 ## Non-Functional Features (1 paragraph per feature)
 
-Some requirements are non-functional. E.g. the system must be scalable and support a 24*7 usage.
-Or the system must be usable by novice users. For each of these, describe your strategy for addressing them:
-
-a) from a design point of view (how do you plan to design and build the system to address the requirement) and
-
-b) from a testing point of view (how do you plan to verify that the requirement is met).
-
 ### Performance
 
 The system must be able to load several thousand dictionary entries and display entries in a table. Largest example data dictionary we have has roughtly 140,000 dictionary entries.
@@ -134,15 +125,17 @@ The system must be usable for novice users.
 
 The system must be reliable when it comes to backing up dictionaries.
 
-## Design
+### Design
 
-The system must be maintainable and verifiable for future use in the open steno project community. One of the big issues is lack of documentation, which makes it hard for people to feel like continuing a project since so much effort is needed in understanding the application
+The system must be maintainable and verifiable for future use in the open steno project community. One of the big issues in open source projects is lack of documentation, which discourages people from continuing work on a project since so much effort is needed in understanding the application in order to maintain it.
 
-## Adaption
+### Adaption
 
-The system must be portable on windows and max osx computers
+The system must be expandable for future use in the open steno project community. Similar reason for maintainable.
 
-They system must be interoperable with other steno applications
+The system must be portable on Windows and Mac, since the vast majority of our users have Windows or linux based operating systems. In fact there are too many users who use linux operating systems to be ignored. It is really key that our application is portable on Windows and Mac in order to reach our objectives and for our project to be a success. For design, in order to allow for crossplatform support, the application will be built to run in the JVM. For testing, two of our team members have Windows laptops, and our other two team members have Mac laptops.
+
+The system must have interoperability in order to later have the possibility of interfacing with other steno applications, such as Plover.
 
 ## High Level Architecture (2-3 Pages)
 
