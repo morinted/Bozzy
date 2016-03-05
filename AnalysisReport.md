@@ -4,58 +4,77 @@ The point of this document is to capture your understanding of the requirements,
 
 Not all of the following sections will be relevant for every project. For example, not every project will have a user interface, or a database.
 
+
+
 ## Background (1 paragraph)
 
-Briefly give enough background so that a person outside your team reading this document would understand why this document exists and what it is used for.
+This document is an analysis report for the Bozzy stenography dictionary editor. A team of four students have taken on this project in hopes to improve the world's first free, open source stenography engine, Plover.  This document will provide a brief overview of both the functional and non-functional requirements, example data, test cases and user interface mock-ups. An explanation of the high level architecture, database schemas and file formats will also be given.
+
 
 ## Requirements (1 page)
 
-A numbered list of the main requirements for this project with a brief definition of each requirement (often a sentence will suffice, no more than a short paragraph).  Requirements should be grouped so that similar requirements are grouped together.  The point of this section is to list and identify requirements.  It is not necessary to include a myriad of details that may evolve over time, as long as the main requirement has been identified.
+Functional Requirements:
 
-## Example Data and Test Cases
+|           |                                                                    |
+|-----------|--------------------------------------------------------------------|
+|FR 1.1     |The system shall enable the user to add a dictionary.               |                 
+|FR 1.2     |The system shall add the dictionary to the list of dictionaries.    |                 
+|FR 1.3     |The system shall add the corresponding dictionary entries to the main table.|         
+|           |                                                                    |                 
+|FR 2.1     |The system shall enable the user to remove a dictionary.            |                 
+|FR 2.2     |The system shall display a dialog window to ask if the user wants to remove the dictionary.|
+|FR 2.3     |The system shall remove the dictionary from the list of dictionaries|                 
+|FR 2.4     |The system shall remove the corresponding dictionary entries from the main table|     
+|           |                                                                    |                 
+|FR 3.1     |The system shall assign a default priority of n to the newly added dictionary.   n represents the nth dictionary added to the editor. Newly added dictionaries will be by default lowest priority.|
+|FR 3.2     |The system shall adjust the priorities of the dictionaries with a lower priority when a dictionary is removed.|
+|FR 3.3     |The system shall enable users to change the priority of the dictionaries.|            
+|           |                                                                    |
+|FR 4.1     |The system shall filter the main table by translation.              |
+|FR 4.2     |The system shall filter the main table by stroke.                   |
+|           |                                                                    |
+|FR 5.1     |The system shall sort the dictionaries by translation.              |
+|FR 5.2     |The system shall sort the dictionaries by stroke.                   |
+|FR 6.1     |The system shall display changes which have been made to the dictionary. |
+|FR 6.2     |The system shall save changes.                                      |
+|FR 6.3     |The system shall back up the selected dictionary to the selected directory.|
+|FR 6.4     |The system shall back up all of the dictionaries to the selected directory.|
+|           |                                                                    |
+|FR 7.1     |The system shall convert the dictionary format from RTF to JSON.    |
+|FR 7.2     |The system shall convert the dictionary format of JSON to RTF.      |
+|           |                                                                    |
+|FR 8.1     |The system shall accept a URL to build a dictionary.                |
+|FR 8.2     |The system shall accept a block of text to build a dictionary.      |
+|FR 8.3     |The system shall scan the text of the URL page for all words currently not in the dictionary.|
+|FR 8.4     |The system shall scan the block of text for all words currently not in the dictionary.|
+|FR 8.5     |The system shall display a list of words to add to the current dictionary.|
+|FR 8.6     |The system shall add the new word to the dictionary.                |
+
+####Non-Functional Requirements
+
+|           |                                                                    |
+|-----------|--------------------------------------------------------------------|
+|NFR1.1     |The system shall run on Windows operating system.                   |
+|NFR1.2     |The system shall run on Mac Operating system.                       |
+|NFR1.3     |The system shall be interoperable with Plover.                      |
+|           |                                                                    |
+|NFR2       |The system shall store data of 140,000 dictionary entries.          |
+|NFR3       |The system shall take no longer than 3 hours to learn for a novice user.|
+|NFR4       |The system shall be available 95% of the time.                      |
+
+## Example Data and Test Cases ( 2-3 paragraphs)
 
 ### Data
 
 The data we will be using to test and verify the system are the following dictionaries:
 
-#### stened.rtf
-- a dictionary provided by our customer, RTF format
+- stened.rtf (a dictionary provided by our customer, RTF format)
+- magnum.rtf (a dictionary our team member owns a copy of, RTF format)
+- dictionary.json (Plover default open source dictionary, JSON format)
 
-#### magnum.rtf
-- a dictionary our team member owns a copy of, RTF format.
+### Critical scenarios with example data
 
-#### dictionary.json
-- The Plover default open source dictionary, JSON format
-- Includes 142664 dictionary entries. Sample data of the first few entries:
-
-{
-"#*E": "{>}{&e}",
-"#*EU": "{>}{&i}",
-"#*U": "{>}{&u}",
-"#-D": "{^ed}",
-"#-Z": "00",
-"#240": "240",
-"#45/TK-PL": "$45",
-"#EUD/KWROPL": "idiom",
-"#K*": "{>}{&k}",
-"#KR*": "{>}{&c}",
-"#KW*": "{>}{&q}",
-"#KWR*": "{>}{&y}",
-"#R*": "{>}{&r}",
-"#W*": "{>}{&w}",
-"*B": "B",
-"*BG": "{^k}",
-"*BGS": "action",
-"*BS": "action",
-"*D": "{^'d}",
-"*E": "{>}{&e}",
-"*E/KHREUPS": "Eclipse",
-.
-.
-.
-}
-
-### Scenario: Add dictionaries scenario
+#### Add dictionaries scenario
 
 **The user launches the application.**
 
@@ -90,7 +109,7 @@ The data we will be using to test and verify the system are the following dictio
 | WUZ          | was         | 1     | 1       |
 | WUZ/KWREU    | wuzzy       | 1     | 2       |
 
-### Scenario: Convert dictionaries
+## Convert dictionaries scenario
 
 **The user selects Manage>Convert from menu.**
 
@@ -106,7 +125,7 @@ The data we will be using to test and verify the system are the following dictio
 
 - The file system opens up a window at the directory location of the converted dictionary 'C:\Documents\Dictionaries\dictionary.rtf'.
 
-### Scenario: Edit Dictionaries + See changes on save
+## Edit Dictionaries + See changes before save
 
 **From the main window, the user selects an existing dictionary entry from the table**
 
@@ -148,35 +167,32 @@ Define clearly the "normal" flow of interactions with the system. Identify the v
 
 Illustrate the normal flow (and variations) with an example using the sample data from one or more of your critical scenarios. (If the illustration will be shown in your user interface mockups, simply reference which screen shot should be looked at)
 
-## Non-Functional Features
+## Non-Functional Features (1 paragraph per feature)
+
+Some requirements are non-functional. E.g. the system must be scalable and support a 24*7 usage.
+Or the system must be usable by novice users. For each of these, describe your strategy for addressing them:
+
+a) from a design point of view (how do you plan to design and build the system to address the requirement) and
+
+b) from a testing point of view (how do you plan to verify that the requirement is met).
 
 ### Performance
 
-The system must be able to load several thousand (less than a million) dictionary entries and display these entries in a table. The largest dictionary we will be using as our data has roughly 140,000 dictionary entries.
+The system must be able to load several thousand dictionary entries and display entries in a table. Largest example data dictionary we have has roughtly 140,000 dictionary entries.
 
-The system must be usable for novice users. Stenography already seems overwhelming to many new users, even more experienced users, thus the usability of the system is key to attract new users to stenography and to keep existing stenography users. Not only does the system need to be usable, but the system needs to be usable in a such a way that it helps the user understand Stenography more. For design, in order to ensure the system is usable and helpful we have done the following:
-- Our customer Mirabai has sent out a questionnaire to many people who are part of the open source community, asking questions about what they'd like to get out of our applications
-- As a team for new functionalities, we all try and brainstorm different user interface design ideas, and compare ideas and pick the best solution from that. On top of this, we're always looking for new ways to improve the UI, never just settling on one implementation after deciding
-- For every design idea was check it with our Customer, as she has lots of experience with existing stenography and dictionary applications, and always has interesting insite and ideas to offer to improve our design
-
-For testing, is order to ensure the system is usable and helpful we have done the following:
-- Have our customer use the the application after every release. Currently our releases are weekly on Fridays.
-- Communicate with other steno users and gotten them to agree to test our system by using it
-- Have each of our team members use the system as well and try and think of ways to make the system even more usable
+The system must be usable for novice users.
 
 The system must be reliable when it comes to backing up dictionaries.
 
-### Design
+## Design
 
-The system must be maintainable and verifiable for future use in the open steno project community. One of the big issues in open source projects is lack of documentation, which discourages people from continuing work on a project since so much effort is needed in understanding the application in order to maintain it.
+The system must be maintainable and verifiable for future use in the open steno project community. One of the big issues is lack of documentation, which makes it hard for people to feel like continuing a project since so much effort is needed in understanding the application
 
-### Adaption
+## Adaption
 
-The system must be expandable for future use in the open steno project community. Similar reason for maintainable.
+The system must be portable on windows and max osx computers
 
-The system must be portable on Windows and Mac, since the vast majority of our users have Windows or linux based operating systems. In fact there are too many users who use linux operating systems to be ignored. It is really key that our application is portable on Windows and Mac in order to reach our objectives and for our project to be a success. For design, in order to allow for crossplatform support, the application will be built to run in the JVM. For testing, two of our team members have Windows laptops, and our other two team members have Mac laptops.
-
-The system must have interoperability in order to later have the possibility of interfacing with other steno applications, such as Plover.
+They system must be interoperable with other steno applications
 
 ## High Level Architecture (2-3 Pages)
 
