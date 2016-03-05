@@ -34,21 +34,30 @@ The data we will be using to test and verify the system are the following dictio
 
 - The add dictionary window appears.
 
-**The user selects browse to browse through file directory**
+**The user clicks browse to browse through file directory**
 
 - The file directory window appears.
 
-**The user selects a dictionary from files.**
+**The user selects plover default dictionary 'dictionary.json' from files.**
 
-- The file directory appears as chosen.
+- The directory for 'dictionary.json' file is shown in text box.
 
 **The user clicks okay in the add dictionary window.**
 
-- Table is populated with dictionary entries:
-   - Translation
-   - Stroke
-   - Word Count
-   - Stroke Count
+- Table in the main window is populated with dictionary.json entries:
+
+| Stroke       | Translation | Words | Strokes |
+|--------------|-------------|-------|---------|
+| #*E          | {>}{&e}     | 1     | 1       |
+| #*EU         | {>}{&i}     | 1     | 1       |
+| #*U          | {>}{&u}     | 1     | 1       |
+|      ...     |     ...     |  ...  |   ...   |
+| PHOUPB/TAPB  | mountain    | 1     | 2       |
+| PHOUPB/TEUPB | mountain    | 1     | 2       |
+|      ...     |     ...     |  ...  |   ...   |
+| WUT          | but         | 1     | 1       |
+| WUZ          | was         | 1     | 1       |
+| WUZ/KWREU    | wuzzy       | 1     | 2       |
 
 ## Convert dictionaries scenario
 
