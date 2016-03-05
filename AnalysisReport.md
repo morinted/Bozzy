@@ -18,9 +18,9 @@ A numbered list of the main requirements for this project with a brief definitio
 
 The data we will be using to test and verify the system are the following dictionaries:
 
-- stened (provided by our customer, RTF format)
-- magnum (team member owns copy of this dictionary, RTF format)
-- Plover default (open source dictionary from Plover application, JSON format)
+- stened.rtf (a dictionary provided by our customer, RTF format)
+- magnum.rtf (a dictionary our team member owns a copy of, RTF format)
+- dictionary.json (Plover default open source dictionary, JSON format)
 
 ### Critical scenarios with example data
 
@@ -122,15 +122,27 @@ Illustrate the normal flow (and variations) with an example using the sample dat
 Some requirements are non-functional. E.g. the system must be scalable and support a 24*7 usage.
 Or the system must be usable by novice users. For each of these, describe your strategy for addressing them:
 
-### The system must be able to load filter and sort several thousand dictionaries entries at a time
 a) from a design point of view (how do you plan to design and build the system to address the requirement) and
 
 b) from a testing point of view (how do you plan to verify that the requirement is met).
 
-### The system must be useable for novice users
-a) from a design point of view (how do you plan to design and build the system to address the requirement) and
+### Performance
 
-b) from a testing point of view (how do you plan to verify that the requirement is met).
+The system must be able to load several thousand dictionary entries and display entries in a table. Largest example data dictionary we have has roughtly 140,000 dictionary entries.
+
+The system must be usable for novice users.
+
+The system must be reliable when it comes to backing up dictionaries.
+
+## Design
+
+The system must be maintainable and verifiable for future use in the open steno project community. One of the big issues is lack of documentation, which makes it hard for people to feel like continuing a project since so much effort is needed in understanding the application
+
+## Adaption
+
+The system must be portable on windows and max osx computers
+
+They system must be interoperable with other steno applications
 
 ## High Level Architecture (2-3 Pages)
 
