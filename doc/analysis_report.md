@@ -258,7 +258,7 @@ commit to test on the latest Java 7 CPU update, which at the time of writing is 
 
 ## High Level Architecture (2-3 Pages)
 
-![High-level Architecture](http://i.imgur.com/1gBWmRv.png)
+![High-level Architecture](images/ar-high-level-arch.png)
 
 Bozzy's overall architecture is best described as a version of the Model View Controller architectural pattern. Bozzy is a standalone desktop application, and the MVC pattern applies quite nicely, and makes it rather trivial to maintain a modularity and separation of concerns within the application.
 
@@ -288,39 +288,39 @@ The following interaction diagrams illustrate how the different components inter
 
 #### Adding a Dictionary
 
-![Adding a dictionary](http://i.imgur.com/vgkQe0u.png)
+![Adding a dictionary](images/ar-adding-dict.png)
 
 #### Converting a Dictionary
 
-![Converting a dictionary](http://i.imgur.com/OXrV3vA.png)
+![Converting a dictionary](images/ar-converting-dict.png)
 
 #### Editing a Dictionary Entry
 
-![Editing a dictionary entry](http://i.imgur.com/spcrdVS.png)
+![Editing a dictionary entry](images/ar-editing-dict.png)
 
 ## User Interface Mockup (2-3 pages)
 
-![Open the application](http://i.imgur.com/R2TzBi5.png)
+![Open the application](images/ar-open-app.png)
 
 Screenshot 1: This is first page which will be shown when the application is opened
 
-![Add dictionary dialog](http://i.imgur.com/FP6877S.png)
+![Add dictionary dialog](images/ar-add-dict.png)
 
 Screenshot 2: When clicking the "+" icon in the dictionaries panel of the main screen, this Add Dictionary dialog is shown
 
-![Viewing the dictionary contents](http://i.imgur.com/3Zhzlor.png)
+![Viewing the dictionary contents](images/ar-view-dict.png)
 
 Screenshot 3: This shows the default Plover dictionary open in Bozzy
 
-![Opening the convert dictionary menu](http://i.imgur.com/F7AEene.png)
+![Opening the convert dictionary menu](images/ar-convert-dict.png)
 
 Screenshot 4: To convert a dictionary, an action is found under the "Manage" menu
 
-![Convert dictionary dialog](http://i.imgur.com/HbNd5Rb.png)
+![Convert dictionary dialog](images/ar-convert-dialog.png)
 
 Screenshot 5: The user is presented with a few options for converting a dictionary's format
 
-![Editing a dictionary](http://i.imgur.com/uI4QZJq.png)
+![Editing a dictionary](images/ar-edit-dict.png)
 
 Screenshot 6: Editing a dictionary entry is simple and can be done inline by double-clicking on an entry
 
