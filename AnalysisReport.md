@@ -2,7 +2,7 @@
 
 ## Background
 
-This document is an analysis report for project Bozzy, a stenography dictionary editor systemm, that will be built for a final study year software project. A team of four students have taken on this project with the objective of making Plover's JSON dictionary format interoperable with the industry standard of RTF/CRE and to allow users of Plover and also proprietary stenography systems to edit their dictionaries for free. The point of this document is to capture the requirements of Bozzy as they will be the basis of the agreement between our team members and Mirabai Knight, the creator of Plover. This document is also intended to explain how we plan to address these requirements and will act as a reference for our project and team going forward.
+This document is an analysis report for project Bozzy, a stenography dictionary editor system that will be built for a final study year software project. A team of four students have taken on this project with the objective of making Plover's JSON dictionary format interoperable with the industry standard of RTF/CRE and to allow users of Plover and also proprietary stenography systems to edit their dictionaries for free. The point of this document is to capture the requirements of Bozzy as they will be the basis of the agreement between our team members and Mirabai Knight, the creator of Plover. This document is also intended to explain how we plan to address these requirements and will act as a reference for our project and team going forward.
 
 ## Requirements
 
