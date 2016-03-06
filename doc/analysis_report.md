@@ -8,7 +8,7 @@ This document is an analysis report for project Bozzy, a stenography dictionary 
 
 ### Functional Requirements:
 
-|           |                                                                    |
+| Identifier | Requirement |
 |-----------|--------------------------------------------------------------------|
 |FR 1.1     |The system shall enable the user to add a dictionary.               |                 
 |FR 1.2     |The system shall add the dictionary to the list of dictionaries.    |                 
@@ -45,9 +45,10 @@ This document is an analysis report for project Bozzy, a stenography dictionary 
 
 ### Non-Functional Requirements
 
-| NFR1 | The system must be able to load several thousand dictionary entries (less than 200,000) and display these entries in a table within 1-5 seconds. |
+| Identifier | Requirement |
 |------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| NFR2 | The system must be usable for novice stenography users and shall take no longer than 3 hours to learn the basic functionalities.|                |
+| NFR1 | The system must be able to load several thousand dictionary entries (less than 200,000) and display these entries in a table within 1-5 seconds. |
+| NFR2 | The system must be usable for novice stenography users and shall take no longer than 3 hours to learn the basic functionalities.|
 | NFR3 | The systems reliability for backing up each dictionary must be 95% at a later point in the products life cycle.                                  |
 | NFR4 | The system must be maintainable for future use in the Open Steno Project community.                                                              |
 | NFR5 | The system must be interoperable between Plover's JSON dictionary formats and the industry standard of RTF/CRE.                                  |
@@ -252,7 +253,7 @@ One of the big issues in open source projects is lack of documentation, which di
 
 This application must be expandable because after the capstone project, the application will be integrated into the Open Steno Project group who will maintain and continue expanding and adding features to the application. To design and build the system to address this requirement, we will use functional programming to and try to keep our implementations simple and readable with as little code necessary. We will also take into account design principles such as MVC, and use separation of concerns for each module. To verify the requirement is met, expandability will be measured in terms of compliance with open system standards.
 
-#### NFR7: The system must be portable on Windows and Mac operatinos systems.
+#### NFR7: The system must be portable on Windows and Mac operating systems.
 
 Our application will have cross-platform support. We are committing to Windows and Mac since these are the two most common platforms our users use. It is really key that our application is portable, because if not it would mean we would be going backwards from dictionary editing solutions that already exist. To design and build the system to address this requirement and allow for cross-platform support, the application will be built to run in the JVM. To verify testing, we will
 commit to test on the latest Java 7 CPU update, which at the time of writing is Java 7u79. We will be developing and building in the latest JDK 8, unless for some reason there is some kind of incompatibility introduced into the JDK. Two of our team members will test using have using laptops with Windows 7 OS installed, and our other two team members will test using laptops with Mac OS installed.
