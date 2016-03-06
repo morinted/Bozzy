@@ -240,11 +240,71 @@ commit to test on the latest Java 7 CPU update, which at the time of writing is 
 
 ## High Level Architecture (2-3 Pages)
 
-Draw a package diagram (or possibly an updated deployment diagram) that shows the key components of your system (e.g. web server, database, user interface) and what third party technologies you will use or be dependent on (e.g. IIS, MySql, PHP etc.). For each component there should be a brief statement of what its role is in supporting the requirements of the system. Illustrate your architecture by drawing two or three high level interaction diagrams that show how the components interact for your critical scenarios and example data. (If you are using a UML tool like Rational Rose you will need to create a facade class to represent each of your components).
+![High-level Architecture](http://i.imgur.com/1gBWmRv.png)
+
+Bozzy's overall architecture is best described as a version of the Model View Controller architectural pattern. Bozzy is a standalone desktop application, and the MVC pattern applies quite nicely, and makes it rather trivial to maintain a modularity and separation of concerns within the application.
+
+### User Interface
+
+The user interface will be built using JavaFX and FXML for a modular component-based view layer. Its main role is to enable the user to cleanly view the contents of the user's stenography dictionaries, and access Bozzy's core functions to perform dictionary management tasks. The use of JavaFX for the user interface introduces a dependency to Java and the JVM, though it also enables a the possibility for a seamless experience across multiple operating systems. The user interface will not be modifying the data models directly and will instead communicate with the controllers to perform any actions. Similarly, it should not be getting any core data from the controller, and instead will display information found in the corresponding data model.
+
+### Scala Controllers
+
+The controllers are to be written using Scala. These are what the user (through the user interface) to actually manage and edit their stenography dictionaries.
+
+### Data Models
+
+Data models are used to hold the current dictionary, user settings, and any other data in memory. Keeping the data layer separate from the application logic and views user views makes everything much easier to reason about. It also makes it easier to optimize the data structures as needed, and modify the underlying data schemas without needing to change the way the application uses it.
+
+### Native File System
+
+Bozzy needs to use the operating system's native file system to read and write dictionary files, as well as user settings files. The dictionary files will be stored in JSON as well as RTF/CRE format. The user setting will be stored in a single file in the YAML format in order to make it possible to back up/export/share settings between different installations.
+
+### Third-party Stenography Software
+
+The system will be interacting with and modifying dictionary files from third-party stenography software but will not be interacting directly with the software itself.
+
+### Interactions
+
+The following interaction diagrams illustrate how the different components interact in the main scenarios.
+
+#### Adding a Dictionary
+
+![Adding a dictionary](http://i.imgur.com/vgkQe0u.png)
+
+#### Converting a Dictionary
+
+![Converting a dictionary](http://i.imgur.com/OXrV3vA.png)
+
+#### Editing a Dictionary Entry
+
+![Editing a dictionary entry](http://i.imgur.com/spcrdVS.png)
 
 ## User Interface Mockup (2-3 pages)
 
-Screen shots or actual GUI or HTML pages that illustrate the look and feel of the user interface for your critical scenarios. Make sure you use your example data.
+![Open the application](http://i.imgur.com/R2TzBi5.png)
+
+Screenshot 1: This is first page which will be shown when the application is opened
+
+![Add dictionary dialog](http://i.imgur.com/FP6877S.png)
+
+Screenshot 2: When clicking the "+" icon in the dictionaries panel of the main screen, this Add Dictionary dialog is shown
+
+![Viewing the dictionary contents](http://i.imgur.com/3Zhzlor.png)
+
+Screenshot 3: This shows the default Plover dictionary open in Bozzy
+
+![Opening the convert dictionary menu](http://i.imgur.com/F7AEene.png)
+
+Screenshot 4: To convert a dictionary, an action is found under the "Manage" menu
+
+![Convert dictionary dialog](http://i.imgur.com/HbNd5Rb.png)
+
+Screenshot 5: The user is presented with a few options for converting a dictionary's format
+
+![Editing a dictionary](http://i.imgur.com/uI4QZJq.png)
+
+Screenshot 6: Editing a dictionary entry is simple and can be done inline by double-clicking on an entry
 
 ## Database Schemas and File Formats (1 page)
 
