@@ -50,7 +50,7 @@ This document is an analysis report for project Bozzy, a stenography dictionary 
 | NFR2 | The system must be usable for novice stenography users and shall take no longer than 3 hours to learn the basic functionalities.|                |
 | NFR3 | The systems reliability for backing up each dictionary must be 95% at a later point in the products life cycle.                                  |
 | NFR4 | The system must be maintainable for future use in the Open Steno Project community.                                                              |
-| NFR5 | The system must be interaperable between Plover's JSON dictionary formats and the industry standard of RTF/CRE.                                  |
+| NFR5 | The system must be interoperable between Plover's JSON dictionary formats and the industry standard of RTF/CRE.                                  |
 | NFR6 | The system must be expandable for future use in the Open Steno Project community.                                                                |
 | NFR7 | The system must be portable on Windows and Mac operating systems.                                                                                |
 
@@ -94,7 +94,8 @@ The Plover's main dictionary, an source dictionary in JSON format. This dictiona
 "*BS": "action",
 "*D": "{^'d}",
 "*E": "{>}{&e}",
-"*E/KHREUPS": "Eclipse",
+"*E/KHREUPS": "Eclipse"
+}
 ```
 
 ### `commands.json`
@@ -145,7 +146,7 @@ Some sample commands:
 | #*EU         | {>}{&i}     | 1     | 1       |
 | #*U          | {>}{&u}     | 1     | 1       |
 |      ...     |     ...     |  ...  |   ...   |
-| PHOUPB/TAPB  | mountain    | 1     | 2       |
+| PHOUPB/TAPBS | mountains   | 1     | 2       |
 | PHOUPB/TEUPB | mountain    | 1     | 2       |
 |      ...     |     ...     |  ...  |   ...   |
 | WUT          | but         | 1     | 1       |
@@ -181,7 +182,7 @@ Some sample commands:
 |--------------|-------------|-------|---------|
 | PHOUPB/TAPBS | `mountains` | 1     | 2       |
 
-**The user changes text 'mountain' to 'mountainous' and hits enter or clicks away from the dictionary entry**
+**The user changes text 'mountains' to 'mountainous' and hits enter or clicks away from the dictionary entry**
 
 - The entry is updated to the changed text
 
@@ -195,8 +196,8 @@ Some sample commands:
 
 > Changes made since last save:
 > - modified: main.json
-> - + PHOUPB/TAPB , mountainous,  1, 2
-> - - PHOUPB/TAPB , mountain,  1, 2
+> - + PHOUPB/TAPBS , mountainous,  1, 2
+> - - PHOUPB/TAPBS , mountains,  1, 2
 
 **The user clicks save**
 
@@ -234,7 +235,7 @@ To test and verify our design, we've gathered both a small group of extremely ex
 
 #### NFR3: The systems reliability for backing up each dictionary must be 95% at a later point in the systems life cycle.
 
-The system must copy and archive data to users computers in order to recover data after a data loss event, or to recover data from an earlier time. To design and build the system to address this requirement we will copy and archive data to at least 2 file locations every time there is a change made to the dictionary such as add, remove, and modify. To verify the requirement is met, we will use probablistic measures, such as the model of failure represented by the exponential failure function. We know that the failure intensity is initially high as it would be in new software, since failures are detected more frequently during the testing phase. However, the number of failures would be expected to decrease with
+The system must copy and archive data to users computers in order to recover data after a data loss event, or to recover data from an earlier time. To design and build the system to address this requirement we will copy and archive data to at least 2 file locations every time there is a change made to the dictionary such as add, remove, and modify. To verify the requirement is met, we will use probabilistic measures, such as the model of failure represented by the exponential failure function. We know that the failure intensity is initially high as it would be in new software, since failures are detected more frequently during the testing phase. However, the number of failures would be expected to decrease with
 time during the operating phase, presumably as failures are uncovered and repaired. We also know that the more dictionaries a user is modifying at one time in the application, the worse the systems reliability becomes at one time.
 
 ### Design
@@ -245,7 +246,7 @@ One of the big issues in open source projects is lack of documentation, which di
 
 ### Adaption
 
-#### NFR5: The system must be interaperable between Plover's JSON dictionary formats and the industry standard of RTF/CRE.
+#### NFR5: The system must be interoperable between Plover's JSON dictionary formats and the industry standard of RTF/CRE.
 
 #### NFR6: The system must be expandable for future use in the Open Steno Project community.
 
@@ -253,7 +254,7 @@ This application must be expandable because after the capstone project, the appl
 
 #### NFR7: The system must be portable on Windows and Mac operatinos systems.
 
-Our application will have crossplatform support. We are committing to Windows and Mac since these are the two most common platforms our users use. It is really key that our application is portable, because if not it would mean we would be going backwards from dictionary editing solutions that already exist. To design and build the system to address this requirement and allow for crossplatform support, the application will be built to run in the JVM. To verify testing, we will
+Our application will have cross-platform support. We are committing to Windows and Mac since these are the two most common platforms our users use. It is really key that our application is portable, because if not it would mean we would be going backwards from dictionary editing solutions that already exist. To design and build the system to address this requirement and allow for cross-platform support, the application will be built to run in the JVM. To verify testing, we will
 commit to test on the latest Java 7 CPU update, which at the time of writing is Java 7u79. We will be developing and building in the latest JDK 8, unless for some reason there is some kind of incompatibility introduced into the JDK. Two of our team members will test using have using laptops with Windows 7 OS installed, and our other two team members will test using laptops with Mac OS installed.
 
 ## High Level Architecture (2-3 Pages)
