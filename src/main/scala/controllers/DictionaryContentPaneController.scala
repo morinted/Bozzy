@@ -3,6 +3,7 @@ package controllers
 import java.net.URL
 import java.util.ResourceBundle
 import javafx.collections.transformation.SortedList
+import javafx.event.EventHandler
 import javafx.fxml.{Initializable, FXML}
 
 import steno.{DictionaryEntry}
