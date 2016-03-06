@@ -306,9 +306,33 @@ Screenshot 5: The user is presented with a few options for converting a dictiona
 
 Screenshot 6: Editing a dictionary entry is simple and can be done inline by double-clicking on an entry
 
-## Database Schemas and File Formats (1 page)
+## File Formats (1 page)
 
-If your data will be stored persistently either in a database or a file, define the relevant database schemas or file formats. Illustrate by showing how your example data will be stored.
+First, the actual dictionaries managed by Bozzy can be stored in both RTF/CRE format as well as a flat JSON file.
+
+The JSON format is quite simple as it is a standard JSON format, with the restriction that there are no arrays or nested objects. The key represents the stroke (raw input), and the value is the translation (what it should be interpreted as). Here is an example of a simple dictionary, build from an excerpt of the default Plover dictionary:
+
+`{
+  "*ED": "Ed",
+  "*ED/PHA/PHAEU": "edamame",
+  "*ED/PHAPL/PHAEU": "edamame",
+  "*ED/PHOPB/TO*PB": "Edmonton",
+  "*ED/SO*PB": "Edison",
+  "*ED/TKA": "Edda",
+  "*ED/WARD": "Edward"
+}`
+
+The RTF/CRE format used by most (if not all) proprietary stenography software and is it's own format which is not easily human readable. It also supports some additional fields to provide metadata information on a dictionary entry. Seeing as the JSON format doesn't support these extra fields, however, the conversion between the two formats will not take these into account. Here is an excerpt from a RTF/CRE dictionary:
+
+`{\*\cxs PHOPB/OG/PHOUS}monogamous
+{\*\cxs PRAO*UF/PWHREU}provably
+{\*\cxs TKAB/-BLG}dabbling
+{\*\cxs HRAEU/PERS/O*PB}layperson
+{\*\cxs AEU/PAEL/-BL}appealable
+{\*\cxs SREPB/TREUBG/-L}ventricle
+{\*\cxs PW*EU/PART/SA*PB/SHEUP}bipartisanship`
+
+Finally, some of the user settings will be saved in a single YAML file. This way, users will be able to back up their settings and copy them from one installation to another if needed. This would also allows us to potentially offer ways of backing up/sharing these settings easily.
 
 ## Algorithms (2-3 paragraphs per algorithm)
 
