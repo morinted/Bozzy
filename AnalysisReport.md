@@ -1,19 +1,12 @@
 # Analysis Report Template
 
-The point of this document is to capture your understanding of the requirements, and how you plan to address them. This document is used to capture the agreement between you and your customer of what will be built. It is also intended to be a useful reference for your project team.
-
-Not all of the following sections will be relevant for every project. For example, not every project will have a user interface, or a database.
-
-
-
 ## Background
 
-This document is an analysis report for the Bozzy stenography dictionary editor. A team of four students have taken on this project in hopes to improve the world's first free, open source stenography engine, Plover.  This document will provide a brief overview of both the functional and non-functional requirements, example data, test cases and user interface mock-ups. An explanation of the high level architecture, database schemas and file formats will also be given.
-
+This document is an analysis report for project Bozzy, a stenography dictionary editor system that will be built for a final study year software project. A team of four students have taken on this project with the objective of making Plover's JSON dictionary format interoperable with the industry standard of RTF/CRE and to allow users of Plover and also proprietary stenography systems to edit their dictionaries for free. The point of this document is to capture the requirements of Bozzy as they will be the basis of the agreement between our team members and Mirabai Knight, the creator of Plover. This document is also intended to explain how we plan to address these requirements and will act as a reference for our project and team going forward.
 
 ## Requirements
 
-Functional Requirements:
+### Functional Requirements:
 
 |           |                                                                    |
 |-----------|--------------------------------------------------------------------|
@@ -50,33 +43,34 @@ Functional Requirements:
 |FR 8.5     |The system shall display a list of words to add to the current dictionary.|
 |FR 8.6     |The system shall add the new word to the dictionary.                |
 
-####Non-Functional Requirements
+### Non-Functional Requirements
 
-|           |                                                                    |
-|-----------|--------------------------------------------------------------------|
-|NFR1.1     |The system shall run on Windows operating system.                   |
-|NFR1.2     |The system shall run on Mac Operating system.                       |
-|NFR1.3     |The system shall be interoperable with Plover.                      |
-|           |                                                                    |
-|NFR2       |The system shall store data of 140,000 dictionary entries.          |
-|NFR3       |The system shall take no longer than 3 hours to learn for a novice user.|
-|NFR4       |The system shall be available 95% of the time.                      |
+| NFR1 | The system must be able to load several thousand dictionary entries (less than 200,000) and display these entries in a table within 1-5 seconds. |
+|------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| NFR2 | The system must be usable for novice stenography users and shall take no longer than 3 hours to learn the basic functionalities.|                |
+| NFR3 | The systems reliability for backing up each dictionary must be 95% at a later point in the products life cycle.                                  |
+| NFR4 | The system must be maintainable for future use in the Open Steno Project community.                                                              |
+| NFR5 | The system must be interaperable between Plover's JSON dictionary formats and the industry standard of RTF/CRE.                                  |
+| NFR6 | The system must be expandable for future use in the Open Steno Project community.                                                                |
+| NFR7 | The system must be portable on Windows and Mac operating systems.                                                                                |
 
-## Example Data and Test Cases ( 2-3 paragraphs)
+## Example Data and Test Cases
 
-### Data
+### Example Data
 
 The data we will be using to test and verify the system are the following dictionaries:
 
 #### stened.rtf
-- a dictionary provided by our customer, RTF format
+
+A dictionary provided by our customer in RTF format.
 
 #### magnum.rtf
-- a dictionary our team member owns a copy of, RTF format.
+
+A dictionary our team member owns a copy of in RTF format.
 
 #### dictionary.json
-- The Plover default open source dictionary, JSON format
-- Includes 142664 dictionary entries. Sample data of the first few entries:
+
+The Plover default open source dictionary in JSON format. This dictionary includes 142,664 dictionary entries. Sample data of the first few entries:
 
 > {
   "#*E": "{>}{&e}",
@@ -103,27 +97,29 @@ The data we will be using to test and verify the system are the following dictio
   ...,
 }
 
-### Scenario: Add dictionary
+### Test Cases
+
+#### Add dictionary scenario
 
 **The user launches the application.**
 
 - The main window appears.
 
-**The user selects add dictionary icon.**
+**The user clicks the add dictionary icon from the main window.**
 
 - The add dictionary window appears.
 
-**The user clicks browse to browse through file directory**
+**The user clicks browse in the add dictionary window.**
 
 - The file directory window appears.
 
-**The user selects plover default dictionary 'dictionary.json' from files.**
+**The user navigates through the file directory and selects the plover default dictionary 'dictionary.json' from files.**
 
 - The directory for 'dictionary.json' file is shown in text box.
 
 **The user clicks okay in the add dictionary window.**
 
-- Table in the main window is populated with dictionary.json entries:
+- The table in the center pane of the main window is populated with all dictionary.json entries:
 
 | Stroke       | Translation | Words | Strokes |
 |--------------|-------------|-------|---------|
@@ -139,26 +135,27 @@ The data we will be using to test and verify the system are the following dictio
 | WUZ/KWREU    | wuzzy       | 1     | 2       |
 
 
-### Scenario: Convert dictionary
+#### Convert dictionary scenario
 
 **The user selects Manage>Convert from menu.**
 
 - The convert dictionary window appears.
 
-**The user sets the following convert properties**
+**The user sets the following convert properties in the convert dictionary window.**
 
-- selects dictionary to convert: 'dictionary.json'
+- Select dictionary to convert: 'dictionary.json'
 - Converting to: RTF
 - Output Location: 'C:\Documents\Dictionaries'
 
-**The users clicks convert**
+**The users clicks convert in the convert dictionary window.**
 
-- The file system opens up a window at the directory location of the converted dictionary 'C:\Documents\Dictionaries\dictionary.rtf'.
+- The file system window appears at the directory location of the converted dictionary
 
+> 'C:\Documents\Dictionaries\dictionary.rtf'.
 
-### Scenario: Edit Dictionary + See changes on save
+#### Edit Dictionary + See changes on save scenario
 
-**From the main window, the user selects an existing dictionary entry from the table**
+**From the main window's center pane, the user selects an existing dictionary entry from the table**
 
 - The entry becomes editable after selection
 
@@ -166,7 +163,7 @@ The data we will be using to test and verify the system are the following dictio
 |--------------|-------------|-------|---------|
 | PHOUPB/TAPB  | `mountain`    | 1     | 2       |
 
-**The user changes text 'mountain' to 'mountainous' and clicks away**
+**The user changes text 'mountain' to 'mountainous' and hits enter or clicks away from the dictionary entry**
 
 - The entry is updated to the changed text
 
@@ -174,13 +171,14 @@ The data we will be using to test and verify the system are the following dictio
 |--------------|-------------|-------|---------|
 | PHOUPB/TAPB  | `mountainous`    | 1     | 2       |
 
-**The user selects File>Save from menu**
+**The user selects File>Save from menu.**
 
-- The Save window appears and the following information is displayed.
-   - changes made since last save:
-      - modified: dictionary.json
-      - + PHOUPB/TAPB , mountainous,  1, 2
-      - - PHOUPB/TAPB , mountain,  1, 2
+- The Save window appears and the following information is displayed:
+
+> Changes made since last save:
+  - modified: dictionary.json
+  - + PHOUPB/TAPB , mountainous,  1, 2
+  - - PHOUPB/TAPB , mountain,  1, 2
 
 **The user clicks save**
 
@@ -200,15 +198,15 @@ Illustrate the normal flow (and variations) with an example using the sample dat
 
 ## Non-Functional Features
 
-Each non functional requirement includes a brief description as well an explanation of how we plan to design and build the system to address the requirement, and how we plan to verify that the requirement is met.
+Each non-functional requirement includes a brief description as well an explanation of how we plan to design and build the system to address the requirement, and how we plan to verify that the requirement is met. The non-functional requirements are broken up into 3 classifications; performance, design, and adaption.
 
 ### Performance
 
-#### The system must be able to load several thousand dictionary entries (less than 200,000) and display these entries in a table within 1-5 seconds.
+#### NFR1: The system must be able to load several thousand dictionary entries (less than 200,000) and display these entries in a table within 1-5 seconds.
 
 To address this requirement, we plan to design and build our system using MVC pattern with JavaFx collection of observable lists and table views. We will test and verify this requirement is met by doing manual tests of loading dictionaries and doing direct measurement of time. The largest dictionary we will use as our data to test and verify this requirement has roughly 140,000 dictionary entries, which is a very large number of entries compared to typical dictionaries.
 
-#### The system must be usable for novice stenography users.
+#### NFR2: The system must be usable for novice stenography users and shall take no longer than 3 hours to learn the basic functionalities.
 
 Learning stenography is often overwhelming for new users, and can continue to be challenging for experienced users. Thus the usability of the system is key to attract new users to stenography and to keep existing stenography users engaged. To address this requirement, we have done the following to make design decisions:
 - Our customer has sent out a questionnaire to many users who are part of the stenography open source community. The question poses questions about the type of functionality our users would be most interested in
@@ -216,24 +214,26 @@ Learning stenography is often overwhelming for new users, and can continue to be
 - We take advantage of asking our customer for design ideas, since she has lots of experience with existing design implementations of stenography and dictionary applications, and always has interesting insight and ideas to offer to improve our design
 To test and verify our design, we've gathered both a small group of extremely experienced stenographers, as well as a large pool of stenographers with varying skills from the stenography open source community who've agreed to interact with our system and provide feedback.
 
-#### The systems reliability for backing up each dictionary must be 95% at a later point in the systems life cycle.
+#### NFR3: The systems reliability for backing up each dictionary must be 95% at a later point in the systems life cycle.
 
 The system must copy and archive data to users computers in order to recover data after a data loss event, or to recover data from an earlier time. To design and build the system to address this requirement we will copy and archive data to at least 2 file locations every time there is a change made to the dictionary such as add, remove, and modify. To verify the requirement is met, we will use probablistic measures, such as the model of failure represented by the exponential failure function. We know that the failure intensity is initially high as it would be in new software, since failures are detected more frequently during the testing phase. However, the number of failures would be expected to decrease with
 time during the operating phase, presumably as failures are uncovered and repaired. We also know that the more dictionaries a user is modifying at one time in the application, the worse the systems reliability becomes at one time.
 
 ### Design
 
-#### The system must be maintainable for future use in the Open Steno Project community.
+#### NFR4: The system must be maintainable for future use in the Open Steno Project community.
 
 One of the big issues in open source projects is lack of documentation, which discourages people from continuing work on a project since so much effort is needed to understand the application. To design and build the system to address this requirement, we've set up a GitHub repository to keep track of documentation, issues, pull requests, and commits. To verify the requirement is met, developers will keep track of whether the system is easy to repair using anecdotal observation of resources spent.
 
 ### Adaption
 
-#### The system must be expandable for future use in the Open Steno Project community.
+#### NFR5: The system must be interaperable between Plover's JSON dictionary formats and the industry standard of RTF/CRE.
+
+#### NFR6: The system must be expandable for future use in the Open Steno Project community.
 
 This application must be expandable because after the capstone project, the application will be integrated into the Open Steno Project group who will maintain and continue expanding and adding features to the application. To design and build the system to address this requirement, we will use functional programming to and try to keep our implementations simple and readable with as little code necessary. We will also take into account design principles such as MVC, and use separation of concerns for each module. To verify the requirement is met, expandability will be measured in terms of compliance with open system standards.
 
-#### The system must be portable on Windows and Mac.
+#### NFR7: The system must be portable on Windows and Mac operatinos systems.
 
 Our application will have crossplatform support. We are committing to Windows and Mac since these are the two most common platforms our users use. It is really key that our application is portable, because if not it would mean we would be going backwards from dictionary editing solutions that already exist. To design and build the system to address this requirement and allow for crossplatform support, the application will be built to run in the JVM. To verify testing, we will
 commit to test on the latest Java 7 CPU update, which at the time of writing is Java 7u79. We will be developing and building in the latest JDK 8, unless for some reason there is some kind of incompatibility introduced into the JDK. Two of our team members will test using have using laptops with Windows 7 OS installed, and our other two team members will test using laptops with Mac OS installed.
