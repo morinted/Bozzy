@@ -6,12 +6,12 @@ Not all of the following sections will be relevant for every project. For exampl
 
 
 
-## Background (1 paragraph)
+## Background
 
 This document is an analysis report for the Bozzy stenography dictionary editor. A team of four students have taken on this project in hopes to improve the world's first free, open source stenography engine, Plover.  This document will provide a brief overview of both the functional and non-functional requirements, example data, test cases and user interface mock-ups. An explanation of the high level architecture, database schemas and file formats will also be given.
 
 
-## Requirements (1 page)
+## Requirements
 
 Functional Requirements:
 
@@ -198,48 +198,45 @@ Define clearly the "normal" flow of interactions with the system. Identify the v
 
 Illustrate the normal flow (and variations) with an example using the sample data from one or more of your critical scenarios. (If the illustration will be shown in your user interface mockups, simply reference which screen shot should be looked at)
 
-## Non-Functional Features (1 paragraph per feature)
+## Non-Functional Features
 
-Some requirements are non-functional. E.g. the system must be scalable and support a 24*7 usage.
-Or the system must be usable by novice users. For each of these, describe your strategy for addressing them:
-
-#### The system must be able to load several thousand (less than 150,000) dictionary entries and display these entries in a table in under 5 seconds.
-
-The largest dictionary we will be using for data has roughly 140,000 dictionary entries.
-
-#### The system must be usable for novice users.**
-
-Stenography is often overwhelming to many new users, and can continue to be offer challenges for more experienced users. Thus the usability of the system is key to attracting new users to stenography and to keep existing stenography users engaged. Not only does the system need to be usable, but the system needs to help the user learn Stenography. For design, in order to ensure the system is usable and helpful we have done the following:
-- Our customer Mirabai has sent out a questionnaire to many people who are part of the open source community, asking questions about what they'd like to get out of our applications
-- As a team for new functionalities, we all try and brainstorm different user interface design ideas, and compare ideas and pick the best solution from that. On top of this, we're always looking for new ways to improve the UI, never just settling on one implementation after deciding
-- For every design idea was check it with our Customer, as she has lots of experience with existing stenography and dictionary applications, and always has interesting insite and ideas to offer to improve our design
+Each non functional requirement includes a brief description as well an explanation of how we plan to design and build the system to address the requirement, and how we plan to verify that the requirement is met.
 
 ### Performance
 
-#### The system must be reliable when backing up dictionaries.
+#### The system must be able to load several thousand dictionary entries (less than 200,000) and display these entries in a table within 1-5 seconds.
 
-The system must copy and archive data in order to recover data after a data loss event, or to recover data from an earlier time.
+To address this requirement, we plan to design and build our system using MVC pattern with JavaFx collection of observable lists and table views. We will test and verify this requirement is met by doing manual tests of loading dictionaries and doing direct measurement of time. The largest dictionary we will use as our data to test and verify this requirement has roughly 140,000 dictionary entries, which is a very large number of entries compared to typical dictionaries.
 
-The system must be usable for novice users.
+#### The system must be usable for novice stenography users.
 
-The system must be reliable when it comes to backing up dictionaries.
+Learning stenography is often overwhelming for new users, and can continue to be challenging for experienced users. Thus the usability of the system is key to attract new users to stenography and to keep existing stenography users engaged. To address this requirement, we have done the following to make design decisions:
+- Our customer has sent out a questionnaire to many users who are part of the stenography open source community. The question poses questions about the type of functionality our users would be most interested in
+- For each system functionality, each team member brainstorms different UI design ideas, and later we compare ideas and pick or combine the best solution. Even after picking a solution, we continue to be critical of design decisions as our system grows
+- We take advantage of asking our customer for design ideas, since she has lots of experience with existing design implementations of stenography and dictionary applications, and always has interesting insight and ideas to offer to improve our design
+To test and verify our design, we've gathered both a small group of extremely experienced stenographers, as well as a large pool of stenographers with varying skills from the stenography open source community who've agreed to interact with our system and provide feedback.
 
-#### The system must be maintainable and verifiable for future use in the open steno project community.
+#### The systems reliability for backing up each dictionary must be 95% at a later point in the systems life cycle.
 
-One of the big issues in open source projects is lack of documentation, which discourages people from continuing work on a project since so much effort is needed in understanding the application in order to maintain it.
+The system must copy and archive data to users computers in order to recover data after a data loss event, or to recover data from an earlier time. To design and build the system to address this requirement we will copy and archive data to at least 2 file locations every time there is a change made to the dictionary such as add, remove, and modify. To verify the requirement is met, we will use probablistic measures, such as the model of failure represented by the exponential failure function. We know that the failure intensity is initially high as it would be in new software, since failures are detected more frequently during the testing phase. However, the number of failures would be expected to decrease with
+time during the operating phase, presumably as failures are uncovered and repaired. We also know that the more dictionaries a user is modifying at one time in the application, the worse the systems reliability becomes at one time.
 
-The system must be maintainable and verifiable for future use in the open steno project community. One of the big issues is lack of documentation, which makes it hard for people to feel like continuing a project since so much effort is needed in understanding the application
+### Design
 
+#### The system must be maintainable for future use in the Open Steno Project community.
 
-## The system must be expandable for future use in the open steno project community ##
+One of the big issues in open source projects is lack of documentation, which discourages people from continuing work on a project since so much effort is needed to understand the application. To design and build the system to address this requirement, we've set up a GitHub repository to keep track of documentation, issues, pull requests, and commits. To verify the requirement is met, developers will keep track of whether the system is easy to repair using anecdotal observation of resources spent.
 
-Similar reason for maintainable.
+### Adaption
 
-## The system must be portable on Windows and Mac ##
+#### The system must be expandable for future use in the Open Steno Project community.
 
-since the vast majority of our users have Windows or linux based operating systems. In fact there are too many users who use linux operating systems to be ignored. It is really key that our application is portable on Windows and Mac in order to reach our objectives and for our project to be a success. For design, in order to allow for crossplatform support, the application will be built to run in the JVM. For testing, two of our team members have Windows laptops, and our other two team members have Mac laptops.
+This application must be expandable because after the capstone project, the application will be integrated into the Open Steno Project group who will maintain and continue expanding and adding features to the application. To design and build the system to address this requirement, we will use functional programming to and try to keep our implementations simple and readable with as little code necessary. We will also take into account design principles such as MVC, and use separation of concerns for each module. To verify the requirement is met, expandability will be measured in terms of compliance with open system standards.
 
-They system must be interoperable with other steno applications
+#### The system must be portable on Windows and Mac.
+
+Our application will have crossplatform support. We are committing to Windows and Mac since these are the two most common platforms our users use. It is really key that our application is portable, because if not it would mean we would be going backwards from dictionary editing solutions that already exist. To design and build the system to address this requirement and allow for crossplatform support, the application will be built to run in the JVM. To verify testing, we will
+commit to test on the latest Java 7 CPU update, which at the time of writing is Java 7u79. We will be developing and building in the latest JDK 8, unless for some reason there is some kind of incompatibility introduced into the JDK. Two of our team members will test using have using laptops with Windows 7 OS installed, and our other two team members will test using laptops with Mac OS installed.
 
 ## High Level Architecture (2-3 Pages)
 
