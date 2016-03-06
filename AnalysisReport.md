@@ -60,42 +60,60 @@ This document is an analysis report for project Bozzy, a stenography dictionary 
 
 The data we will be using to test and verify the system are the following dictionaries:
 
-#### stened.rtf
+#### `stened.rtf`
 
-A dictionary provided by our customer in RTF format.
+A dictionary provided by our customer in RTF format, which the Plover dictionary was originally converted from.
 
-#### magnum.rtf
+#### `magnum.rtf`
 
-A dictionary our team member owns a copy of in RTF format.
+A proprietary dictionary that is sold online, which we have a copy of.
 
-#### dictionary.json
+#### `main.json`
 
-The Plover default open source dictionary in JSON format. This dictionary includes 142,664 dictionary entries. Sample data of the first few entries:
+The Plover's main dictionary, an source dictionary in JSON format. This dictionary includes 142,664 dictionary entries. Sample data of the first few entries:
 
-> {
-  "#*E": "{>}{&e}",
-  "#*EU": "{>}{&i}",
-  "#*U": "{>}{&u}",
-  "#-D": "{^ed}",
-  "#-Z": "00",
-  "#240": "240",
-  "#45/TK-PL": "$45",
-  "#EUD/KWROPL": "idiom",
-  "#K*": "{>}{&k}",
-  "#KR*": "{>}{&c}",
-  "#KW*": "{>}{&q}",
-  "#KWR*": "{>}{&y}",
-  "#R*": "{>}{&r}",
-  "#W*": "{>}{&w}",
-  "*B": "B",
-  "*BG": "{^k}",
-  "*BGS": "action",
-  "*BS": "action",
-  "*D": "{^'d}",
-  "*E": "{>}{&e}",
-  "*E/KHREUPS": "Eclipse",
-  ...,
+```json
+{
+"#*E": "{>}{&e}",
+"#*EU": "{>}{&i}",
+"#*U": "{>}{&u}",
+"#-D": "{^ed}",
+"#-Z": "00",
+"#240": "240",
+"#45/TK-PL": "$45",
+"#EUD/KWROPL": "idiom",
+"#K*": "{>}{&k}",
+"#KR*": "{>}{&c}",
+"#KW*": "{>}{&q}",
+"#KWR*": "{>}{&y}",
+"#R*": "{>}{&r}",
+"#W*": "{>}{&w}",
+"*B": "B",
+"*BG": "{^k}",
+"*BGS": "action",
+"*BS": "action",
+"*D": "{^'d}",
+"*E": "{>}{&e}",
+"*E/KHREUPS": "Eclipse",
+```
+
+### `commands.json`
+
+Plover has "commands" to let the user interact with the system more like a real keyboard, with shortcuts and special keys. Because traditional steno software doesn't emulate a keyboard, this will be a large difference with potentially no conversion possible.
+
+Some sample commands:
+
+```json
+{
+"PW*FP": "{#BackSpace}",
+"SR-RS": "{#Control_L(End)}{^}",
+"STPH-B": "{#Down}{^}",
+"TPEFBG": "{#Escape}",
+"STPH-R": "{#Left}{^}",
+"SKWRAURBGS": "{#Return}{#Return}{^}{-|}",
+"R-R": "{#Return}{^}"
 }
+```
 
 ### Test Cases
 
@@ -113,13 +131,13 @@ The Plover default open source dictionary in JSON format. This dictionary includ
 
 - The file directory window appears.
 
-**The user navigates through the file directory and selects the plover default dictionary 'dictionary.json' from files.**
+**The user navigates through the file directory and selects the plover default dictionary `main.json` from files.**
 
-- The directory for 'dictionary.json' file is shown in text box.
+- The directory for `main.json` file is shown in text box.
 
 **The user clicks okay in the add dictionary window.**
 
-- The table in the center pane of the main window is populated with all dictionary.json entries:
+- The table in the center pane of the main window is populated with all `main.json` entries:
 
 | Stroke       | Translation | Words | Strokes |
 |--------------|-------------|-------|---------|
@@ -137,21 +155,21 @@ The Plover default open source dictionary in JSON format. This dictionary includ
 
 #### Convert dictionary scenario
 
-**The user selects Manage>Convert from menu.**
+**The user selects `Manage > Convert` from menu.**
 
 - The convert dictionary window appears.
 
 **The user sets the following convert properties in the convert dictionary window.**
 
-- Select dictionary to convert: 'dictionary.json'
-- Converting to: RTF
-- Output Location: 'C:\Documents\Dictionaries'
+- Select dictionary to convert: `main.json`
+- Converting to: `RTF`
+- Output Location: `C:\Documents\Dictionaries`
 
 **The users clicks convert in the convert dictionary window.**
 
 - The file system window appears at the directory location of the converted dictionary
 
-> 'C:\Documents\Dictionaries\dictionary.rtf'.
+> `C:\Documents\Dictionaries\main.rtf`
 
 #### Edit Dictionary + See changes on save scenario
 
@@ -161,7 +179,7 @@ The Plover default open source dictionary in JSON format. This dictionary includ
 
 | Stroke       | Translation | Words | Strokes |
 |--------------|-------------|-------|---------|
-| PHOUPB/TAPB  | `mountain`    | 1     | 2       |
+| PHOUPB/TAPBS | `mountains` | 1     | 2       |
 
 **The user changes text 'mountain' to 'mountainous' and hits enter or clicks away from the dictionary entry**
 
@@ -169,16 +187,16 @@ The Plover default open source dictionary in JSON format. This dictionary includ
 
 | Stroke       | Translation | Words | Strokes |
 |--------------|-------------|-------|---------|
-| PHOUPB/TAPB  | `mountainous`    | 1     | 2       |
+| PHOUPB/TAPBS |`mountainous`| 1     | 2       |
 
-**The user selects File>Save from menu.**
+**The user selects `File > Save` from menu.**
 
 - The Save window appears and the following information is displayed:
 
 > Changes made since last save:
-  - modified: dictionary.json
-  - + PHOUPB/TAPB , mountainous,  1, 2
-  - - PHOUPB/TAPB , mountain,  1, 2
+> - modified: main.json
+> - + PHOUPB/TAPB , mountainous,  1, 2
+> - - PHOUPB/TAPB , mountain,  1, 2
 
 **The user clicks save**
 
@@ -312,7 +330,8 @@ First, the actual dictionaries managed by Bozzy can be stored in both RTF/CRE fo
 
 The JSON format is quite simple as it is a standard JSON format, with the restriction that there are no arrays or nested objects. The key represents the stroke (raw input), and the value is the translation (what it should be interpreted as). Here is an example of a simple dictionary, build from an excerpt of the default Plover dictionary:
 
-`{
+```json
+{
   "*ED": "Ed",
   "*ED/PHA/PHAEU": "edamame",
   "*ED/PHAPL/PHAEU": "edamame",
@@ -320,17 +339,20 @@ The JSON format is quite simple as it is a standard JSON format, with the restri
   "*ED/SO*PB": "Edison",
   "*ED/TKA": "Edda",
   "*ED/WARD": "Edward"
-}`
+}
+```
 
-The RTF/CRE format used by most (if not all) proprietary stenography software and is it's own format which is not easily human readable. It also supports some additional fields to provide metadata information on a dictionary entry. Seeing as the JSON format doesn't support these extra fields, however, the conversion between the two formats will not take these into account. Here is an excerpt from a RTF/CRE dictionary:
+The RTF/CRE format is used by all proprietary stenography software for import/export. It is not as easily human readable as JSON. It also supports some additional fields to provide metadata information on a dictionary entry. Seeing as the JSON format doesn't support these extra fields, however, the conversion between the two formats will not take these into account. Here is an excerpt from a RTF/CRE dictionary:
 
-`{\*\cxs PHOPB/OG/PHOUS}monogamous
+```rtf
+{\*\cxs PHOPB/OG/PHOUS}monogamous
 {\*\cxs PRAO*UF/PWHREU}provably
 {\*\cxs TKAB/-BLG}dabbling
 {\*\cxs HRAEU/PERS/O*PB}layperson
 {\*\cxs AEU/PAEL/-BL}appealable
 {\*\cxs SREPB/TREUBG/-L}ventricle
 {\*\cxs PW*EU/PART/SA*PB/SHEUP}bipartisanship`
+```
 
 Finally, some of the user settings will be saved in a single YAML file. This way, users will be able to back up their settings and copy them from one installation to another if needed. This would also allows us to potentially offer ways of backing up/sharing these settings easily.
 
