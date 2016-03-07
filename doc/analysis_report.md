@@ -1,4 +1,59 @@
-# Analysis Report Template
+# Bozzy Analysis Report
+
+## Table of Contents
+
+- [Background](#background)
+- [Requirements](#requirements)
+  - [Functional Requirements](#functional-requirements)
+  - [Non-Functional Requirements](#non-functional-requirements)
+- [Example Data and Test Cases](#example-data-and-test-cases)
+  - [Example Data](#example-data)
+  - [Test Cases](#test-case)
+    - [Add dictionary scenario](#add-dictionary-scenario)
+    - [Convert dictionary scenario](#convert-dictionary-scenario)
+    - [Edit Dictionary and See changes on save scenario](#edit-dictionary-and-see-changes-on-save-scenario)
+- [Functional Features of System](#functional-features-of-system)
+  - [Add, remove, and order dictionaries](#add-remove-and-order-dictionaries)
+    - [Open a dictionary](#open-a-dictionary)
+    - [Close a dictionary](#close-a-dictionary)
+    - [Reorder dictionaries](#reorder-dictionaries)
+  - [Filter entries](#filter-entries)
+  - [Sort entries](#sort-entries)
+  - [View differences](#view-differences)
+  - [Convert dictionaries](#convert-dictionaries)
+  - [Merge dictionaries](#merge-dictionaries)
+  - [Backup dictionaries](#backup-dictionaries)
+    - [Setting back up directories](#setting-back-up-directories)
+    - [Performing a backup](#performing-a-backup)
+  - [Build dictionary](#build-dictionary)
+  - [Edit dictionaries](#edit-dictionaries)
+    - [Add entry](#add-entry)
+    - [Remove entry](#remove-entry)
+    - [Edit entry](#edit-entry)
+- [Non-functional features](#non-functional-features)
+  - [Performance](#performance)
+  - [Usability](#usability)
+  - [Reliability](#reliability)
+  - [Maintainability](#maintainability)
+  - [Portability](#portability)
+  - [Accessibility](#accessibility)
+  - [Standards Compliance](#standards-compliance)
+- [High Level Architecture](#high-level-architecture)
+  - [User Interfaces](#user-interfaces)
+  - [Scala Controllers](#scala-controllers)
+  - [Data models](#data-models)
+  - [Native file system](#native-file-system)
+  - [Third-party Stenography Software](#third-party-stenography-software)
+  - [Interactions](#interactions)
+  - [Adding a dictionary](#adding-a-dictionary)
+  - [Converting a dictionary](#converting-a-dictionary)
+  - [Editing a dictionary](#editing-a-dictionary)
+- [User interface mockup](#user-interface-mockup)
+- [File Formats](#file-formats)
+- [Algorithms](#algorithms)
+  - [Conversion script](#conversion-script)
+  - [Priority algorithm](#priority-algorithm)
+
 
 ## Background
 
@@ -98,7 +153,7 @@ The Plover's main dictionary, an source dictionary in JSON format. This dictiona
 }
 ```
 
-### `commands.json`
+#### `commands.json`
 
 Plover has "commands" to let the user interact with the system more like a real keyboard, with shortcuts and special keys. Because traditional steno software doesn't emulate a keyboard, this will be a large difference with potentially no conversion possible between JSON and RTF/CRE.
 
@@ -172,7 +227,7 @@ Some sample commands:
 
 > `C:\Documents\Dictionaries\main.rtf`
 
-#### Edit Dictionary + See changes on save scenario
+#### Edit Dictionary and See changes on save scenario
 
 **From the main window's center pane, the user selects an existing dictionary entry from the table**
 
@@ -203,35 +258,264 @@ Some sample commands:
 
 - Changes are saved to dictionary.
 
-## Use Case Model or Functional Features of System (2-3 paragraphs per feature or use case)
+## Functional Features of System
 
-- Add (open), remove (close), and order dictionaries. FR 1.1, 1.2, 2.1, 3.1, 3.2
-- Filter entries. FR 4.1, 4.2
-- Sort entries. FR 4.1, 4.3
-- View differences. FR 5.3.
-- Convert dictionaries. FR 7.1, 7.2, 7.3
-- Merge dictionaries. FR 8.1, 8.2.
-- Backup dictionaries. FR 6.1, 6.2, 6.3.
-- Build dictionary. FR 9.1, 9.2, 9.3, 9.4.
-- Edit dictionaries. FR 5.1, 5.2, 5.3, 5.4.
+In the following use cases, we refer to the stenographer actor as user for brevity.
 
-Define WHAT functionality the system will provide. Ideally this would be organized around the major use cases the system would support. This can also be organized around the major functions or features of the system. In either case, your system should have somewhere in the range of 3-10 of these use cases or major features. Include an updated use case diagram.
+Here is an overview of the use cases and actors involved, expanded below:
 
-For each use case or feature:
+![Use case diagram](images/use_case_diagram.png)
 
-Identify the requirements that are addressed by it, the actors it is relevant to, and any preconditions or restrictions.
+### Add, remove, and order dictionaries.
 
-Define clearly the "normal" flow of interactions with the system. Identify the variations on this normal flow that are possible, and in particular what "exceptions" must be handled.
+Corresponds to function requirements 1.1, 1.2, 2.1, 3.1, 3.2
 
-Illustrate the normal flow (and variations) with an example using the sample data from one or more of your critical scenarios. (If the illustration will be shown in your user interface mockups, simply reference which screen shot should be looked at)
+This is relevant to both the stenographer and interacting with the file system.
+
+The stenographer will manage a list of open dictionaries, which are dictionaries
+that they are interacting with. Therefore, they need to be able to add and
+remove from this list by opening and closing dictionaries. Furthermore,
+stenographic dictionaries have an explicit order, so the stenographer must be
+able to reorder their steno dictionaries.
+
+#### Open a dictionary
+
+Actors: stenographer and file system
+
+1. User clicks "add dictionary" button.
+2. File select dialogue pops up, user selects one or more dictionaries to open.
+3. User confirms selection.
+4. Files are added to open dictionary list, contents are displayed in the main entry viewer.
+
+##### Exception A
+- 3A. User cancels selection.
+
+##### Exception B
+- 4B. Dictionaries files are invalid.
+- 5B. Warn users of invalid dictionary file with clear error message.
+
+#### Close a dictionary
+
+Actor: stenographer
+
+Prerequisite: user must have at least one dictionary open
+
+1. User selects a dictionary from the list.
+2. User selects "close dictionary" button.
+3. Bozzy asks confirmation to close dictionary.
+4. Dictionary is closed on confirmation accept.
+
+##### Exception A
+
+- 4A. Dictionary is not closed if user dismisses the confirmation.
+
+#### Reorder dictionaries
+
+Actor: stenographer
+
+Prerequisite: user must have at least two dictionaries open
+
+1. User selects a dictionary to reorder.
+2. User selects "up" or "down" buttons to reorder dictionary up or down in the
+list.
+3. The dictionary moves one in priority, and the dictionary it replaces receives
+the previous priority of the selected dictionary.
+
+##### Exception A
+
+- 3A. If the dictionary is already top priority, the "up" button will have no effect,
+if the dictionary is already lowest priority, the "down" button will have no effect.
+
+### Filter entries
+
+Actor: stenographer
+
+Corresponds to functional requirements 4.1, 4.2
+
+1. User enters filter criteria (stroke, translation, dictionary, hit count, number of words, number of strokes).
+2. User clicks the "filter" buttons.
+3. System displays results.
+
+#### Exception A
+
+- 3A. No results found, system displays a message to clarify that there are no results for the user's filter criteria.
+
+### Sort entries
+
+Actor: stenographer
+
+Corresponds to functional requirements 4.1, 4.3
+
+Prerequisites: the column that the user wants to sort by is visible
+
+1. User clicks on column to sort by.
+2. The system sorts the column, ascending.
+3. User clicks on column to sort by a second time.
+4. The system reverses the sorting order to descending.
+5. User clicks on column to sort by a third time.
+6. The system reverts to the default sorting order.
+
+### View differences
+
+Actor: stenographer
+
+Corresponds to functional requirement 5.3.
+
+Prerequisites: at least one stroke has been added or removed (a modified stroke would be both a removal and an addition).
+
+1. The user opts to view differences (occurs on save, when trying to exit the application, or when clicking on the change indicator)
+2. A dialogue pops up, showing the user the changes, including strokes added and removed, grouped by dictionary.
+
+### Convert dictionaries
+
+Actors: stenographer and file system
+
+Corresponds to functional requirements 7.1, 7.2, 7.3
+
+Prerequisites: the user has at least one dictionary open.
+
+1. User selects to convert a dictionary.
+2. User selects the dictionary to convert from a list.
+3. The available file formats to convert to are listed, and the user selects one.
+4. The converted dictionary name and directory are presented, and the user can use the file system picker to change it.
+5. The user selects to convert.
+6. The converted dictionary is not added to the list of open dictionaries.
+
+#### Exception A
+
+- 6A. The conversion had entries that were not supported. There is a list of dropped entries in the dialogue, and the dictionary was still created.
+
+#### Exception B
+
+- 6B. No entries were converted, the file was not created.
+
+#### Exception C
+
+- 6C. The selected output path is taken/doesn't exist, operation aborted.
+
+### Merge dictionaries
+
+Actors: stenographer and file system
+
+Corresponds to functional requirements 8.1, 8.2.
+
+Prerequisites: the user has at least two dictionaries open.
+
+1. The user selects to merge dictionaries.
+2. The user adds the dictionaries he wants to merge, and specifies priority order.
+3. The user selects the file format and path of the merged dictionary.
+4. The user starts the merge.
+5. The merged file is created, and the user is notified of all priority dictionary overrides.
+
+#### Exception A
+
+- 5A. If there were dropped strokes due to format conversion issues, they are separately listed.
+
+#### Exception B
+
+- 5B. There was a file system error and no files were written.
+
+### Backup dictionaries
+
+Corresponds to functional requirements 6.1, 6.2, 6.3
+
+#### Setting back up dictionaries
+
+Actors: stenographer and file system
+
+1. User selects backup menu.
+2. User is presented with a list of backup directories, which can be removed and added to.
+
+#### Performing a backup
+
+Actors: stenographer and file system
+
+Prerequisite: user has configured one or more backup directories.
+
+1. User selects to perform a backup.
+2. All open dictionaries are backed up to each backup directory, in a dated folder.
+3. User is informed of backup success.
+
+##### Exception A
+
+- 3A. User is informed of file system error.
+
+### Build dictionary
+
+Actors: stenographer and HTTP
+
+Corresponds to functional requirements 9.1, 9.2, 9.3, 9.4.
+
+Prerequisites: user has at least one dictionary open to build.
+
+1. User selects "build dictionary" option from menu.
+2. User must present a URL or a block of text to use as a seed.
+3. System presents user with words that are not defined in the user's dictionaries, from most to least common.
+4. With each word, the user can optionally define strokes, then continue, or stop building.
+5. There are no more words to define, the user is given a list of all added words and strokes.
+6. Defined strokes are added to the highest priority dictionary, and changes are not saved (unless the user does so outside of this use case)
+
+#### Exception A
+
+- 5A. The user selected stop building, and is presented with the final screen with a summary of the changes.
+
+### Edit dictionaries
+
+Corresponds to functional requirements 5.1, 5.2, 5.3, 5.4.
+
+Prerequisites: the user must have at least one dictionary open.
+
+#### Add Entry
+
+Actor: stenographer
+
+1. The user can add an entry.
+2. A table row is inserted, and the user must fill in at least the stroke, translation, and dictionary (file) fields.
+3. New entry is created.
+
+##### Exception A
+
+3A. New entry has a conflicting stroke field, the user is informed of the conflict, and given a chance to override, continue editing, or cancel the entry creation.
+
+#### Remove Entry
+
+Actor: stenographer
+
+1. User selects an entry and selects delete.
+2. Confirmation dialogue confirms user's intention.
+3. User confirms, entry is removed.
+
+##### Exception B
+
+3A. User cancels, entry is not removed.
+
+#### Edit Entry
+
+Actor: stenographer
+
+1. User double clicks on an entry's stroke, translation, or dictionary field.
+2. The field becomes editable, and the user sets a new value.
+3. On Enter or click away, the change applies.
+
+##### Exception A
+
+- 3A. The stroke conflicts with another entry. The user is given the option to override the other entry, continue editing the current entry, or cancel the change.
 
 ## Non-Functional Features
 
 Each non-functional requirement includes a brief description as well an explanation of how we plan to design and build the system to address the requirement, and how we plan to verify that the requirement is met.
 
+### Performance
+
 #### NFR1: The system must be able to load several thousand dictionary entries (less than 200,000) and display these entries in a table within 5 seconds.
 
 To address this requirement, we plan to design and build our system using Model View Controller pattern (MVC) with JavaFX collection of observable lists and table views. We will test and verify this requirement is met by doing manual tests of loading dictionaries and doing direct measurements of time. The largest dictionary we will use as our data to test and verify this requirement has roughly 140,000 dictionary entries, which is a very large number of entries compared to typical dictionaries.
+
+#### NFR10: The system must be responsive, reacting to user input within half a second.
+
+Whether the user sorts or filters on fields in the table such as translation, stroke, word count, or stroke count, or whether the user edits, removes, or adds dictionary entries, the system must not lag. To design and build the system to address this requirement, we plan to use good programming practices, and plan to optimize our algorithms while taking advantage of the efficiency of functional programming. To verify the requirement is met, we will set up automated tests simulating all forms of user inputs mentioned previously, and then do direct measurements of the time for each test. We will also show loading indicators for long operations.
+
+### Usability
 
 #### NFR2: The system must be usable for novice stenography users and shall take no longer than 1 hour to learn the core functionality of opening dictionaries, modifying them, and saving them.
 
@@ -242,9 +526,13 @@ Learning stenography is often overwhelming for new users, and can continue to be
 
 To test and verify our design, we've gathered both a small group of extremely experienced stenographers, as well as a large pool of stenographers with varying skills from the open steno project community who've agreed to interact with our system and provide feedback.
 
+### Reliability
+
 #### NFR3: The systems reliability for backing up each dictionary must be 99% at a later point in the products life cycle.
 
 The system must copy and archive data to users computers in order to recover data after a data loss event, or to recover data from an earlier time. To design and build the system to address this requirement we will copy and archive data to at least 2 file locations every time there is a change made to the dictionary such as add, remove, and modify. To verify the requirement is met, we will use probabilistic measures, such as the model of failure represented by the exponential failure function. We know that the failure intensity is initially high as it would be in new software, since failures are detected more frequently during the testing phase. However, the number of failures would be expected to decrease with time during the operating phase, presumably as failures are uncovered and repaired. We also know that the more dictionaries a user is modifying at one time in the application, the worse the systems reliability becomes at one time.
+
+#### Maintainability
 
 #### NFR4: The system must be maintainable for future use in the Open Steno Project community.
 
@@ -254,13 +542,19 @@ One of the big issues in open source projects is lack of documentation, which di
 
 This application must be expandable because after the capstone project, the application will be integrated into the Open Steno Project group who will maintain and continue expanding and adding features to the application. To design and build the system to address this requirement, we will use functional programming to and try to keep our implementations simple and readable with as little code necessary. We will also take into account design principles such as MVC, and use separation of concerns for each module. To verify the requirement is met, expandability will be measured in terms of compliance with open system standards.
 
+### Portability
+
 #### NFR6: The system must be portable on Windows and Mac operating systems.
 
 Our application will have cross-platform support. We are committing to Windows and Mac since these are the two most common platforms our users use. It is really key that our application is portable, because if not it would mean we would be going backwards from dictionary editing solutions that already exist. To design and build the system to address this requirement and allow for cross-platform support, the application will be built to run in the JVM. To verify testing, we will commit to test on the latest Java 7 CPU update, which at the time of writing is Java 7u79. We will be developing and building in the latest JDK 8, unless for some reason there is some kind of incompatibility introduced into the JDK. Two of our team members will test and verify this requirement using laptops with Windows 7 OS installed, and our other two team members will test using laptops with Mac OS installed.
 
+### Accessibility
+
 #### NFR7: The system must be accessible for users of screen readers.
 
 Some concerns that have been addressed about screen reader accessibility include whether or not graying out UI features will be readable on screen readers. To design and build the system to address this requirement, we will rely on our customers knowledge of screen readers. To verify the requirement is met, we will ensure that every time our customer interacts with the system, that they try and think of any reason our system would not be accessible for users of screen readers.
+
+### Standards Compliance
 
 #### NFR8: The system must conform to the [RTF/CRE specification](http://www.legalxml.org/workgroups/substantive/transcripts/cre-spec.htm).
 
@@ -270,9 +564,7 @@ The system must ensure that Plover's open source JSON dictionary format is inter
 
 Our target users are part of an open source steno project community, and use existing open source software such as Plover, a stenography application. Thus to design and build the system to address this requirement, we will include the license and ensure we are not infringing on it, and we will ensure not to include non-compatible libraries. To verify the requirement is met, the system will be measured against it's compliance with open source standards.
 
-#### NFR10: The system must be responsive, reacting to user input within half a second.
 
-Whether the user sorts or filters on fields in the table such as translation, stroke, word count, or stroke count, or whether the user edits, removes, or adds dictionary entries, the system must not lag. To design and build the system to address this requirement, we plan to use good programming practices, and plan to optimize our algorithms while taking advantage of the efficiency of functional programming. To verify the requirement is met, we will set up automated tests simulating all forms of user inputs mentioned previously, and then do direct measurements of the time for each test.
 
 ## High Level Architecture (2-3 Pages)
 
@@ -376,4 +668,21 @@ Finally, some of the user settings will be saved in a single YAML file. This way
 
 ## Algorithms (2-3 paragraphs per algorithm)
 
-If your system will be dependent on any significant algorithms (pattern recognition, image processing, game strategy, matching problem etc.) then identify them here. Briefly outline the problem that needs to be solved, the alternatives considered, and the algorithm selected. Illustrate the algorithm with an example using the example data.
+### Conversion script
+
+We need to convert between two major formats as well as display both of them together seemlessly. Internally, we'll have to normalize both formats into objects that can both be used for various program interactions, and only on import/export will the file format really matter. For this, we need to inspect RTF/CRE and JSON spec and see where they do and do not intersect. This will be crucial in order to create meaningful conversion failures. It's important for users to know when a stroke wasn't converted due to a difference in the spec. For example, RTF/CRE has conflict strokes, which Plover JSON does not. Plover's JSON has symbols named after Xorg's key list, and RTF/CRE does not. We do not have a conversion algorithm yet, but we will need a processing to go through the conversion from both directions.
+
+Effectively, we need an enumerated list of all of RTF/CRE's syntax, and their Plover equivalents. This should provide the common ground that we can use to convert between the two systems.
+
+We do not have example data yet as we are not at this point in our application. It is a goal to have this example numerated out. There is already a conversion script by a previous Plover developer online who used pattern matching to convert between the two formats.
+
+### Priority Algorithm
+
+Bozzy will store dictionaries in an explicit order, and this order comes up often for stenographers. It's useful to know when a stroke is the priority one and when it isn't. Therefore, we need to hold whether the stroke is overriding another stroke, or if it is overridden. To do this, we will just look at common strokes between dictionaries, and then the highest priority dictionary will be the entry overriding others, and the other entries will be labeled as overridden.
+
+This algorithm will also be used while merging dictionaries, where the highest priority dictionaries will always be first to have an entry in the merged dictionary over the lower priority dictionaries.
+
+To solve this problem, we are going to use a list of dictionaries in order, and check in each one descending for the desired stroke. For merging, we are going to populate the merge with the lowest priority dictionary, and keep overriding with the higher priority dictionaries as they are being applied.
+
+
+--------------------
