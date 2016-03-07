@@ -231,7 +231,7 @@ Each non-functional requirement includes a brief description as well an explanat
 
 #### NFR1: The system must be able to load several thousand dictionary entries (less than 200,000) and display these entries in a table within 5 seconds.
 
-To address this requirement, we plan to design and build our system using MVC pattern with JavaFX collection of observable lists and table views. We will test and verify this requirement is met by doing manual tests of loading dictionaries and doing direct measurements of time. The largest dictionary we will use as our data to test and verify this requirement has roughly 140,000 dictionary entries, which is a very large number of entries compared to typical dictionaries.
+To address this requirement, we plan to design and build our system using Model View Controller pattern (MVC) with JavaFX collection of observable lists and table views. We will test and verify this requirement is met by doing manual tests of loading dictionaries and doing direct measurements of time. The largest dictionary we will use as our data to test and verify this requirement has roughly 140,000 dictionary entries, which is a very large number of entries compared to typical dictionaries.
 
 #### NFR2: The system must be usable for novice stenography users and shall take no longer than 1 hour to learn the core functionality of opening dictionaries, modifying them, and saving them.
 
@@ -248,7 +248,7 @@ The system must copy and archive data to users computers in order to recover dat
 
 #### NFR4: The system must be maintainable for future use in the Open Steno Project community.
 
-One of the big issues in open source projects is lack of documentation, which discourages people from continuing work on a project since so much effort is needed to understand the application. To design and build the system to address this requirement, we've set up a GitHub repository to keep track of documentation, issues, pull requests, and commits, and included the use of a continuous integration service called Travis CI. To verify the requirement is met, developers will keep track of whether the system is easy to repair using anecdotal observation of resources spent.
+One of the big issues in open source projects is lack of documentation, which discourages people from continuing work on a project since so much effort is needed to understand the application. To design and build the system to address this requirement, we've set up a GitHub repository to keep track of documentation, issues, pull requests, and commits, and included the use of a continuous integration service called Travis CI. We will also apply the MVC pattern to our system as a way of implementing separation of concerns. To verify the requirement is met, developers will keep track of whether the system is easy to repair using anecdotal observation of resources spent.
 
 #### NFR5: The system must be expandable for future use in the Open Steno Project community.
 
@@ -260,15 +260,15 @@ Our application will have cross-platform support. We are committing to Windows a
 
 #### NFR7: The system must be accessible for users of screen readers.
 
-Some concerns that have been addressed about screen reader accessibility include whether or not graying out ui feature will be readable on screen readers. To design and build the system to address this requirement, we will rely on our customers knowledge of screen readers. To verify the requirement is met, we will ensure that every time our customer interacts with the system, that they try and think of any reason our system would not be accessible for users of screen readers.
+Some concerns that have been addressed about screen reader accessibility include whether or not graying out UI features will be readable on screen readers. To design and build the system to address this requirement, we will rely on our customers knowledge of screen readers. To verify the requirement is met, we will ensure that every time our customer interacts with the system, that they try and think of any reason our system would not be accessible for users of screen readers.
 
 #### NFR8: The system must conform to the [RTF/CRE specification](http://www.legalxml.org/workgroups/substantive/transcripts/cre-spec.htm).
 
-?
+The system must ensure that Plover's open source JSON dictionary format is interoperable with the industry standard of RTF/CRE, and thus must conform to the RTF/CRE specification. To design and build the system to address this requirement, we will read and implement the specification by enumerating the special symbols and offering a conversion between the RTF/CRE syntax and the Plover syntax. To verify the requirement is met, conformance will be measured in terms of compliance with RTF/CRE standards.
 
 #### NFR9: The system must be open source with a GPL v3 license.
 
-?
+Our target users are part of an open source steno project community, and use existing open source software such as Plover, a stenography application. Thus to design and build the system to address this requirement, we will include the license and ensure we are not infringing on it, and we will ensure not to include non-compatible libraries. To verify the requirement is met, the system will be measured against it's compliance with open source standards.
 
 #### NFR10: The system must be responsive, reacting to user input within half a second.
 
