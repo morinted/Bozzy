@@ -566,7 +566,7 @@ Our target users are part of an open source steno project community, and use exi
 
 
 
-## High Level Architecture (2-3 Pages)
+## High Level Architecture
 
 ![High-level Architecture](images/ar-high-level-arch.png)
 
@@ -666,7 +666,7 @@ The RTF/CRE format is used by all proprietary stenography software for import/ex
 
 Finally, some of the user settings will be saved in a single YAML file. This way, users will be able to back up their settings and copy them from one installation to another if needed. This would also allows us to potentially offer ways of backing up/sharing these settings easily.
 
-## Algorithms (2-3 paragraphs per algorithm)
+## Algorithms
 
 ### Conversion script
 
