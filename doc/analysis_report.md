@@ -227,7 +227,7 @@ Illustrate the normal flow (and variations) with an example using the sample dat
 
 ## Non-Functional Features
 
-Each non-functional requirement includes a brief description as well an explanation of how we plan to design and build the system to address the requirement, and how we plan to verify that the requirement is met. The non-functional requirements are broken up into 3 classifications; performance, design, and adaption.
+Each non-functional requirement includes a brief description as well an explanation of how we plan to design and build the system to address the requirement, and how we plan to verify that the requirement is met.
 
 #### NFR1: The system must be able to load several thousand dictionary entries (less than 200,000) and display these entries in a table within 5 seconds.
 
@@ -260,7 +260,7 @@ Our application will have cross-platform support. We are committing to Windows a
 
 #### NFR7: The system must be accessible for users of screen readers.
 
-Some concerns that have been addressed about screen reader accessibility include whether or not graying out ui feature will be readable on screen readers. To design and build the system to address this requirement, we will rely on our customers knowledge of screen readers. To verify the requirement is met, we will ensure that every time our customer interacts with the system, they can think of any reason our system would not be accessible for users of screen readers.
+Some concerns that have been addressed about screen reader accessibility include whether or not graying out ui feature will be readable on screen readers. To design and build the system to address this requirement, we will rely on our customers knowledge of screen readers. To verify the requirement is met, we will ensure that every time our customer interacts with the system, that they try and think of any reason our system would not be accessible for users of screen readers.
 
 #### NFR8: The system must conform to the [RTF/CRE specification](http://www.legalxml.org/workgroups/substantive/transcripts/cre-spec.htm).
 
