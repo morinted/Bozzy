@@ -229,28 +229,26 @@ Illustrate the normal flow (and variations) with an example using the sample dat
 
 Each non-functional requirement includes a brief description as well an explanation of how we plan to design and build the system to address the requirement, and how we plan to verify that the requirement is met. The non-functional requirements are broken up into 3 classifications; performance, design, and adaption.
 
-### Performance
-
 #### NFR1: The system must be able to load several thousand dictionary entries (less than 200,000) and display these entries in a table within 5 seconds.
 
-To address this requirement, we plan to design and build our system using MVC pattern with JavaFx collection of observable lists and table views. We will test and verify this requirement is met by doing manual tests of loading dictionaries and doing direct measurement of time. The largest dictionary we will use as our data to test and verify this requirement has roughly 140,000 dictionary entries, which is a very large number of entries compared to typical dictionaries.
+To address this requirement, we plan to design and build our system using MVC pattern with JavaFX collection of observable lists and table views. We will test and verify this requirement is met by doing manual tests of loading dictionaries and doing direct measurements of time. The largest dictionary we will use as our data to test and verify this requirement has roughly 140,000 dictionary entries, which is a very large number of entries compared to typical dictionaries.
 
 #### NFR2: The system must be usable for novice stenography users and shall take no longer than 1 hour to learn the core functionality of opening dictionaries, modifying them, and saving them.
 
 Learning stenography is often overwhelming for new users, and can continue to be challenging for experienced users. Thus the usability of the system is key to attract new users to stenography and to keep existing stenography users engaged. To address this requirement, we have done the following to make design decisions:
 
-- For each system functionality, each team member brainstorms different UI design ideas, and later we compare ideas and pick or combine the best solution. Even after picking a solution, we continue to be critical of design decisions as our system grows
+- For each system functionality, each team member brainstorms different UI design ideas, and later we compare ideas and pick or combine the best solution. Even after picking a solution, we continue to be critical of design decisions as our system grows.
 - We take advantage of asking our customer for design ideas, since she has lots of experience with existing design implementations of stenography and dictionary applications, and always has interesting insight and ideas to offer to improve our design.
-- To test and verify our design, we've gathered both a small group of extremely experienced stenographers, as well as a large pool of stenographers with varying skills from the stenography open source community who've agreed to interact with our system and provide feedback.
+
+To test and verify our design, we've gathered both a small group of extremely experienced stenographers, as well as a large pool of stenographers with varying skills from the open steno project community who've agreed to interact with our system and provide feedback.
 
 #### NFR3: The systems reliability for backing up each dictionary must be 99% at a later point in the products life cycle.
 
-The system must copy and archive data to users computers in order to recover data after a data loss event, or to recover data from an earlier time. To design and build the system to address this requirement we will copy and archive data to at least 2 file locations every time there is a change made to the dictionary such as add, remove, and modify. To verify the requirement is met, we will use probabilistic measures, such as the model of failure represented by the exponential failure function. We know that the failure intensity is initially high as it would be in new software, since failures are detected more frequently during the testing phase. However, the number of failures would be expected to decrease with
-time during the operating phase, presumably as failures are uncovered and repaired. We also know that the more dictionaries a user is modifying at one time in the application, the worse the systems reliability becomes at one time.
+The system must copy and archive data to users computers in order to recover data after a data loss event, or to recover data from an earlier time. To design and build the system to address this requirement we will copy and archive data to at least 2 file locations every time there is a change made to the dictionary such as add, remove, and modify. To verify the requirement is met, we will use probabilistic measures, such as the model of failure represented by the exponential failure function. We know that the failure intensity is initially high as it would be in new software, since failures are detected more frequently during the testing phase. However, the number of failures would be expected to decrease with time during the operating phase, presumably as failures are uncovered and repaired. We also know that the more dictionaries a user is modifying at one time in the application, the worse the systems reliability becomes at one time.
 
 #### NFR4: The system must be maintainable for future use in the Open Steno Project community.
 
-One of the big issues in open source projects is lack of documentation, which discourages people from continuing work on a project since so much effort is needed to understand the application. To design and build the system to address this requirement, we've set up a GitHub repository to keep track of documentation, issues, pull requests, and commits. To verify the requirement is met, developers will keep track of whether the system is easy to repair using anecdotal observation of resources spent.
+One of the big issues in open source projects is lack of documentation, which discourages people from continuing work on a project since so much effort is needed to understand the application. To design and build the system to address this requirement, we've set up a GitHub repository to keep track of documentation, issues, pull requests, and commits, and included the use of a continuous integration service called Travis CI. To verify the requirement is met, developers will keep track of whether the system is easy to repair using anecdotal observation of resources spent.
 
 #### NFR5: The system must be expandable for future use in the Open Steno Project community.
 
@@ -258,16 +256,23 @@ This application must be expandable because after the capstone project, the appl
 
 #### NFR6: The system must be portable on Windows and Mac operating systems.
 
-Our application will have cross-platform support. We are committing to Windows and Mac since these are the two most common platforms our users use. It is really key that our application is portable, because if not it would mean we would be going backwards from dictionary editing solutions that already exist. To design and build the system to address this requirement and allow for cross-platform support, the application will be built to run in the JVM. To verify testing, we will
-commit to test on the latest Java 7 CPU update, which at the time of writing is Java 7u79. We will be developing and building in the latest JDK 8, unless for some reason there is some kind of incompatibility introduced into the JDK. Two of our team members will test using have using laptops with Windows 7 OS installed, and our other two team members will test using laptops with Mac OS installed.
+Our application will have cross-platform support. We are committing to Windows and Mac since these are the two most common platforms our users use. It is really key that our application is portable, because if not it would mean we would be going backwards from dictionary editing solutions that already exist. To design and build the system to address this requirement and allow for cross-platform support, the application will be built to run in the JVM. To verify testing, we will commit to test on the latest Java 7 CPU update, which at the time of writing is Java 7u79. We will be developing and building in the latest JDK 8, unless for some reason there is some kind of incompatibility introduced into the JDK. Two of our team members will test and verify this requirement using laptops with Windows 7 OS installed, and our other two team members will test using laptops with Mac OS installed.
 
 #### NFR7: The system must be accessible for users of screen readers.
 
+Some concerns that have been addressed about screen reader accessibility include whether or not graying out ui feature will be readable on screen readers. To design and build the system to address this requirement, we will rely on our customers knowledge of screen readers. To verify the requirement is met, we will ensure that every time our customer interacts with the system, they can think of any reason our system would not be accessible for users of screen readers.
+
 #### NFR8: The system must conform to the [RTF/CRE specification](http://www.legalxml.org/workgroups/substantive/transcripts/cre-spec.htm).
+
+?
 
 #### NFR9: The system must be open source with a GPL v3 license.
 
+?
+
 #### NFR10: The system must be responsive, reacting to user input within half a second.
+
+Whether the user sorts or filters on fields in the table such as translation, stroke, word count, or stroke count, or whether the user edits, removes, or adds dictionary entries, the system must not lag. To design and build the system to address this requirement, we plan to use good programming practices, and plan to optimize our algorithms while taking advantage of the efficiency of functional programming. To verify the requirement is met, we will set up automated tests simulating all forms of user inputs mentioned previously, and then do direct measurements of the time for each test.
 
 ## High Level Architecture (2-3 Pages)
 
