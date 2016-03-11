@@ -6,14 +6,11 @@ package controllers
 
 
 
-import javafx.collections.{FXCollections, ObservableList}
-import javafx.fxml.{Initializable, FXML}
-import javafx.scene.control.{ TableView => jTable, TableColumn => jCol}
 import javafx.{ fxml => jfxFxml
               , event => jfxEvent
               }
 
-import steno.{DictionaryFormat, DictionaryEntry, StenoDictionary}
+import steno.{StenoDictionary}
 
 import scalafx.application.Platform
 
@@ -21,8 +18,6 @@ import steno.DictionaryFormat
 
 
 class MainController {
-
-  var dictionary = new StenoDictionary("/dictionaries/main.json", DictionaryFormat.JSON)
 
   @jfxFxml.FXML
   private def handleButtonPress(event: jfxEvent.ActionEvent): Unit = {
@@ -38,4 +33,6 @@ class MainController {
   }
 }
 
-
+object MainDictionary {
+  val dictionary = new StenoDictionary("/dictionaries/main.json", DictionaryFormat.JSON)
+}
