@@ -23,7 +23,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Manage">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Convert" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="About">
@@ -42,7 +42,7 @@
                   <SplitPane dividerPositions="0.5982905982905983" layoutX="32.0" layoutY="66.0" orientation="VERTICAL" prefHeight="373.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <items>
                         <fx:include source="FilterPane.fxml" />
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                         <fx:include source="DictionaryPriority.fxml" />
                      </items>
                   </SplitPane>
                </children>
