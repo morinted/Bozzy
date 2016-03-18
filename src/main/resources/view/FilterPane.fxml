@@ -41,10 +41,10 @@
                   <TextField id="translation" fx:id="translation" onAction="#onTranslationTextChange" GridPane.rowIndex="3" />
                   <Label text="Stroke:" GridPane.rowIndex="4" />
                   <TextField id="stroke" fx:id="stroke" onAction="#onTranslationTextChange" GridPane.rowIndex="5" />
-                  <Label text="Number of strokes:" GridPane.rowIndex="6" />
-                  <TextField GridPane.rowIndex="7" />
+                  <Label text="Number of strokes:"  GridPane.rowIndex="6" />
+                  <TextField id="chordCount" fx:id="chordCount" onAction="#onTranslationTextChange" GridPane.rowIndex="7" />
                   <Label text="Number of words:" GridPane.rowIndex="8" />
-                  <TextField GridPane.rowIndex="9" />
+                  <TextField id = "wordCount" fx:id="wordCount" onAction= "#onTranslationTextChange" GridPane.rowIndex="9" />
                   <Label text="Dictionary:" GridPane.rowIndex="10" />
                   <ChoiceBox prefWidth="150.0" GridPane.rowIndex="11" />
                </children>
