@@ -5,7 +5,7 @@ import java.util.ResourceBundle
 import javafx.collections.transformation.SortedList
 import javafx.fxml.{Initializable, FXML}
 
-import steno.{DictionaryEntry}
+import steno.{DictionaryEntry, DictionaryFormat}
 
 import javafx.scene.control.{ TableView => jTable, TableColumn => jCol}
 import scalafx.Includes._
@@ -31,7 +31,7 @@ class DictionaryContentPaneController extends MainController with Initializable 
       _.value.chord_count
     }
 
-    val sorted = new SortedList[DictionaryEntry](MainDictionary.dictionary.filteredEntries)
+    val sorted = new SortedList[DictionaryEntry](MainDictionary.filteredEntries)
     sorted.comparatorProperty.bind(table.comparatorProperty)
     table.setItems(sorted)
   }
