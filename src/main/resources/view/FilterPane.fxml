@@ -46,7 +46,7 @@
                   <Label text="Number of words:" GridPane.rowIndex="8" />
                   <TextField id = "wordCount" fx:id="wordCount" onAction= "#onTranslationTextChange" GridPane.rowIndex="9" />
                   <Label text="Dictionary:" GridPane.rowIndex="10" />
-                  <ChoiceBox prefWidth="150.0" GridPane.rowIndex="11" />
+                  <ChoiceBox fx:id="dictionary_box" prefWidth="150.0" onAction="#onTranslationTextChange" GridPane.rowIndex="11" />
                </children>
             </GridPane>
          </children>
