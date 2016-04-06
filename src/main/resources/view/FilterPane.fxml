@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FilterPaneController">
+<ScrollPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bozzy.controllers.FilterPaneController">
    <content>
       <AnchorPane prefHeight="263.0" prefWidth="175.0">
          <children>
@@ -46,7 +46,7 @@
                   <Label text="Number of words:" GridPane.rowIndex="8" />
                   <TextField id = "wordCount" fx:id="wordCount" onAction= "#onTranslationTextChange" GridPane.rowIndex="9" />
                   <Label text="Dictionary:" GridPane.rowIndex="10" />
-                  <ChoiceBox fx:id="dictionary_box" prefWidth="150.0" onAction="#onTranslationTextChange" GridPane.rowIndex="11" />
+                  <ChoiceBox fx:id="dictionary_box" value="Any" prefWidth="150.0" onAction="#onTranslationTextChange" GridPane.rowIndex="11" />
                </children>
             </GridPane>
          </children>

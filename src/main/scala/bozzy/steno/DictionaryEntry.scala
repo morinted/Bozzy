@@ -1,4 +1,4 @@
-package steno
+package bozzy.steno
 
 import scalafx.beans.property.{ObjectProperty, StringProperty}
 
@@ -22,8 +22,9 @@ object DictionaryEntry {
   def filterDictionaryEntry(translation: String, stroke: String, dictionaryName: String, chordCount: String, wordCount: String) = {
     val noTranslation = translation == null || translation.isEmpty()
     val noStroke = stroke == null || stroke.isEmpty()
-    val noDictionaryName = dictionaryName == null || dictionaryName.isEmpty()
-
+    val noDictionaryName = dictionaryName == null ||
+      dictionaryName.isEmpty() ||
+      dictionaryName.equals("Any")
     val intWordCount = try {
       wordCount.toInt
     } catch {

@@ -1,9 +1,5 @@
-package controllers
-
-import java.security.InvalidParameterException
-
+import bozzy.steno.{DictionaryEntry, DictionaryFormat, StenoDictionary}
 import org.scalatest._
-import steno.{DictionaryEntry, DictionaryFormat, StenoDictionary}
 
 import scala.io.Source
 
@@ -40,7 +36,8 @@ class StenoInstantiationTest extends FlatSpec with Matchers {
   }
 
   "The StenoDictionary class" should "load a simple JSON dictionary" in {
-    val dictionary = new StenoDictionary("/sampleJSONDictionary.json", DictionaryFormat.JSON)
+    val absolutePath = getClass.getResource("/sampleJSONDictionary.json").getPath()
+    val dictionary = new StenoDictionary(absolutePath, DictionaryFormat.JSON)
     dictionary.entries.size should equal (24)
   }
 
