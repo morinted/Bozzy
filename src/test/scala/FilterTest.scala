@@ -1,8 +1,5 @@
-package controllers
-
+import bozzy.steno.{DictionaryEntry, DictionaryFormat}
 import org.scalatest._
-import steno.{StenoDictionary, DictionaryFormat, DictionaryEntry}
-import scala.io.Source
 
 /**
   * Created by Sophie on 26/03/2016.

@@ -1,4 +1,4 @@
-package steno
+package bozzy.steno
 
 /**
   * Created by ted on 2016-02-08.
