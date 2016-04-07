@@ -5,10 +5,9 @@ import scalafx.beans.property.{ObjectProperty, StringProperty}
 /**
   * Created by ted on 2016-02-08.
   */
-class DictionaryEntry(val entry: String, val format: DictionaryFormat.Value, val name: String) {
-  val raw = entry
-  val translation = new Translation(entry, format)
-  val stroke = new Stroke(entry, format)
+class DictionaryEntry(entryStroke: String, entryTranslation: String, val format: DictionaryFormat.Value, val name: String) {
+  val translation = new Translation(entryTranslation, format)
+  val stroke = new Stroke(entryStroke, format)
   val dictionary_name = name
 
   // Readable columns.

@@ -2,36 +2,37 @@ package bozzy.steno
 
 import scala.io.Source
 import scalafx.collections.ObservableBuffer
-import play.api.libs.json._
 
 /**
   * Created by ted on 2016-02-08.
   */
 class StenoDictionary(val filename: String, val format: DictionaryFormat.Value) {
   val entries = ObservableBuffer[DictionaryEntry]()
-  val dictionary_name = filename.split('/').last
+  val dictionaryName = filename.split('/').last
 
   if (format == DictionaryFormat.RTF) {
-    Source.fromFile(filename, "utf-8").getLines
-      .foreach((line: String) => {
-        val entry = new DictionaryEntry(line, DictionaryFormat.RTF, dictionary_name)
-        if (entry.stroke.raw.length > 0) {
-          entries.add(entry)
-        }
-      })
-  } else if (format == DictionaryFormat.JSON) {
-    val jsonDictionary: JsValue = Json.parse(Source.fromFile(filename, "utf-8").mkString)
-    jsonDictionary.as[JsObject].keys.foreach(stroke => {
-      // TODO: Allow DictionaryEntry to be made from stroke/translation
-      val translation: String = (jsonDictionary \ stroke) match {
-        case JsDefined(v) => v.toString
-        case undefined: JsUndefined => ""
+
+    try {
+      // Ideally, we'd have UTF-8
+      DictionaryFormat.parseRtfDictionary(Source.fromFile(filename).mkString)
+        .foreach((entry: (String, String)) =>
+          entries add new DictionaryEntry(entry._1, entry._2, DictionaryFormat.RTF, dictionaryName))
+    } catch {
+      case _: Exception => {
+        // But most traditional steno dictionaries will be in ANSI
+        entries removeAll entries
+        DictionaryFormat.parseRtfDictionary(Source.fromFile(filename, "Cp1252").mkString)
+          .foreach((entry: (String, String)) =>
+            entries add new DictionaryEntry(entry._1, entry._2, DictionaryFormat.RTF, dictionaryName))
+
       }
-      val entry = new DictionaryEntry(s""""$stroke": $translation,""", DictionaryFormat.JSON, dictionary_name)
-      entries.add(entry)
-    })
+    }
+  } else if (format == DictionaryFormat.JSON) {
+    val jsonDictionaryString = Source.fromFile(filename).mkString
+    DictionaryFormat.parseJsonDictionary(jsonDictionaryString).foreach((entry: (String, String)) =>
+      entries add new DictionaryEntry(entry._1, entry._2, DictionaryFormat.JSON, dictionaryName))
   }
-  StenoDictionary.openDictionaryNames add dictionary_name
+  StenoDictionary.openDictionaryNames add dictionaryName
 }
 
 object StenoDictionary {
