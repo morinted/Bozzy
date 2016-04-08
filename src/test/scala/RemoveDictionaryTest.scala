@@ -4,24 +4,36 @@ import bozzy.steno.{StenoDictionary}
 /**
   * Created by Sophie on 08/04/2016.
   */
-class RemoveDictionaryTest extends FlatSpec with Matchers{
-
+class RemoveDictionaryTest extends FlatSpec with Matchers {
+  val jsonDict = getClass.getResource("/sampleJSONDictionary.json").getPath
+  val rtfDict = getClass.getResource("/sampleRTFDictionary.rtf").getPath
   "The removeDictionary function" should "remove a dictionary if found from the open dictionaries list" in {
-    val path = "./src/main/resources/dictionaries/main.json"
-    MainDictionary.addDictionary(path)
-    MainDictionary.removeDictionary(path)
-    MainDictionary.openDictionaries.size should equal(0)
-    MainDictionary.allEntries.size should equal(0)
-    StenoDictionary.openDictionaryNames.size should equal(1) //should still include option "any"
+    MainDictionary.addDictionary(jsonDict)
+
+    MainDictionary.openDictionaries.size should equal (1)
+    StenoDictionary.openDictionaryNames.get(1) should equal (
+      MainDictionary.openDictionaries.get(0).dictionaryName
+    )
+    MainDictionary.allEntries.size should equal (24)
+
+    MainDictionary.removeDictionary(jsonDict)
+
+    MainDictionary.openDictionaries.size should equal (0)
+    MainDictionary.allEntries.size should equal (0)
+    StenoDictionary.openDictionaryNames.size should equal (1) //should still include option "any"
+
   }
   "The removeDictionary function" should "not remove a dictionary if not found from the open dictionaries list" in {
-    val path = "./src/main/resources/dictionaries/testSecondDictionary.json"
-    val pathOther = "./src/main/resources/dictionaries/testSecondDictionary.rtf"
-    MainDictionary.addDictionary(path)
-    MainDictionary.removeDictionary(pathOther)
-    MainDictionary.openDictionaries.size should equal(1)
-    MainDictionary.allEntries.size should equal(5)
-    StenoDictionary.openDictionaryNames.size should equal(2) //should still include option "any"
+    MainDictionary.addDictionary(jsonDict)
+
+    MainDictionary.openDictionaries.size should equal (1)
+    MainDictionary.allEntries.size should equal (24)
+
+    MainDictionary.removeDictionary(rtfDict)
+    
+    MainDictionary.openDictionaries.size should equal (1)
+    MainDictionary.allEntries.size should equal (24)
+    StenoDictionary.openDictionaryNames.size should equal (2) //should still include option "any"
   }
 
 }
