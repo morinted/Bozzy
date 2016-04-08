@@ -1,8 +1,8 @@
-@font-face {
-    font-family: 'SymbolaHint';
-    src: url('symbola_hint_8.ttf');
+.emoji-field.cell, .emoji-field.text-field {
+    -fx-font-family: "Symbola", "Segoe UI Symbol", "Helvetica", "Arial", sans-serif;
+    -fx-font-size: 110%;
 }
 
-.text-field {
-    -fx-font-family: "SymbolaHint", "Segoe UI Symbol", "Apple Color Emoji", "Arial", sans-serif;
+.mono-font {
+    -fx-font-family: monospace;
 }
