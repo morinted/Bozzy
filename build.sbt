@@ -1,6 +1,6 @@
 name := "Bozzy"
 
-version := "0.4.0dev"
+version := "0.5.0"
 
 scalaVersion := "2.11.7"
 
