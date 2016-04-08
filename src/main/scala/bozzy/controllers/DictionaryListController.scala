@@ -12,7 +12,6 @@ import scalafx.stage.FileChooser.ExtensionFilter
 import scalafxml.core.macros.sfxml
 
 import bozzy.steno.StenoDictionary
-import bozzy.controllers.MainDictionary
 
 @sfxml
 class DictionaryListController (private val dictionary_list: ListView[String]) {

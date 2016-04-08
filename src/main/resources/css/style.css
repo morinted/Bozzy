@@ -3,6 +3,6 @@
     -fx-font-size: 110%;
 }
 
-.mono-font {
+.mono-font.text-field, .mono-font.cell {
     -fx-font-family: monospace;
 }

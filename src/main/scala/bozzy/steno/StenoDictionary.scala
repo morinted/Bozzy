@@ -24,7 +24,6 @@ class StenoDictionary(val filename: String, val format: DictionaryFormat.Value) 
         DictionaryFormat.parseRtfDictionary(Source.fromFile(filename, "Cp1252").mkString)
           .foreach((entry: (String, String)) =>
             entries add new DictionaryEntry(entry._1, entry._2, DictionaryFormat.RTF, dictionaryName))
-
       }
     }
   } else if (format == DictionaryFormat.JSON) {
@@ -32,7 +31,6 @@ class StenoDictionary(val filename: String, val format: DictionaryFormat.Value) 
     DictionaryFormat.parseJsonDictionary(jsonDictionaryString).foreach((entry: (String, String)) =>
       entries add new DictionaryEntry(entry._1, entry._2, DictionaryFormat.JSON, dictionaryName))
   }
-  StenoDictionary.openDictionaryNames add dictionaryName
 }
 
 object StenoDictionary {
