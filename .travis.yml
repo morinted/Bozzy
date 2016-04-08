@@ -9,7 +9,9 @@ deploy:
   draft: true
   provider: releases
   on:
+    repo: morinted/Bozzy
     tags: true
+    all_branches: true
   api_key:
     secure: a3hAMQL81/989eTJ0gi3bAQYSLXt1TR7O3rcTGDu2d3Pff2q2uhaMb8mluNOHAC9IJS011xw6razp7vkx5r2a0kW//0yWw0AuwbpNFvTw55kTzVSM6J63o5TiC4VY433oG/SHUJ1tpJjHPpfCzD+QnAy9UUOEexTpK8XPTHUXP+jvqQl4LQmftBYXopn+c5F9fnsdMh1fRi5MZd0uItXt4+u/nor0TiIi39EzJIjAaj7ieD45a0ab10yYKWbIGXSw0478VOJEAH2S0AbG7d+9bRonckrew/vRaymMBgW7alRzr1AFNmIt3su3D2HY8Pd40PR4YC0s5Oh6kCatAWf+moRYIGtpVt0yeqWdZ/KPZC6pq1gI+X9QAcB9HlQoe5qhH+vv6gqQ/9bcQwOVUyniVMB+yUADG1nQMSxdx6Nj8QNnNAD2lDopay/crxKz8qQNzUWnIydAK17kY2qjJ7hIduN+vYkYxbk6bkRg0IGbypQddAek9TcO24KU4hSWrSTANAOAxAfjZRogzUCFnP7JZvY+HOL0Kwwl8ySEtyNxtTq9kpOve6ksGwlt1B1sy1MqkDNA+Xw4vEcDKHzQNW+3hdJsfNshueX4rmhM+Pnzf8I59iLvKEihADLzEcec4Mt6+uf4ua6apZTFm6r+KrJ3xj8EizdkmaEDyO5dRE6yGw=
   file: "target/scala-2.11/*.jar"
