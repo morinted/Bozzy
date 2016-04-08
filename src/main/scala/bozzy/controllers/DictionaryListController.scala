@@ -30,8 +30,13 @@ class DictionaryListController (private val dictionary_list: ListView[String]) {
       MainDictionary.addDictionary(selectedFile.getAbsolutePath)
     }
   }
+  def handleRemove (event: ActionEvent) = {
+    val selectedDictionary = dictionary_list.selectionModel.apply.getSelectedItem
 
-  def handleRemove (event: ActionEvent) = {}
+    if (selectedDictionary != null) {
+      MainDictionary.removeDictionary(selectedDictionary)
+    }
+  }
   def handleMoveUp (event: ActionEvent) = {}
   def handleMoveDown (event: ActionEvent) = {}
 }

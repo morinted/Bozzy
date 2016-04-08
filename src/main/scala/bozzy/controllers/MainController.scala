@@ -58,6 +58,18 @@ object MainDictionary {
     }
   }
 
+  def removeDictionary(path: String){
+    val selectedDictionary = path.split('/').last
+
+    val foundDictionary = openDictionaries.find(dictionary => dictionary.dictionaryName.equals(selectedDictionary))
+
+    if (foundDictionary.isDefined) {
+      MainDictionary.openDictionaries remove foundDictionary.get
+      MainDictionary.allEntries removeAll foundDictionary.get.entries
+      StenoDictionary.openDictionaryNames remove selectedDictionary
+    }
+  }
+
   val openDictionaries = new ObservableBuffer[StenoDictionary]()
   val allEntries = new ObservableBuffer[DictionaryEntry]()
   val filteredEntries: FilteredBuffer[DictionaryEntry] = new FilteredBuffer[DictionaryEntry](allEntries)
