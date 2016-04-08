@@ -1,4 +1,8 @@
-.table-row-cell {
-    -fx-font-family: "Apple Color Emoji", "Segoe UI Symbol", "Arial", sans-serif;
+@font-face {
+    font-family: 'SymbolaHint';
+    src: url('symbola_hint_8.ttf');
 }
 
+.text-field {
+    -fx-font-family: "SymbolaHint", "Segoe UI Symbol", "Apple Color Emoji", "Arial", sans-serif;
+}
