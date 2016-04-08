@@ -12,31 +12,31 @@ class FilterTest extends FlatSpec with Matchers{
   */
 
   "The filter function" should "keep entries if all queries are empty" in {
-    var entry = new DictionaryEntry("{\\*\\cxs KOPB/SREPBGS}convention", DictionaryFormat.RTF, "main.rtf")
+    val entry = new DictionaryEntry("KOPB/SREPBGS", "convention", DictionaryFormat.RTF, "main.rtf")
     var filter = DictionaryEntry.filterDictionaryEntry(null, null, null, null, null)
     filter(entry) should equal(true)
     filter = DictionaryEntry.filterDictionaryEntry("", "", "", "", "")
     filter(entry) should equal(true)
   }
   "The filter function" should "be case insensitive" in {
-    var entry = new DictionaryEntry("{\\*\\cxs KOPB/SREPBGS}convention", DictionaryFormat.RTF, "main.rtf")
-    var filter = DictionaryEntry.filterDictionaryEntry("CONVEN", "kopb", null, null, null)
+    val entry = new DictionaryEntry("KOPB/SREPBGS", "convention", DictionaryFormat.RTF, "main.rtf")
+    val filter = DictionaryEntry.filterDictionaryEntry("CONVEN", "kopb", null, null, null)
     filter(entry) should equal(true)
   }
   "The filter function" should "keep entries that contain the query" in {
-    var entry = new DictionaryEntry("{\\*\\cxs KOPB/SREPBGS}convention", DictionaryFormat.RTF, "main.rtf")
-    var filter = DictionaryEntry.filterDictionaryEntry("tion", "SRE", "main.rtf", "2", "1")
+    val entry = new DictionaryEntry("KOPB/SREPBGS", "convention", DictionaryFormat.RTF, "main.rtf")
+    val filter = DictionaryEntry.filterDictionaryEntry("tion", "SRE", "main.rtf", "2", "1")
     filter(entry) should equal(true)
   }
   "The filter function" should "hide entries that do not contain the query" in {
-    var entry = new DictionaryEntry("{\\*\\cxs KOPB/SREPBGS}convention", DictionaryFormat.RTF, "main.rtf")
+    val entry = new DictionaryEntry("KOPB/SREPBGS", "convention", DictionaryFormat.RTF, "main.rtf")
     var filter = DictionaryEntry.filterDictionaryEntry("tion", "SRE", "main.rtf", "2", "2")
     filter(entry) should equal(false)
     filter = DictionaryEntry.filterDictionaryEntry(" ", null, null, null, null)
     filter(entry) should equal(false)
   }
   "The filter function" should "keep entries if query does not make sense" in {
-    var entry = new DictionaryEntry("{\\*\\cxs KOPB/SREPBGS}convention", DictionaryFormat.RTF, "main.rtf")
+    val entry = new DictionaryEntry("KOPB/SREPBGS", "convention", DictionaryFormat.RTF, "main.rtf")
     var filter = DictionaryEntry.filterDictionaryEntry(null, null, "main.rtf", "number", null)
     filter(entry) should equal(true)
     filter = DictionaryEntry.filterDictionaryEntry(null, null, "main.rtf", null, "number")

@@ -20,6 +20,9 @@ object Bozzy extends JFXApp {
 
   stage = new PrimaryStage() {
     title = "Bozzy"
-    scene = new Scene(root)
+    scene = new Scene(root) {
+      stylesheets = List(getClass.getResource("/css/style.css").toExternalForm)
+    }
+
   }
 }

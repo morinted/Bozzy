@@ -10,29 +10,25 @@ class StenoInstantiationTest extends FlatSpec with Matchers {
   val RTFDictionary = Source.fromURL(getClass.getResource("/sampleRTFDictionary.rtf")).getLines()
   val JSONDictionary = Source.fromURL(getClass.getResource("/sampleJSONDictionary.json")).getLines()
 
-  "The Entry class" should "load a simple RTF translation" in {
-    var entry = new DictionaryEntry("{\\*\\cxs KOPB/SREPBGS}convention", DictionaryFormat.RTF, "name")
-    entry.stroke.raw should equal ("KOPB/SREPBGS")
-    entry.translation.raw should equal ("convention")
-    entry = new DictionaryEntry(
-      "{\\*\\cxs THR-L}there will{\\*\\cxsvatdictentrydate\\yr2016\\mo1\\da6}",
-      DictionaryFormat.RTF,
-      "name"
+  "rtfLineToEntry" should "load a simple RTF translation" in {
+    val (stroke, translation) = DictionaryFormat.rtfLineToEntry("{\\*\\cxs KOPB/SREPBGS}convention")
+    stroke.get should equal ("KOPB/SREPBGS")
+    translation.get should equal ("convention")
+
+    val (secondStroke, secondTranslation) = DictionaryFormat.rtfLineToEntry(
+      "{\\*\\cxs THR-L}there will{\\*\\cxsvatdictentrydate\\yr2016\\mo1\\da6}"
     )
-    entry.stroke.raw should equal ("THR-L")
-    entry.translation.raw should equal ("there will")
+    secondStroke.get should equal ("THR-L")
+    secondTranslation.get should equal ("there will{\\*\\cxsvatdictentrydate\\yr2016\\mo1\\da6}")
     }
-  "The Entry class" should "load a simple JSON translation" in {
-    var entry = new DictionaryEntry("\"KOPB/SREPBGS\": \"convention\",", DictionaryFormat.JSON, "name")
-    entry.stroke.raw should equal ("KOPB/SREPBGS")
-    entry.translation.raw should equal ("convention")
-    entry = new DictionaryEntry(
-      "\"TRAOEU/SER/TOPS\": \"Triceratops\",",
-      DictionaryFormat.JSON,
-      "name"
+  "parseJsonDictionary" should "load a simple JSON dictionary" in {
+    val entries = DictionaryFormat.parseJsonDictionary(
+      """{"KOPB/SREPBGS": "convention"}"""
     )
-    entry.stroke.raw should equal ("TRAOEU/SER/TOPS")
-    entry.translation.raw should equal ("Triceratops")
+    entries.size should equal (1)
+    val (stroke, translation) = entries.iterator.next()
+    stroke should equal ("KOPB/SREPBGS")
+    translation should equal ("convention")
   }
 
   "The StenoDictionary class" should "load a simple JSON dictionary" in {
