@@ -7,8 +7,8 @@
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bozzy.controllers.DictionaryContentPaneController">
     <TableView fx:id="table" prefHeight="400.0" prefWidth="248.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columns>
-            <TableColumn fx:id="strokeCol" text="Stroke" />
-            <TableColumn fx:id="translationCol" text="Translation" />
+            <TableColumn fx:id="strokeCol" text="Stroke" styleClass="mono-font"/>
+            <TableColumn fx:id="translationCol" text="Translation" styleClass="emoji-field" />
             <TableColumn fx:id="wordCountCol" text="Words" />
             <TableColumn fx:id="chordCountCol" text="Strokes" />
         </columns>
