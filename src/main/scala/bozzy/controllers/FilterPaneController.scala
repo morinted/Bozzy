@@ -17,6 +17,7 @@ class FilterPaneController (private val translation: TextField,
                             private val wordCount: TextField) {
 
   dictionary_box.items = StenoDictionary.openDictionaryNames
+
   def onTranslationTextChange(event: ActionEvent) = {
     val filterTest = DictionaryEntry.filterDictionaryEntry(
       translation.text.value,
