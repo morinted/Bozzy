@@ -1,5 +1,7 @@
 package bozzy.steno
 
+import java.io.File
+
 import scala.io.Source
 import scalafx.collections.ObservableBuffer
 
@@ -8,7 +10,7 @@ import scalafx.collections.ObservableBuffer
   */
 class StenoDictionary(val filename: String, val format: DictionaryFormat.Value) {
   val entries = ObservableBuffer[DictionaryEntry]()
-  val dictionaryName = filename.split('/').last
+  val dictionaryName = new File(filename) getName
 
   if (format == DictionaryFormat.RTF) {
 
