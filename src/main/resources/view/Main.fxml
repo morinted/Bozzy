@@ -4,12 +4,13 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bozzy.controllers.MainController">
-   <top>
-      <MenuBar prefHeight="26.0" prefWidth="814.0" BorderPane.alignment="CENTER">
+<GridPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bozzy.controllers.MainController">
+   <children>
+      <MenuBar prefHeight="26.0" GridPane.rowIndex="1" GridPane.hgrow="ALWAYS">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -34,22 +35,24 @@
             </Menu>
         </menus>
       </MenuBar>
-   </top>
-   <center>
-      <SplitPane dividerPositions="0.29" prefHeight="499.0" prefWidth="946.0" BorderPane.alignment="CENTER">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <SplitPane dividerPositions="0.5982905982905983" layoutX="32.0" layoutY="66.0" orientation="VERTICAL" prefHeight="373.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <items>
-                        <fx:include source="FilterPane.fxml" />
-                        <fx:include source="DictionaryList.fxml" />
-                     </items>
-                  </SplitPane>
-               </children>
-            </AnchorPane>
-            <fx:include prefHeight="Infinity" prefWidth="Infinity" source="DictionaryContentPane.fxml" />
-        </items>
-      </SplitPane>
-   </center>
-</BorderPane>
+       <SplitPane dividerPositions="0.270935960591133" prefHeight="559.0" prefWidth="800.0" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS">
+           <items>
+               <SplitPane dividerPositions="0.585278276481149" orientation="VERTICAL" SplitPane.resizableWithParent="false">
+                   <fx:include source="FilterPane.fxml" SplitPane.resizableWithParent="true" />
+                   <fx:include source="DictionaryList.fxml" SplitPane.resizableWithParent="true"/>
+               </SplitPane>
+               <fx:include source="DictionaryContentPane.fxml" SplitPane.resizableWithParent="true"/>
+           </items>
+       </SplitPane>
+    </children>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
