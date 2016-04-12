@@ -28,7 +28,7 @@
       <RowConstraints vgrow="NEVER" />
    </rowConstraints>
    <children>
-      <Label text="Filter" GridPane.rowIndex="1">
+      <Label fx:id="filterLabel" text="Filter" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>
