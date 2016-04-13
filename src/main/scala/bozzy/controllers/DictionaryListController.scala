@@ -14,9 +14,9 @@ import scalafxml.core.macros.sfxml
 import bozzy.steno.StenoDictionary
 
 @sfxml
-class DictionaryListController (private val dictionary_list: ListView[String]) {
+class DictionaryListController (private val dictionary_list: ListView[StenoDictionary]) {
 
-  dictionary_list.items = MainDictionary.openDictionaryNames
+  dictionary_list.items = MainDictionary.openDictionaries
   def handleAdd (event: ActionEvent) {
     val fileChooser = new FileChooser {
       title = "Open Resource File"
@@ -33,9 +33,7 @@ class DictionaryListController (private val dictionary_list: ListView[String]) {
     val selectedDictionary = dictionary_list.selectionModel.apply.getSelectedItem
 
     if (selectedDictionary != null) {
-      // TODO: Back choice box with actual StenoDictionary list instead of strings.
-      MainDictionary.removeDictionary(MainDictionary.openDictionaries.find(dictionary =>
-        dictionary.dictionaryName == selectedDictionary).get.filename)
+      MainDictionary.removeDictionary(selectedDictionary.filename)
     }
   }
   def handleMoveUp (event: ActionEvent) = {}

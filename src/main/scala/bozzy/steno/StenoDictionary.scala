@@ -13,7 +13,6 @@ class StenoDictionary(val filename: String, val format: DictionaryFormat.Value) 
   val dictionaryName = new File(filename) getName
 
   if (format == DictionaryFormat.RTF) {
-
     try {
       // Ideally, we'd have UTF-8
       DictionaryFormat.parseRtfDictionary(Source.fromFile(filename).mkString)
@@ -33,5 +32,7 @@ class StenoDictionary(val filename: String, val format: DictionaryFormat.Value) 
     DictionaryFormat.parseJsonDictionary(jsonDictionaryString).foreach((entry: (String, String)) =>
       entries add new DictionaryEntry(entry._1, entry._2, DictionaryFormat.JSON, this))
   }
+
+  override def toString = dictionaryName
 }
 
