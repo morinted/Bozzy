@@ -9,9 +9,9 @@
   <columns>
       <TableColumn fx:id="strokeCol" styleClass="mono-font" text="Stroke" />
       <TableColumn fx:id="translationCol" styleClass="emoji-field" text="Translation" />
-      <TableColumn fx:id="wordCountCol" text="Words" />
-      <TableColumn fx:id="chordCountCol" text="Strokes" />
-      <TableColumn fx:id="collisionCountCol" text="Collisions" />
+      <TableColumn fx:id="wordCountCol" text="Words" visible="false"/>
+      <TableColumn fx:id="chordCountCol" text="Strokes" visible="false"/>
+      <TableColumn fx:id="collisionCountCol" text="Collisions" visible="false"/>
       <TableColumn fx:id="dictionaryNameCol" text="Dictionary" />
   </columns>
  <columnResizePolicy>

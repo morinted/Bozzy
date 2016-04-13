@@ -11,7 +11,7 @@ class RemoveDictionaryTest extends FlatSpec with Matchers {
     MainDictionary addDictionary jsonDict
 
     MainDictionary.openDictionaries.size should equal (1)
-    StenoDictionary.openDictionaryNames.get(1) should equal (
+    MainDictionary.openDictionaryNames.get(1) should equal (
       MainDictionary.openDictionaries.get(0).dictionaryName
     )
     MainDictionary.allEntries.size should equal (24)
@@ -20,7 +20,7 @@ class RemoveDictionaryTest extends FlatSpec with Matchers {
 
     MainDictionary.openDictionaries.size should equal (0)
     MainDictionary.allEntries.size should equal (0)
-    StenoDictionary.openDictionaryNames.size should equal (1) //should still include option "any"
+    MainDictionary.openDictionaryNames.size should equal (1) //should still include option "any"
 
   }
   "The removeDictionary function" should "not remove a dictionary if not found from the open dictionaries list" in {
@@ -33,7 +33,7 @@ class RemoveDictionaryTest extends FlatSpec with Matchers {
     
     MainDictionary.openDictionaries.size should equal (1)
     MainDictionary.allEntries.size should equal (24)
-    StenoDictionary.openDictionaryNames.size should equal (2) //should still include option "any"
+    MainDictionary.openDictionaryNames.size should equal (2) //should still include option "any"
 
     MainDictionary removeDictionary jsonDict
   }
