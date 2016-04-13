@@ -25,7 +25,8 @@ class DictionaryEntry(entryStroke: String,
 }
 
 object DictionaryEntry {
-  def filterDictionaryEntry(translation: String, stroke: String, dictionaryName: String, chordCount: String, wordCount: String) = {
+  def filterDictionaryEntry(translation: String, stroke: String, dictionaryName: String, chordCount: String,
+                            wordCount: String, collisions: Boolean) = {
     val noTranslation = translation == null || translation.isEmpty()
     val noStroke = stroke == null || stroke.isEmpty()
     val noDictionaryName = dictionaryName == null ||
@@ -44,12 +45,13 @@ object DictionaryEntry {
     val noChordCount = chordCount == null || chordCount.isEmpty() || intChordCount == None
     val noWordCount = wordCount == null || wordCount.isEmpty() || intWordCount == None
     (entry: DictionaryEntry) => {
-      (noTranslation && noStroke && noDictionaryName) ||
+      (noTranslation && noStroke && noDictionaryName && noChordCount && noWordCount && !collisions) ||
         (noTranslation || entry.translation.raw.toLowerCase().contains(translation.toLowerCase)) &&
           (noStroke || entry.stroke.raw.toLowerCase().contains(stroke.toLowerCase)) &&
           (noDictionaryName || entry.dictionary_name.value == dictionaryName) &&
-          (noChordCount || entry.stroke.chord_count.equals(intChordCount)) &&
-          (noWordCount || entry.translation.word_count.equals(intWordCount))
+          (noChordCount || entry.stroke.chord_count == intChordCount) &&
+          (noWordCount || entry.translation.word_count == intWordCount) &&
+          (!collisions || entry.collision_count.value > 0)
     }
   }
 }

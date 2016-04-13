@@ -29,7 +29,7 @@ class RemoveDictionaryTest extends FlatSpec with Matchers {
     MainDictionary.openDictionaries.size should equal (1)
     MainDictionary.allEntries.size should equal (24)
 
-    MainDictionary.removeDictionary(rtfDict)
+    MainDictionary removeDictionary rtfDict
     
     MainDictionary.openDictionaries.size should equal (1)
     MainDictionary.allEntries.size should equal (24)
