@@ -4,6 +4,9 @@
 
 package bozzy.controllers
 
+import java.io.File
+
+import scala.collection.mutable.ListBuffer
 import scalafx.collections.ObservableBuffer
 import scalafx.collections.transformation.FilteredBuffer
 import scalafx.event.ActionEvent
@@ -56,18 +59,33 @@ object MainDictionary {
       MainDictionary.openDictionaries add newDictionary
       StenoDictionary.openDictionaryNames add newDictionary.dictionaryName
       MainDictionary.allEntries addAll newDictionary.entries
+      newDictionary.entries foreach (entry => {
+        val buffer = collisionMap.getOrElseUpdate(entry.stroke.raw, ListBuffer[DictionaryEntry]())
+        buffer += entry
+        val size = buffer.size
+        buffer.foreach(modifiedEntry => modifiedEntry.collision_count() = size - 1)
+      })
     }
   }
 
   def removeDictionary(path: String){
-    val selectedDictionary = path.split('/').last
+    val selectedDictionary = new File(path) getName
 
     val foundDictionary = openDictionaries.find(dictionary =>
       dictionary.dictionaryName.equals(selectedDictionary))
 
     if (foundDictionary.isDefined) {
-      MainDictionary.openDictionaries remove foundDictionary.get
+      val dictionary = foundDictionary.get
+      MainDictionary.openDictionaries remove dictionary
       StenoDictionary.openDictionaryNames remove selectedDictionary
+      dictionary.entries foreach (entry => {
+        val maybeBuffer = collisionMap.get(entry.stroke.raw)
+        if (maybeBuffer.isDefined) {
+          val buffer = maybeBuffer.get -= entry
+          val size = buffer.size
+          buffer foreach (modifiedEntry => modifiedEntry.collision_count() = size - 1)
+        }
+      })
       MainDictionary.allEntries clear()
       openDictionaries.foreach(dictionary =>
         MainDictionary.allEntries addAll dictionary.entries)
@@ -77,4 +95,5 @@ object MainDictionary {
   val openDictionaries = new ObservableBuffer[StenoDictionary]()
   val allEntries = new ObservableBuffer[DictionaryEntry]()
   val filteredEntries: FilteredBuffer[DictionaryEntry] = new FilteredBuffer[DictionaryEntry](allEntries)
+  var collisionMap = collection.mutable.Map[String, ListBuffer[DictionaryEntry]]()
 }

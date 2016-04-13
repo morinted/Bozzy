@@ -8,7 +8,7 @@ class RemoveDictionaryTest extends FlatSpec with Matchers {
   val jsonDict = getClass.getResource("/sampleJSONDictionary.json").getPath
   val rtfDict = getClass.getResource("/sampleRTFDictionary.rtf").getPath
   "The removeDictionary function" should "remove a dictionary if found from the open dictionaries list" in {
-    MainDictionary.addDictionary(jsonDict)
+    MainDictionary addDictionary jsonDict
 
     MainDictionary.openDictionaries.size should equal (1)
     StenoDictionary.openDictionaryNames.get(1) should equal (
@@ -16,7 +16,7 @@ class RemoveDictionaryTest extends FlatSpec with Matchers {
     )
     MainDictionary.allEntries.size should equal (24)
 
-    MainDictionary.removeDictionary(jsonDict)
+    MainDictionary removeDictionary jsonDict
 
     MainDictionary.openDictionaries.size should equal (0)
     MainDictionary.allEntries.size should equal (0)
@@ -24,16 +24,18 @@ class RemoveDictionaryTest extends FlatSpec with Matchers {
 
   }
   "The removeDictionary function" should "not remove a dictionary if not found from the open dictionaries list" in {
-    MainDictionary.addDictionary(jsonDict)
+    MainDictionary addDictionary jsonDict
 
     MainDictionary.openDictionaries.size should equal (1)
     MainDictionary.allEntries.size should equal (24)
 
-    MainDictionary.removeDictionary(rtfDict)
+    MainDictionary removeDictionary rtfDict
     
     MainDictionary.openDictionaries.size should equal (1)
     MainDictionary.allEntries.size should equal (24)
     StenoDictionary.openDictionaryNames.size should equal (2) //should still include option "any"
+
+    MainDictionary removeDictionary jsonDict
   }
 
 }
