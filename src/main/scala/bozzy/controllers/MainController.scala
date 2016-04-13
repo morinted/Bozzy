@@ -57,33 +57,43 @@ object MainDictionary {
     }
     if (newDictionary != null) {
       MainDictionary.openDictionaries add newDictionary
-      StenoDictionary.openDictionaryNames add newDictionary.dictionaryName
+      MainDictionary.openDictionaryNames add newDictionary.dictionaryName
+      MainDictionary.dictionaryFilterChoices add newDictionary.dictionaryName
       MainDictionary.allEntries addAll newDictionary.entries
       newDictionary.entries foreach (entry => {
         val buffer = collisionMap.getOrElseUpdate(entry.stroke.raw, ListBuffer[DictionaryEntry]())
         buffer += entry
         val size = buffer.size
-        buffer.foreach(modifiedEntry => modifiedEntry.collision_count() = size - 1)
+        val duplicate = !buffer.exists(otherEntry => !entry.matches(otherEntry)) && size > 1
+        buffer foreach (modifiedEntry => {
+          modifiedEntry.collision_count() = size - 1
+          modifiedEntry.is_duplicate() = duplicate
+        })
       })
     }
   }
 
-  def removeDictionary(path: String){
-    val selectedDictionary = new File(path) getName
-
-    val foundDictionary = openDictionaries.find(dictionary =>
-      dictionary.dictionaryName.equals(selectedDictionary))
+  def removeDictionary(path: String) {
+    println(s"Looking for $path")
+    val foundDictionary = openDictionaries.find(dictionary => {
+      println(s"${dictionary.filename}")
+      dictionary.filename == path
+    })
 
     if (foundDictionary.isDefined) {
       val dictionary = foundDictionary.get
       MainDictionary.openDictionaries remove dictionary
-      StenoDictionary.openDictionaryNames remove selectedDictionary
+      MainDictionary.openDictionaryNames remove dictionary.dictionaryName
       dictionary.entries foreach (entry => {
         val maybeBuffer = collisionMap.get(entry.stroke.raw)
         if (maybeBuffer.isDefined) {
           val buffer = maybeBuffer.get -= entry
           val size = buffer.size
-          buffer foreach (modifiedEntry => modifiedEntry.collision_count() = size - 1)
+          val duplicate = !buffer.exists(otherEntry => !entry.matches(otherEntry)) && size > 1
+          buffer foreach (modifiedEntry => {
+            modifiedEntry.collision_count() = size - 1
+            modifiedEntry.is_duplicate() = duplicate
+          })
         }
       })
       MainDictionary.allEntries clear()
@@ -91,6 +101,10 @@ object MainDictionary {
         MainDictionary.allEntries addAll dictionary.entries)
     }
   }
+
+  val openDictionaryNames = new ObservableBuffer[String]
+  val dictionaryFilterChoices = new ObservableBuffer[String]
+  dictionaryFilterChoices add "Any"
 
   val openDictionaries = new ObservableBuffer[StenoDictionary]()
   val allEntries = new ObservableBuffer[DictionaryEntry]()

@@ -35,7 +35,3 @@ class StenoDictionary(val filename: String, val format: DictionaryFormat.Value) 
   }
 }
 
-object StenoDictionary {
-  val openDictionaryNames = new ObservableBuffer[String]
-  openDictionaryNames add "Any"
-}

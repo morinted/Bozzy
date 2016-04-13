@@ -1,9 +1,6 @@
 package bozzy.steno
 
-import bozzy.controllers.MainDictionary
-
-import scala.collection.mutable.ListBuffer
-import scalafx.beans.property.{ObjectProperty, StringProperty}
+import scalafx.beans.property.{BooleanProperty, ObjectProperty, StringProperty}
 
 /**
   * Created by ted on 2016-02-08.
@@ -22,16 +19,21 @@ class DictionaryEntry(entryStroke: String,
   val chord_count = ObjectProperty(stroke.chord_count)
   val collision_count = ObjectProperty(0)
   val dictionary_name = StringProperty(dictionary.dictionaryName)
+  val is_duplicate = BooleanProperty(false)
+
+  def matches(other: DictionaryEntry): Boolean =
+    other.translation.raw == this.translation.raw &&
+      other.stroke.raw == this.stroke.raw
 }
 
 object DictionaryEntry {
   def filterDictionaryEntry(translation: String, stroke: String, dictionaryName: String, chordCount: String,
-                            wordCount: String, collisions: Boolean) = {
-    val noTranslation = translation == null || translation.isEmpty()
-    val noStroke = stroke == null || stroke.isEmpty()
+                            wordCount: String, collisions: Boolean, hideDuplicates: Boolean) = {
+    val noTranslation = translation == null || translation.isEmpty
+    val noStroke = stroke == null || stroke.isEmpty
     val noDictionaryName = dictionaryName == null ||
-      dictionaryName.isEmpty() ||
-      dictionaryName.equals("Any")
+      dictionaryName.isEmpty ||
+      dictionaryName == "Any"
     val intWordCount = try {
       wordCount.toInt
     } catch {
@@ -42,16 +44,23 @@ object DictionaryEntry {
     } catch {
       case e: NumberFormatException => None
     }
-    val noChordCount = chordCount == null || chordCount.isEmpty() || intChordCount == None
-    val noWordCount = wordCount == null || wordCount.isEmpty() || intWordCount == None
+    val noChordCount = chordCount == null || chordCount.isEmpty || intChordCount == None
+    val noWordCount = wordCount == null || wordCount.isEmpty || intWordCount == None
     (entry: DictionaryEntry) => {
-      (noTranslation && noStroke && noDictionaryName && noChordCount && noWordCount && !collisions) ||
-        (noTranslation || entry.translation.raw.toLowerCase().contains(translation.toLowerCase)) &&
-          (noStroke || entry.stroke.raw.toLowerCase().contains(stroke.toLowerCase)) &&
+      (noTranslation &&
+        noStroke &&
+        noDictionaryName &&
+        noChordCount &&
+        noWordCount &&
+        !collisions &&
+        !hideDuplicates) ||
+        (noTranslation || entry.translation.raw.toLowerCase.contains(translation.toLowerCase)) &&
+          (noStroke || entry.stroke.raw.toLowerCase.contains(stroke.toLowerCase)) &&
           (noDictionaryName || entry.dictionary_name.value == dictionaryName) &&
           (noChordCount || entry.stroke.chord_count == intChordCount) &&
           (noWordCount || entry.translation.word_count == intWordCount) &&
-          (!collisions || entry.collision_count.value > 0)
+          (!collisions || entry.collision_count.value > 0) &&
+          (!hideDuplicates || !entry.is_duplicate.value)
     }
   }
 }
