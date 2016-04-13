@@ -6,7 +6,6 @@ jdk:
 before_deploy: sbt assembly
 deploy:
   skip_cleanup: true
-  draft: true
   provider: releases
   on:
     repo: morinted/Bozzy
