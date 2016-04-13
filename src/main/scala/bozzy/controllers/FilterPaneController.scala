@@ -1,6 +1,8 @@
 package bozzy.controllers
 
+import scala.math.Ordering.StringOrdering
 import scalafx.collections.ObservableBuffer
+import scalafx.collections.transformation.SortedBuffer
 import scalafx.event.ActionEvent
 import scalafx.scene.control.SpinnerValueFactory.ListSpinnerValueFactory
 import scalafx.scene.control._
@@ -19,9 +21,19 @@ class FilterPaneController (private val filterLabel: Label,
                             private val chordCount: Spinner[String],
                             private val dictionary_box: ChoiceBox[String],
                             private val wordCount: Spinner[String],
-                            private val collisions_checkbox: CheckBox) {
+                            private val collisions_checkbox: CheckBox,
+                            private val hide_duplicates_checkbox: CheckBox) {
 
-  dictionary_box.items = StenoDictionary.openDictionaryNames
+  dictionary_box.items = new SortedBuffer[String](MainDictionary.dictionaryFilterChoices) {
+    comparator = new StringOrdering {
+      override def compare(x: String, y: String) =
+        (x, y) match {
+          case ("Any", _) => -1
+          case (_, "Any") => 1
+          case _ => super.compare(x, y)
+        }
+      }
+  }
 
   val choicesWithZero = ObservableBuffer[String]("", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
   val choicesWithoutZero = ObservableBuffer[String]("", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
@@ -41,7 +53,8 @@ class FilterPaneController (private val filterLabel: Label,
       dictionary_box.value.value,
       chordCountString,
       wordCountString,
-      collisions_checkbox.selected.value
+      collisions_checkbox.selected.value,
+      hide_duplicates_checkbox.selected.value
     )
     MainDictionary.filteredEntries.predicate = filterTest
 
