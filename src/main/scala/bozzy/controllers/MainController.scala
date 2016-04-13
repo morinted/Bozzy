@@ -45,6 +45,15 @@ class MainController {
 }
 
 object MainDictionary {
+  val openDictionaryNames = new ObservableBuffer[String]
+  val dictionaryFilterChoices = new ObservableBuffer[String]
+  dictionaryFilterChoices add "Any"
+
+  val openDictionaries = new ObservableBuffer[StenoDictionary]
+  val allEntries = new ObservableBuffer[DictionaryEntry]
+  val filteredEntries: FilteredBuffer[DictionaryEntry] = new FilteredBuffer[DictionaryEntry](allEntries)
+  val collisionMap = collection.mutable.Map[String, ListBuffer[DictionaryEntry]]()
+
   def addDictionary(path: String) {
     val lowerPath = path.toLowerCase()
     val newDictionary: StenoDictionary = if (lowerPath.endsWith("rtf")) {
@@ -75,7 +84,6 @@ object MainDictionary {
 
   def removeDictionary(path: String) {
     val foundDictionary = openDictionaries.find(dictionary => dictionary.filename == path)
-
     if (foundDictionary.isDefined) {
       val dictionary = foundDictionary.get
       MainDictionary.openDictionaries remove dictionary
@@ -99,12 +107,5 @@ object MainDictionary {
     }
   }
 
-  val openDictionaryNames = new ObservableBuffer[String]
-  val dictionaryFilterChoices = new ObservableBuffer[String]
-  dictionaryFilterChoices add "Any"
 
-  val openDictionaries = new ObservableBuffer[StenoDictionary]()
-  val allEntries = new ObservableBuffer[DictionaryEntry]()
-  val filteredEntries: FilteredBuffer[DictionaryEntry] = new FilteredBuffer[DictionaryEntry](allEntries)
-  var collisionMap = collection.mutable.Map[String, ListBuffer[DictionaryEntry]]()
 }
