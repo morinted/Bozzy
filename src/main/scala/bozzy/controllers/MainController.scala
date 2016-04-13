@@ -74,16 +74,13 @@ object MainDictionary {
   }
 
   def removeDictionary(path: String) {
-    println(s"Looking for $path")
-    val foundDictionary = openDictionaries.find(dictionary => {
-      println(s"${dictionary.filename}")
-      dictionary.filename == path
-    })
+    val foundDictionary = openDictionaries.find(dictionary => dictionary.filename == path)
 
     if (foundDictionary.isDefined) {
       val dictionary = foundDictionary.get
       MainDictionary.openDictionaries remove dictionary
       MainDictionary.openDictionaryNames remove dictionary.dictionaryName
+      MainDictionary.dictionaryFilterChoices remove dictionary.dictionaryName
       dictionary.entries foreach (entry => {
         val maybeBuffer = collisionMap.get(entry.stroke.raw)
         if (maybeBuffer.isDefined) {

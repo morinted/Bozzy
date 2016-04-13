@@ -27,12 +27,10 @@ class FilterPaneController (private val filterLabel: Label,
   dictionary_box.items = new SortedBuffer[String](MainDictionary.dictionaryFilterChoices) {
     comparator = new StringOrdering {
       override def compare(x: String, y: String) =
-        if (x == "Any") {
-          -1
-        } else if (y == "Any") {
-          1
-        } else {
-          super.compare(x, y)
+        (x, y) match {
+          case ("Any", _) => -1
+          case (_, "Any") => 1
+          case _ => super.compare(x, y)
         }
       }
   }
