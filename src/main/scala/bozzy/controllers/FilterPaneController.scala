@@ -44,7 +44,7 @@ class FilterPaneController (private val filterLabel: Label,
     filterLabel.text = s"Filter (${MainDictionary.filteredEntries.size}/${MainDictionary.allEntries.size})"
   })
 
-  def onTranslationTextChange(event: ActionEvent) = {
+  def updateFilter = {
     val chordCountString = if (choicesWithoutZero.contains(chordCount.value.value)) chordCount.value.value else ""
     val wordCountString = if (choicesWithZero.contains(wordCount.value.value)) wordCount.value.value else ""
     val filterTest = DictionaryEntry.filterDictionaryEntry(
@@ -57,6 +57,20 @@ class FilterPaneController (private val filterLabel: Label,
       hide_duplicates_checkbox.selected.value
     )
     MainDictionary.filteredEntries.predicate = filterTest
-
   }
+
+  def clearFilter = {
+    translation.text = ""
+    stroke.text = ""
+    dictionary_box.selectionModel.value.selectFirst
+    chordCount.valueFactory.value.setValue("")
+    wordCount.valueFactory.value.setValue("")
+    collisions_checkbox.selected = false
+    hide_duplicates_checkbox.selected = false
+
+    updateFilter
+  }
+
+  def handleFilter(event: ActionEvent) = updateFilter
+  def handleClear(event: ActionEvent) = clearFilter
 }

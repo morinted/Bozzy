@@ -12,9 +12,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bozzy.controllers.FilterPaneController">
+<GridPane hgap="3.0" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bozzy.controllers.FilterPaneController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" />
+      <ColumnConstraints />
   </columnConstraints>
   <rowConstraints>
       <RowConstraints />
@@ -34,59 +35,31 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Label fx:id="filterLabel" text="Filter" GridPane.rowIndex="1">
+      <Label fx:id="filterLabel" text="Filter" GridPane.rowIndex="1" GridPane.columnSpan="2">
          <font>
             <Font name="System Bold" size="14.0" />
-         </font></Label>
-      <Label text="Translation:" GridPane.rowIndex="2">
-        <padding>
-           <Insets top="5.0" />
-        </padding></Label>
-      <TextField id="translation" fx:id="translation" onAction="#onTranslationTextChange" styleClass="emoji-field" GridPane.rowIndex="3" />
-      <Label text="Stroke:" GridPane.rowIndex="4">
-        <padding>
-           <Insets top="5.0" />
-        </padding></Label>
-      <TextField id="stroke" fx:id="stroke" onAction="#onTranslationTextChange" styleClass="mono-font" GridPane.rowIndex="5" />
-      <Label text="Number of strokes:" GridPane.rowIndex="6">
-        <padding>
-           <Insets top="5.0" />
-        </padding></Label>
-      <Spinner id="chordCount" fx:id="chordCount" prefWidth="100.0" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+         </font>
+      </Label>
+      <Label text="Translation:" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+      <TextField id="translation" fx:id="translation" onAction="#handleFilter" styleClass="emoji-field" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <Label text="Stroke:" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+      <TextField id="stroke" fx:id="stroke" onAction="#handleFilter" styleClass="mono-font" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+      <Label text="Number of strokes:" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+      <Spinner id="chordCount" fx:id="chordCount" prefWidth="100.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+      <Label text="Number of words:" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+      <Spinner id="wordCount" fx:id="wordCount" prefWidth="100.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
+      <Label text="Dictionary:" GridPane.columnSpan="2" GridPane.rowIndex="10" />
+      <ChoiceBox fx:id="dictionary_box" value="Any" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="11" />
+      <CheckBox id="collisions_checkbox" fx:id="collisions_checkbox" mnemonicParsing="false" text="Collisions Only" GridPane.columnSpan="2" GridPane.rowIndex="12" />
+      <CheckBox id="hide_duplicates_checkbox" fx:id="hide_duplicates_checkbox" mnemonicParsing="false" text="Hide Duplicates" GridPane.columnSpan="2" GridPane.rowIndex="13">
          <GridPane.margin>
             <Insets />
-         </GridPane.margin></Spinner>
-      <Label text="Number of words:" GridPane.rowIndex="8">
-        <padding>
-           <Insets top="5.0" />
-        </padding></Label>
-       <Spinner id="wordCount" fx:id="wordCount" prefWidth="100.0" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
-      <Label text="Dictionary:" GridPane.rowIndex="10">
-        <padding>
-           <Insets top="5.0" />
-        </padding>
-      </Label>
-      <ChoiceBox fx:id="dictionary_box" value="Any" GridPane.hgrow="ALWAYS" GridPane.rowIndex="11" />
-       <CheckBox fx:id="collisions_checkbox" id="collisions_checkbox" mnemonicParsing="false" text="Collisions Only" GridPane.rowIndex="12">
-           <GridPane.margin>
-               <Insets top="10.0" />
-           </GridPane.margin>
-       </CheckBox>
-      <CheckBox fx:id="hide_duplicates_checkbox" id="hide_duplicates_checkbox" mnemonicParsing="false" text="Hide Duplicates" GridPane.rowIndex="13">
-         <GridPane.margin>
-            <Insets top="10.0" />
          </GridPane.margin>
       </CheckBox>
-       <Button onAction="#onTranslationTextChange" text="Filter" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14">
-           <GridPane.margin>
-               <Insets top="10.0" />
-           </GridPane.margin>
-           <padding>
-               <Insets bottom="5.0" left="30.0" right="30.0" top="5.0" />
-           </padding>
-       </Button>
+       <Button cancelButton="true" maxWidth="100.0" onAction="#clearFilter" text="Clear" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14" />
+       <Button defaultButton="true" maxWidth="150.0" onAction="#handleFilter" text="Filter" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14" />
    </children>
-  <padding>
-     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-  </padding>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </GridPane>
