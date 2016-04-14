@@ -40,9 +40,12 @@ class FilterPaneController (private val filterLabel: Label,
   chordCount.setValueFactory(new ListSpinnerValueFactory[String](choicesWithoutZero))
   wordCount.setValueFactory(new ListSpinnerValueFactory[String](choicesWithZero))
 
-  MainDictionary.filteredEntries.onChange((buffer, sequence) => {
-    filterLabel.text = s"Filter (${MainDictionary.filteredEntries.size}/${MainDictionary.allEntries.size})"
-  })
+  MainDictionary.filteredEntries.onChange((source, changes) =>
+    filterLabel.text = s"Filter (${source.size}/${MainDictionary.allEntries.size})"
+  )
+  MainDictionary.allEntries.onChange((source, changes) =>
+    filterLabel.text = s"Filter (${MainDictionary.filteredEntries.size}/${source.size})"
+  )
 
   def onTranslationTextChange(event: ActionEvent) = {
     val chordCountString = if (choicesWithoutZero.contains(chordCount.value.value)) chordCount.value.value else ""
