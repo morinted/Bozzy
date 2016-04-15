@@ -30,7 +30,7 @@ class DictionaryListController (private val dictionary_list: ListView[StenoDicti
     }
   }
   def handleRemove (event: ActionEvent) = {
-    val selectedDictionary = dictionary_list.selectionModel.apply.getSelectedItem
+    val selectedDictionary = dictionary_list.selectionModel.value.getSelectedItem
 
     if (selectedDictionary != null) {
       MainDictionary.removeDictionary(selectedDictionary.filename)
