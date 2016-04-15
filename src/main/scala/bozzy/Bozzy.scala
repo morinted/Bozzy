@@ -2,10 +2,13 @@ package bozzy
 
 import java.io.FileNotFoundException
 
+import bozzy.controllers.MainDictionary
+
 import scalafx.Includes._
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
+import scalafx.scene.input.{TransferMode, DragEvent}
 import scalafx.scene.text.Font
 import scalafxml.core.{NoDependencyResolver, FXMLView}
 
@@ -28,7 +31,26 @@ object Bozzy extends JFXApp {
     title = "Bozzy"
     scene = new Scene(root) {
       stylesheets = List(getClass.getResource("/css/style.css").toExternalForm)
+      onDragOver = (event: DragEvent) => {
+        if (event.dragboard.hasFiles) {
+          event acceptTransferModes TransferMode.COPY
+        }
+        event.consume
+      }
+      onDragDropped = (event: DragEvent) => {
+        if (event.dragboard.hasFiles) {
+          event.dragboard.files foreach (file => {
+            file.getAbsolutePath.split('.').last.toLowerCase match {
+              case "rtf" | "json" => {
+                MainDictionary.addDictionary(file.getAbsolutePath)
+                event.dropCompleted = true
+              }
+              case _ => event.dropCompleted = false
+            }
+          })
+        }
+        event.consume
+      }
     }
-
   }
 }
