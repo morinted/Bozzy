@@ -12,25 +12,25 @@
    <children>
       <MenuBar prefHeight="26.0" GridPane.rowIndex="1" GridPane.hgrow="ALWAYS">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="%fileMenu">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open" />
-              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Quit" />
+              <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="%fileOpen" />
+              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="%fileQuit" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
+            <Menu mnemonicParsing="false" text="%editMenu">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="%editAction1" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Manage">
+            <Menu mnemonicParsing="false" text="%manageMenu">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="%manageAction1" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="About">
+            <Menu mnemonicParsing="false" text="%aboutMenu">
               <items>
-                <MenuItem mnemonicParsing="false" text="About Bozzy" />
+                <MenuItem mnemonicParsing="false" text="%aboutBozzy" />
               </items>
             </Menu>
         </menus>

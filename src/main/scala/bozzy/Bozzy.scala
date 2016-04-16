@@ -10,7 +10,7 @@ import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.input.{TransferMode, DragEvent}
 import scalafx.scene.text.Font
-import scalafxml.core.{NoDependencyResolver, FXMLView}
+import scalafxml.core.{NoDependencyResolver, FXMLLoader}
 
 /**
   * Created by ted on 2016-04-06.
@@ -20,15 +20,17 @@ object Bozzy extends JFXApp {
     getClass.getResource("/fonts/symbola_hint_8.ttf").toExternalForm,
     14
   )
-
-  val resource = getClass.getResource("/view/Main.fxml")
-  if (resource == null) {
+  val main = getClass.getResource("/view/Main.fxml")
+  if (main == null) {
     throw new FileNotFoundException("Cannot load resource: /view/Main.fxml")
   }
-  val root = FXMLView(resource, NoDependencyResolver)
+  val loader = new FXMLLoader(main, NoDependencyResolver) {
+    setResources(I18n.i18n)
+  }
+  val root = loader.load[javafx.scene.Parent]
 
   stage = new PrimaryStage() {
-    title = "Bozzy"
+    title = I18n.i18n.getString("applicationTitle")
     scene = new Scene(root) {
       stylesheets = List(getClass.getResource("/css/style.css").toExternalForm)
       onDragOver = (event: DragEvent) => {

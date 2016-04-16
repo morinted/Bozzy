@@ -4,7 +4,7 @@
 
 package bozzy.controllers
 
-import java.io.File
+import bozzy.I18n
 
 import scala.collection.mutable.ListBuffer
 import scalafx.collections.ObservableBuffer
@@ -25,7 +25,7 @@ class MainController {
 
   def handleOpen(event: ActionEvent) {
     val fileChooser = new FileChooser {
-      title = "Open Resource File"
+      title = I18n.i18n.getString("openResourceFileTitle")
       extensionFilters.add(
         new ExtensionFilter("Steno Dictionaries", Seq("*.json", "*.rtf"))
       )
@@ -47,7 +47,7 @@ class MainController {
 object MainDictionary {
   val openDictionaryNames = new ObservableBuffer[String]
   val dictionaryFilterChoices = new ObservableBuffer[String]
-  dictionaryFilterChoices add "Any"
+  dictionaryFilterChoices add I18n.i18n.getString("anyDictionaryOption")
 
   val openDictionaries = new ObservableBuffer[StenoDictionary]
   val allEntries = new ObservableBuffer[DictionaryEntry]
