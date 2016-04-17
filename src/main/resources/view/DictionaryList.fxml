@@ -22,7 +22,7 @@
       <RowConstraints />
     </rowConstraints>
      <children>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dictionaries" GridPane.columnSpan="2" GridPane.rowIndex="1">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%dictionaryListTitle" GridPane.columnSpan="2" GridPane.rowIndex="1">
            <font>
               <Font name="System Bold" size="14.0" />
            </font>

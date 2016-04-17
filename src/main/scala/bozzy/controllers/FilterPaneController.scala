@@ -1,5 +1,7 @@
 package bozzy.controllers
 
+import bozzy.I18n
+
 import scala.math.Ordering.StringOrdering
 import scalafx.collections.ObservableBuffer
 import scalafx.collections.transformation.SortedBuffer
@@ -23,13 +25,13 @@ class FilterPaneController (private val filterLabel: Label,
                             private val wordCount: Spinner[String],
                             private val collisions_checkbox: CheckBox,
                             private val hide_duplicates_checkbox: CheckBox) {
-
   dictionary_box.items = new SortedBuffer[String](MainDictionary.dictionaryFilterChoices) {
     comparator = new StringOrdering {
+      val anyOption = I18n.i18n.getString("anyDictionaryOption")
       override def compare(x: String, y: String) =
         (x, y) match {
-          case ("Any", _) => -1
-          case (_, "Any") => 1
+          case (`anyOption`, _) => -1
+          case (_, `anyOption`) => 1
           case _ => super.compare(x, y)
         }
       }
@@ -40,11 +42,12 @@ class FilterPaneController (private val filterLabel: Label,
   chordCount.setValueFactory(new ListSpinnerValueFactory[String](choicesWithoutZero))
   wordCount.setValueFactory(new ListSpinnerValueFactory[String](choicesWithZero))
 
+  val filterTitle = I18n.i18n.getString("filterTitle")
   MainDictionary.filteredEntries.onChange((source, changes) =>
-    filterLabel.text = s"Filter (${source.size}/${MainDictionary.allEntries.size})"
+    filterLabel.text = filterTitle + s" (${source.size}/${MainDictionary.allEntries.size})"
   )
   MainDictionary.allEntries.onChange((source, changes) =>
-    filterLabel.text = s"Filter (${MainDictionary.filteredEntries.size}/${source.size})"
+    filterLabel.text = filterTitle + s" (${MainDictionary.filteredEntries.size}/${source.size})"
   )
 
   def updateFilter = {

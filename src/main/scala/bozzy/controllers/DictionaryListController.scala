@@ -4,6 +4,7 @@ package bozzy.controllers
   * Created by Ian on 4/8/2016.
   */
 
+import bozzy.I18n
 
 import scalafx.event.ActionEvent
 import scalafx.scene.control.ListView
@@ -16,10 +17,10 @@ import bozzy.steno.StenoDictionary
 @sfxml
 class DictionaryListController (private val dictionary_list: ListView[StenoDictionary]) {
 
-  dictionary_list.items = MainDictionary.openDictionaries
+    dictionary_list.items = MainDictionary.openDictionaries
   def handleAdd (event: ActionEvent) {
     val fileChooser = new FileChooser {
-      title = "Open Resource File"
+      title = I18n.i18n.getString("openResourceFileTitle")
       extensionFilters.add(
         new ExtensionFilter("Steno Dictionaries", Seq("*.json", "*.rtf"))
       )
