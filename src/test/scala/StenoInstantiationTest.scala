@@ -37,4 +37,14 @@ class StenoInstantiationTest extends FlatSpec with Matchers {
     dictionary.entries.size should equal (24)
   }
 
+  "Entry matching" should "use normalized strokes" in {
+    val absolutePath = getClass.getResource("/sampleJSONDictionary.json").getPath()
+    val dictionary = new StenoDictionary(absolutePath, DictionaryFormat.JSON)
+    // A- is equivalent to A.
+    val entry = new DictionaryEntry("A-", "{a^}", DictionaryFormat.JSON, dictionary)
+    val secondEntry = new DictionaryEntry("A", "{a^}", DictionaryFormat.JSON, dictionary)
+    entry.matches(secondEntry) should be (true)
+    // TODO: Test against matching across format translations, e.g.:
+    // "{a^}" == "a\cxds "
+  }
 }

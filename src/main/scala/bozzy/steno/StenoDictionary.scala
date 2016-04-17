@@ -1,6 +1,7 @@
 package bozzy.steno
 
 import java.io.File
+import java.nio.charset.MalformedInputException
 
 import scala.io.Source
 import scalafx.collections.ObservableBuffer
@@ -19,7 +20,7 @@ class StenoDictionary(val filename: String, val format: DictionaryFormat.Value) 
         .foreach((entry: (String, String)) =>
           entries add new DictionaryEntry(entry._1, entry._2, DictionaryFormat.RTF, this))
     } catch {
-      case _: Exception => {
+      case _: MalformedInputException => {
         // But most traditional steno dictionaries will be in ANSI
         entries removeAll entries
         DictionaryFormat.parseRtfDictionary(Source.fromFile(filename, "Cp1252").mkString)
@@ -28,7 +29,9 @@ class StenoDictionary(val filename: String, val format: DictionaryFormat.Value) 
       }
     }
   } else if (format == DictionaryFormat.JSON) {
-    val jsonDictionaryString = Source.fromFile(filename).mkString
+    val jsonDictionaryString = try Source.fromFile(filename).mkString catch {
+      case _: MalformedInputException => Source.fromFile(filename, "Cp1252").mkString
+    }
     DictionaryFormat.parseJsonDictionary(jsonDictionaryString).foreach((entry: (String, String)) =>
       entries add new DictionaryEntry(entry._1, entry._2, DictionaryFormat.JSON, this))
   }

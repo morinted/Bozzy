@@ -9,7 +9,10 @@ class DictionaryEntry(entryStroke: String,
                       entryTranslation: String,
                       val format: DictionaryFormat.Value,
                       val dictionary: StenoDictionary) {
-  val translation = new Translation(entryTranslation, format)
+  val translation = format match {
+    case DictionaryFormat.RTF => new RTFTranslation(entryTranslation)
+    case DictionaryFormat.JSON => new JSONTranslation(entryTranslation)
+  }
   val stroke = new Stroke(entryStroke, format)
 
   // Readable columns.
@@ -23,7 +26,7 @@ class DictionaryEntry(entryStroke: String,
 
   def matches(other: DictionaryEntry): Boolean =
     other.translation.raw == this.translation.raw &&
-      other.stroke.raw == this.stroke.raw
+      other.stroke.normal == this.stroke.normal
 }
 
 object DictionaryEntry {
@@ -37,12 +40,12 @@ object DictionaryEntry {
     val intWordCount = try {
       wordCount.toInt
     } catch {
-      case e: NumberFormatException => None
+      case _: NumberFormatException => None
     }
     val intChordCount = try {
       chordCount.toInt
     } catch {
-      case e: NumberFormatException => None
+      case _: NumberFormatException => None
     }
     val noChordCount = chordCount == null || chordCount.isEmpty || intChordCount == None
     val noWordCount = wordCount == null || wordCount.isEmpty || intWordCount == None
