@@ -9,7 +9,8 @@ class StenoLayout( val name: String
                  , val beginningKeys: String
                  , val centerKeys: Tuple2[String, String]
                  , val endingKeys: String
-                 , val flag: String = ""
+                 , val numberKey: String = ""
+                 , val numberMapping: Map[String, String] = Map()
                  ) {
   val groupPattern = {
     val builder = new StringBuilder((beginningKeys.length +
@@ -37,16 +38,22 @@ class StenoLayout( val name: String
 object StenoLayout {
   val STANDARD_STENO_LAYOUT =
     new StenoLayout( "English Stenography"
-                   , "STKPWHR"
+                   , "#STKPWHR"
                    , ("AO-*EU", "-")
                    , "FRPBLGTSDZ"
-                   )
-  val STANDARD_NUMBER_LAYOUT =
-    new StenoLayout( "English Stenography Number Bar"
-                   , "12K3W4R"
-                   , ("50-*EU", "-")
-                   , "6R7B8G9SDZ"
                    , "#"
+                   , Map(
+                      "1" -> "S",
+                      "2" -> "T",
+                      "3" -> "P",
+                      "4" -> "H",
+                      "5" -> "A",
+                      "0" -> "O",
+                      "6" -> "F",
+                      "7" -> "P",
+                      "8" -> "L",
+                      "9" -> "T"
+                     )
                    )
   val numeric = """\d""".r
 
@@ -91,12 +98,15 @@ object StenoLayout {
 
     // Get right pattern if numeric or not.
     val (pattern, cleaned) =
-      if (chord.contains(STANDARD_NUMBER_LAYOUT.flag) || // Contains #.
+      if (chord.contains(STANDARD_STENO_LAYOUT.numberKey) || // Contains #.
         numeric.findFirstIn(chord).isDefined) { // Contains number.
       val noHash = chord.replaceAllLiterally("#", "") // Get rid of #.
       result += '#' // Result will start with #.
+      val withoutNumbers = noHash.map(key =>
+            STANDARD_STENO_LAYOUT.numberMapping.getOrElse(key.toString, key)
+          ).mkString
       // Return pattern, cleaned up chord.
-      (STANDARD_NUMBER_LAYOUT.groupPattern, noHash.trim)
+      (STANDARD_STENO_LAYOUT.groupPattern, withoutNumbers.trim)
     } else {
       // Not as much to do for a regular chord.
       (STANDARD_STENO_LAYOUT.groupPattern, chord.trim)

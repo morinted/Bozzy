@@ -7,15 +7,15 @@ import org.scalatest.{FlatSpec, Matchers}
 class StrokeNormalizationTest extends FlatSpec with Matchers {
   "normalizeChord" should "parse numberic chords" in {
     val tests = Map(
-      "#1234-6789" -> "#1234-6789",
-      "1234-6789" -> "#1234-6789",
-      "1234#-6789" -> "#1234-6789",
+      "#1234-6789" -> "#STPH-FPLT",
+      "1234-6789" -> "#STPH-FPLT",
+      "1234#-6789" -> "#STPH-FPLT",
       "#K-" -> "#K",
-      "-6R7B" -> "#-6R7B",
-      "50-R" -> "#50R",
-      "12K3W4R" -> "#12K3W4R",
-      "K5#" -> "#K5",
-      "12K3W4R50*EU6R7B8G9SDZ" -> "#12K3W4R50*EU6R7B8G9SDZ",
+      "-6R7B" -> "#-FRPB",
+      "50-R" -> "#AOR",
+      "12K3W4R" -> "#STKPWHR",
+      "K5#" -> "#KA",
+      "12K3W4R50*EU6R7B8G9SDZ" -> "#STKPWHRAO*EUFRPBLGTSDZ",
       "#" -> "#"
     )
     tests foreach((chordPair: (String, String)) => {
@@ -25,7 +25,7 @@ class StrokeNormalizationTest extends FlatSpec with Matchers {
   }
 
   "normalizeChord" should "detect invalid strokes" in {
-    val tests = List("1A", "#-", "-")
+    val tests = List("TSKJ", "-", "321-")
     tests foreach(stroke =>
       StenoLayout.normalizeChord(stroke)._2 should be (false)
     )
