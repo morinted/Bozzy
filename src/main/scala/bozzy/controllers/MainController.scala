@@ -73,19 +73,19 @@ object MainDictionary {
     val task = new javafx.concurrent.Task[Boolean] {
       override def call(): Boolean = {
         progressIndicator.visible = true
-        Thread.sleep(1000)
         var inc = 0.0
-        new Timer().schedule(
+        val timer = new Timer().schedule(
           new TimerTask() {
             override def run() {
-              if (inc < 1.0) {
+              if (inc <= 1.15) {
                 progressIndicator.progress = inc
-                Thread.sleep(1000)
-                inc = inc + 0.1
+                inc = inc + 0.15
+              } else {
+                cancel()
               }
-              println(inc)
             }
-          }, 0, 1000)
+          }, 0, 140)
+        Thread.sleep(1000)
         return true
       }
       override def succeeded(): Unit = {
@@ -114,6 +114,7 @@ object MainDictionary {
             })
           })
         }
+        progressIndicator.visible = false
       }
     }
     val t = new Thread(task, "Add Dictionary Task")
