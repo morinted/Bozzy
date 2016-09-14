@@ -24,13 +24,8 @@ import bozzy.steno.{DictionaryEntry, StenoDictionary, DictionaryFormat}
 
 @sfxml
 class MainController (private val progressIndicator: ProgressBar) {
-
-  if (progressIndicator != null) {
-    println("test")
-    MainDictionary.addProgressIndicator(progressIndicator)
-  } else {
-    println("is null")
-  }
+  MainDictionary.addProgressIndicator(progressIndicator)
+  
   def handleButtonPress(event: ActionEvent) {
   }
 
