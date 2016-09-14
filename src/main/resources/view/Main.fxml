@@ -3,14 +3,15 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bozzy.controllers.MainController">
+<GridPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bozzy.controllers.MainController">
    <children>
-      <MenuBar prefHeight="26.0" GridPane.rowIndex="1" GridPane.hgrow="ALWAYS">
+      <MenuBar prefHeight="26.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
         <menus>
           <Menu mnemonicParsing="false" text="%fileMenu">
             <items>
@@ -35,13 +36,18 @@
             </Menu>
         </menus>
       </MenuBar>
-       <SplitPane dividerPositions="0.270935960591133" prefHeight="559.0" prefWidth="800.0" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS">
+       <SplitPane dividerPositions="0.270935960591133" prefHeight="559.0" prefWidth="800.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
            <items>
                <SplitPane dividerPositions="0.585278276481149" orientation="VERTICAL" SplitPane.resizableWithParent="false">
                    <fx:include source="FilterPane.fxml" SplitPane.resizableWithParent="true" />
-                   <fx:include source="DictionaryList.fxml" SplitPane.resizableWithParent="true"/>
+                   <fx:include source="DictionaryList.fxml" SplitPane.resizableWithParent="true" />
                </SplitPane>
-               <fx:include source="DictionaryContentPane.fxml" SplitPane.resizableWithParent="true"/>
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+              <items>
+                     <fx:include source="DictionaryContentPane.fxml" SplitPane.resizableWithParent="true" />
+                  <ProgressBar fx:id="progressIndicator" prefWidth="200.0" visible="false" progress="0.0"/>
+              </items>
+            </SplitPane>
            </items>
        </SplitPane>
     </children>
