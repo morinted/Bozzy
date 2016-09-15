@@ -4,27 +4,23 @@
 
 package bozzy.controllers
 
-import bozzy.I18n
+import bozzy.{I18n, Progress}
 
 import scala.collection.mutable.ListBuffer
 import scalafx.collections.ObservableBuffer
 import scalafx.collections.transformation.FilteredBuffer
-import scalafx.concurrent.Task
 import scalafx.event.ActionEvent
 import scalafx.stage.FileChooser
 import scalafx.stage.FileChooser.ExtensionFilter
 import scalafx.application.Platform
 import scalafxml.core.macros.sfxml
 import scalafx.scene.control.ProgressBar
-import java.util.TimerTask
-import java.util.Timer
-//import com.sun.glass.ui.Timer
 
 import bozzy.steno.{DictionaryEntry, StenoDictionary, DictionaryFormat}
 
 @sfxml
 class MainController (private val progressIndicator: ProgressBar) {
-  MainDictionary.addProgressIndicator(progressIndicator)
+  Progress.addProgressIndicator(progressIndicator)
   
   def handleButtonPress(event: ActionEvent) {
   }
@@ -38,7 +34,7 @@ class MainController (private val progressIndicator: ProgressBar) {
     }
     val selectedFile = fileChooser.showOpenDialog(bozzy.Bozzy.stage)
     if (selectedFile != null) {
-      MainDictionary.addDictionary(selectedFile.getAbsolutePath)
+      Progress.startProgress(selectedFile.getAbsolutePath)
     }
   }
 
@@ -51,7 +47,6 @@ class MainController (private val progressIndicator: ProgressBar) {
 }
 
 object MainDictionary {
-  var progressIndicator = new ProgressBar
   val openDictionaryNames = new ObservableBuffer[String]
   val dictionaryFilterChoices = new ObservableBuffer[String]
   dictionaryFilterChoices add I18n.i18n.getString("anyDictionaryOption")
@@ -61,60 +56,32 @@ object MainDictionary {
   val filteredEntries: FilteredBuffer[DictionaryEntry] = new FilteredBuffer[DictionaryEntry](allEntries)
   val collisionMap = collection.mutable.Map[String, ListBuffer[DictionaryEntry]]()
 
-  def addProgressIndicator(pb: ProgressBar) {
-    progressIndicator = pb
-  }
-  def addDictionary(path: String) {
-    val task = new javafx.concurrent.Task[Boolean] {
-      override def call(): Boolean = {
-        progressIndicator.visible = true
-        var inc = 0.0
-        val timer = new Timer().schedule(
-          new TimerTask() {
-            override def run() {
-              if (inc <= 1.15) {
-                progressIndicator.progress = inc
-                inc = inc + 0.15
-              } else {
-                cancel()
-              }
-            }
-          }, 0, 140)
-        Thread.sleep(1000)
-        return true
-      }
-      override def succeeded(): Unit = {
-        val lowerPath = path.toLowerCase()
-        val newDictionary: StenoDictionary = if (lowerPath.endsWith("rtf")) {
-          new StenoDictionary(path, DictionaryFormat.RTF)
-        } else if (lowerPath.endsWith("json")) {
-          new StenoDictionary(path, DictionaryFormat.JSON)
-        } else {
-          // TODO: Throw error
-          null
-        }
-        if (newDictionary != null) {
-          MainDictionary.openDictionaries add newDictionary
-          MainDictionary.openDictionaryNames add newDictionary.dictionaryName
-          MainDictionary.dictionaryFilterChoices add newDictionary.dictionaryName
-          MainDictionary.allEntries addAll newDictionary.entries
-          newDictionary.entries foreach (entry => {
-            val buffer = collisionMap.getOrElseUpdate(entry.stroke.raw, ListBuffer[DictionaryEntry]())
-            buffer += entry
-            val size = buffer.size
-            val duplicate = !buffer.exists(otherEntry => !entry.matches(otherEntry)) && size > 1
-            buffer foreach (modifiedEntry => {
-              modifiedEntry.collision_count() = size - 1
-              modifiedEntry.is_duplicate() = duplicate
-            })
-          })
-        }
-        progressIndicator.visible = false
-      }
+  def addDictionary(path: String): Unit = {
+    val lowerPath = path.toLowerCase()
+    val newDictionary: StenoDictionary = if (lowerPath.endsWith("rtf")) {
+      new StenoDictionary(path, DictionaryFormat.RTF)
+    } else if (lowerPath.endsWith("json")) {
+      new StenoDictionary(path, DictionaryFormat.JSON)
+    } else {
+      // TODO: Throw error
+      null
     }
-    val t = new Thread(task, "Add Dictionary Task")
-    t.setDaemon(true)
-    t.start()
+    if (newDictionary != null) {
+      MainDictionary.openDictionaries add newDictionary
+      MainDictionary.openDictionaryNames add newDictionary.dictionaryName
+      MainDictionary.dictionaryFilterChoices add newDictionary.dictionaryName
+      MainDictionary.allEntries addAll newDictionary.entries
+      newDictionary.entries foreach (entry => {
+        val buffer = collisionMap.getOrElseUpdate(entry.stroke.raw, ListBuffer[DictionaryEntry]())
+        buffer += entry
+        val size = buffer.size
+        val duplicate = !buffer.exists(otherEntry => !entry.matches(otherEntry)) && size > 1
+        buffer foreach (modifiedEntry => {
+          modifiedEntry.collision_count() = size - 1
+          modifiedEntry.is_duplicate() = duplicate
+        })
+      })
+    }
   }
 
   def removeDictionary(path: String) {

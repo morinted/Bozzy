@@ -4,14 +4,13 @@ package bozzy.controllers
   * Created by Ian on 4/8/2016.
   */
 
-import bozzy.I18n
+import bozzy.{I18n, Progress}
 
 import scalafx.event.ActionEvent
 import scalafx.scene.control.ListView
 import scalafx.stage.FileChooser
 import scalafx.stage.FileChooser.ExtensionFilter
 import scalafxml.core.macros.sfxml
-
 import bozzy.steno.StenoDictionary
 
 @sfxml
@@ -27,7 +26,7 @@ class DictionaryListController (private val dictionary_list: ListView[StenoDicti
     }
     val selectedFile = fileChooser.showOpenDialog(bozzy.Bozzy.stage)
     if (selectedFile != null) {
-      MainDictionary.addDictionary(selectedFile.getAbsolutePath)
+      Progress.startProgress(selectedFile.getAbsolutePath)
     }
   }
   def handleRemove (event: ActionEvent) = {

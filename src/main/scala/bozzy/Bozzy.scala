@@ -44,7 +44,7 @@ object Bozzy extends JFXApp {
           event.dragboard.files foreach (file => {
             file.getAbsolutePath.split('.').last.toLowerCase match {
               case "rtf" | "json" => {
-                MainDictionary.addDictionary(file.getAbsolutePath)
+                Progress.startProgress(file.getAbsolutePath)
                 event.dropCompleted = true
               }
               case _ => event.dropCompleted = false
