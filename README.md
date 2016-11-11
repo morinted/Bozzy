@@ -1,3 +1,7 @@
+## Deprecation Notice
+
+Bozzy is being abandoned in favor of implementing the feature set directly into Plover.
+
 # Bozzy
 
 [![Build Status](https://travis-ci.org/morinted/Bozzy.svg?branch=master)](https://travis-ci.org/morinted/Bozzy)
