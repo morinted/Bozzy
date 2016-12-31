@@ -4,7 +4,7 @@
 
 package bozzy.controllers
 
-import bozzy.I18n
+import bozzy.{I18n, Progress}
 
 import scala.collection.mutable.ListBuffer
 import scalafx.collections.ObservableBuffer
@@ -14,12 +14,14 @@ import scalafx.stage.FileChooser
 import scalafx.stage.FileChooser.ExtensionFilter
 import scalafx.application.Platform
 import scalafxml.core.macros.sfxml
+import scalafx.scene.control.ProgressBar
 
 import bozzy.steno.{DictionaryEntry, StenoDictionary, DictionaryFormat}
 
 @sfxml
-class MainController {
-
+class MainController (private val progressIndicator: ProgressBar) {
+  Progress.addProgressIndicator(progressIndicator)
+  
   def handleButtonPress(event: ActionEvent) {
   }
 
@@ -32,7 +34,7 @@ class MainController {
     }
     val selectedFile = fileChooser.showOpenDialog(bozzy.Bozzy.stage)
     if (selectedFile != null) {
-      MainDictionary.addDictionary(selectedFile.getAbsolutePath)
+      Progress.startProgress(selectedFile.getAbsolutePath)
     }
   }
 
@@ -54,7 +56,7 @@ object MainDictionary {
   val filteredEntries: FilteredBuffer[DictionaryEntry] = new FilteredBuffer[DictionaryEntry](allEntries)
   val collisionMap = collection.mutable.Map[String, ListBuffer[DictionaryEntry]]()
 
-  def addDictionary(path: String) {
+  def addDictionary(path: String): Unit = {
     val lowerPath = path.toLowerCase()
     val newDictionary: StenoDictionary = if (lowerPath.endsWith("rtf")) {
       new StenoDictionary(path, DictionaryFormat.RTF)
